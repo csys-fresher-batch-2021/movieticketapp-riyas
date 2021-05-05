@@ -1,4 +1,4 @@
-package app;
+package in.riyasahamed.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
