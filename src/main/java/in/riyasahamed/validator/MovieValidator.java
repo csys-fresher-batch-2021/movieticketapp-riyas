@@ -2,6 +2,12 @@ package in.riyasahamed.validator;
 
 public class MovieValidator {
 
+	/**
+	 * This Method Validates the Movie Details
+	 * @param name
+	 * @param actor
+	 * @param rating
+	 */
 	public static void validateMovieDetails(String name, String actor, Float rating) {
 		if (name == null || name.trim().equals("")) {
 			throw new RuntimeException("Invalid Movie Name");

@@ -5,6 +5,12 @@ import in.riyasahamed.validator.MovieValidator;
 
 public class MovieService {
 
+	/**
+	 * This Method adds Movie Details..
+	 * @param name
+	 * @param actor
+	 * @param rating
+	 */
 	public static void addMovieDetails(String name, String actor, Float rating) {
 		Movie movie1 = null;
 		try {
