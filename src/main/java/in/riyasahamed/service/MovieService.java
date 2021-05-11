@@ -28,7 +28,6 @@ public class MovieService {
 			Movie movie = new Movie(name, actor, rating);
 			movies.add(movie);
 		} catch (Exception e) {
-			//e.printStackTrace();
 			throw new ValidationException(e.getMessage());
 		}
 	}

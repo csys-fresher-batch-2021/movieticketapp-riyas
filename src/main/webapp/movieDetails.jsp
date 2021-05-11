@@ -12,7 +12,7 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
 		<h3>List Of Movies</h3>
-		<table class="table table-bordered" summary="Movie Details">
+		<table class="table table-bordered" id="movieDetails">
 			<thead>
 				<tr>
 					<th id="S.no">S.No</th>
