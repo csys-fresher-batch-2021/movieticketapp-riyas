@@ -2,13 +2,29 @@ package in.riyasahamed.model;
 
 public class Movie {
 	
-	public String name;
+	private String name;
 	
-	public Integer tickets;
+	public String getName() {
+		return name;
+	}
 	
-	public Float rating;
+	private Integer tickets;
 	
-	public String actor;
+	public Integer getTickets() {
+		return tickets;
+	}
+	
+	private Float rating;
+	
+	public Float getRating() {
+		return rating;
+	}
+		
+	private String actor;
+	
+	public String getActor() {
+		return actor;
+	}
 		
 	public Movie(String name, String actor , Float rating) {
 		
