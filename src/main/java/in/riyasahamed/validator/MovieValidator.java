@@ -6,6 +6,10 @@ import in.riyasahamed.exceptions.InvalidRatingException;
 
 public class MovieValidator {
 
+	private MovieValidator() {
+		//Default Constructor
+	}
+	
 	/**
 	 * This Method Validates the Movie Details
 	 * @param name

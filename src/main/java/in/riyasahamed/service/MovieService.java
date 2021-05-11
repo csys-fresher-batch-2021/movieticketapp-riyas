@@ -3,6 +3,7 @@ package in.riyasahamed.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.riyasahamed.exceptions.ValidationException;
 import in.riyasahamed.model.Movie;
 import in.riyasahamed.validator.MovieValidator;
 
@@ -12,7 +13,7 @@ public class MovieService {
 		// Default Constructor
 	}
 
-	private static List<Movie> movies=new ArrayList<Movie>();
+	private static List<Movie> movies=new ArrayList<>();
 	
 	/**
 	 * This Method adds Movie Details..
@@ -27,8 +28,8 @@ public class MovieService {
 			Movie movie = new Movie(name, actor, rating);
 			movies.add(movie);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e.getMessage());
+			//e.printStackTrace();
+			throw new ValidationException(e.getMessage());
 		}
 	}
 	

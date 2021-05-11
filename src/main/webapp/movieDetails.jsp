@@ -3,7 +3,8 @@
 <%@page import="in.riyasahamed.service.MovieService"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.time.LocalDate"%>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <title>Movies</title>
 </head>
@@ -11,14 +12,14 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
 		<h3>List Of Movies</h3>
-		<table class="table table-bordered">
+		<table class="table table-bordered" summary="Movie Details">
 			<thead>
 				<tr>
-					<th>S.No</th>
-					<th>Movie Name</th>
-					<th>Actor</th>
-					<th>Rating</th>
-					<th>Tickets Available</th>
+					<th id="S.no">S.No</th>
+					<th id="movieName">Movie Name</th>
+					<th id="actorName">Actor</th>
+					<th id="movieRating">Rating</th>
+					<th id="movieTickets">Tickets Available</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,11 +30,11 @@
 		i++;				
 			%>
 			<tr>
-			<td><%=i%></td>
-			<td><%=movie.getName() %></td>
-			<td><%=movie.getActor() %></td>
-			<td><%=movie.getRating() %></td>
-			<td><%=movie.getTickets() %></td>
+			<td ><%=i%></td>
+			<td ><%=movie.getName() %></td>
+			<td ><%=movie.getActor() %></td>
+			<td ><%=movie.getRating() %></td>
+			<td ><%=movie.getTickets() %></td>
 			</tr>
 		<%} %>
 			</tbody>
