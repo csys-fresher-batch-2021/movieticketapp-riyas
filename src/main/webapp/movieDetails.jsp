@@ -12,7 +12,8 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
 		<h3>List Of Movies</h3>
-		<table class="table table-bordered" id="movieDetails">
+		<table class="table table-bordered">
+		<caption>This Table is for Showing Movie Details</caption>
 			<thead>
 				<tr>
 					<th id="S.no">S.No</th>
