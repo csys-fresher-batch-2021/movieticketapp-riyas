@@ -29,9 +29,9 @@ public class AddMovieServlet extends HttpServlet {
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String movie=request.getParameter("movie");
-		String actor=request.getParameter("actor");
-		Float rating=Float.parseFloat(request.getParameter("rating"));
+		String actor=request.getParameter("actor");		
 		try{
+		Float rating=Float.parseFloat(request.getParameter("rating"));
 		MovieService.addMovieDetails(movie,actor, rating);
 		String infoMessage="Successfully added movie";
 		response.sendRedirect("addMovie.jsp?infoMessage=" + infoMessage);

@@ -1,6 +1,7 @@
 package in.riyasahamed.validator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -16,6 +17,7 @@ public class MovieValidatorTest {
 	public void testValidMovieDetails() {
 		try {
 			MovieService.addMovieDetails("Master", "Vijay", (float) 8.5);
+			assertTrue(true);
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 			fail();
@@ -30,8 +32,8 @@ public class MovieValidatorTest {
 	public void testinvalidMovieDetails() {
 		try {
 			MovieService.addMovieDetails(null, "vijay", (float) 8.0);
+			fail();
 		} catch (RuntimeException e) {
-			e.printStackTrace();
 			assertEquals("Invalid Movie Name", e.getMessage());
 		}
 	}
