@@ -21,12 +21,12 @@ public class AddMovieServlet extends HttpServlet {
      */
     public AddMovieServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String movie=request.getParameter("movie");
 		String actor=request.getParameter("actor");
