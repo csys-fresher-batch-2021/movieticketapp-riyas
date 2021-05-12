@@ -9,7 +9,7 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
 		<h3>Add Movie</h3>
-		<form action="movieValidator.jsp">
+		<form action="AddMovieServlet">
 
 				<br> <label for="name">Movie Name :</label> 
 				<input type="text" name="movie" id="name" autocomplete="on" required placeholder="Enter Movie Name" autofocus><br /> <br> 
@@ -21,6 +21,7 @@
 			<button class="btn btn-danger" type="reset">Reset</button>
 			<br />
 		</form>
+		
 		<%
 		String errorMessage = request.getParameter("errorMessage");
 		if (errorMessage != null) {
@@ -31,6 +32,7 @@
 			out.println("<font color='green'>" + infoMessage + "</font>");
 		}
 		%>
+	
 	</main>
 </body>
 </html>
