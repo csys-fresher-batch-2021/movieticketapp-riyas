@@ -7,7 +7,7 @@ import in.riyasahamed.model.Seat;
 
 public class SeatService {
 
-	public SeatService() {
+	private SeatService() {
 		// Default Constructor
 	}
 	
