@@ -17,6 +17,9 @@
       <li class="nav-item">
         <a class="nav-link" href="movieDetails.jsp">Movies</a>
       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="SeatDetails.jsp">Seat Types</a>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
         <div class="dropdown-menu" aria-labelledby="dropdownId">
