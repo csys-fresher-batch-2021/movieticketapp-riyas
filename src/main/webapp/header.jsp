@@ -1,7 +1,9 @@
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="assets/css/fontawesome.min.css">
 <link rel="stylesheet" href="assets/css/style.css">
-
+<%
+String loggedInUsername = (String)session.getAttribute("LOGGED_IN_USER");
+%>
 <header>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
   <a class="navbar-brand" href="index.jsp">Movie App</a>
@@ -29,17 +31,28 @@
       </li>
     </ul>
      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <% if (loggedInUsername == null){ %>
       <li class="nav-item active">
-        <a class="nav-link" href="#">Login</a>
+        <a class="nav-link" href="AdminLogin.jsp">Admin Login</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Register</a>
       </li>
+       <%}  else {%>
+        <li class="nav-item">
+        <a class="nav-link" href="#">Welcome <%=loggedInUsername %></a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="LogoutServlet">Logout</a>
+      </li>
+      <%} %>
+      
+      <% if (loggedInUsername != null && loggedInUsername.equalsIgnoreCase("ADMIN")){ %>
       <li class="nav-item">
         <a class="nav-link" href="addMovie.jsp">Add Movie</a>
       </li>
       </ul>
-   
+    <%} %>
   </div>
 </nav>
 </header>
