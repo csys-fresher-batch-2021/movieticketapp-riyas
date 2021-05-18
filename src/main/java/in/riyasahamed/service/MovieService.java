@@ -1,8 +1,7 @@
 package in.riyasahamed.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.sql.SQLException;
+import in.riyasahamed.dao.MovieDAO;
 import in.riyasahamed.exceptions.ValidationException;
 import in.riyasahamed.model.Movie;
 import in.riyasahamed.validator.MovieValidator;
@@ -13,7 +12,7 @@ public class MovieService {
 		// Default Constructor
 	}
 
-	private static final  List<Movie> movies=new ArrayList<>();
+	private static  MovieDAO movieDAO=MovieDAO.getInstance();
 	
 	/**
 	 * This Method adds Movie Details..
@@ -26,15 +25,21 @@ public class MovieService {
 		try {
 			MovieValidator.validateMovieDetails(name, actor, rating);
 			Movie movie = new Movie(name, actor, rating);
-			movies.add(movie);
+			movieDAO.addMovie(movie);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ValidationException(e.getMessage());
 		}
 	}
 	
-	public static List<Movie> getMovies() {
-		return movies;
+	public static void deleteMovieDetails(String name, String actor) throws ClassNotFoundException, SQLException { 	
+		try {
+			MovieValidator.checkMovie(name, actor);
+			movieDAO.deleteMovie(name,actor);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new ValidationException(e.getMessage());
+		}
 	}
-
 }
