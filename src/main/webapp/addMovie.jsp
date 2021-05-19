@@ -17,7 +17,7 @@
 				<label for="name">Actor:</label> 
 				<input type="text" name="actor" id="actor" autocomplete="off" required placeholder="Enter Actor Name"><br />
 				<br><label for="name">Rating:</label> 
-				<input type="number" name="rating" id="rating" autocomplete="off" required placeholder="Enter Rating"><br /> <br>
+				<input type="number" name="rating" id="rating" autocomplete="off" required placeholder="Enter Rating" step="0.01"><br /> <br>
 			<button class="btn btn-secondary" type="submit">Add Movie</button>
 			<button class="btn btn-danger" type="reset">Reset</button>
 			<br />
