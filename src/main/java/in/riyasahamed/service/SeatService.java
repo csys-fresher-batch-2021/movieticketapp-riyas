@@ -3,7 +3,8 @@ package in.riyasahamed.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.riyasahamed.model.Seat;
+import in.riyasahamed.dao.SeatDAO;
+import in.riyasahamed.dto.SeatDTO;
 
 public class SeatService {
 
@@ -11,22 +12,19 @@ public class SeatService {
 		// Default Constructor
 	}
 	
-	private static final List<Seat> seats=new ArrayList<>();
-	
-	static {
-	Seat seatType1= new Seat("Silver", 60);
-	seats.add(seatType1);
-	Seat seatType2= new Seat("Gold", 120);
-	seats.add(seatType2);
-	Seat seatType3= new Seat("Platinum", 180);
-	seats.add(seatType3);	
-	}
+	private static List<SeatDTO> seats=new ArrayList<>();
 	
 	/**
 	 * This Method returns all the Seat Types
 	 * @return
 	 */
-	public static List<Seat> getSeatTypes() {
+	public static List<SeatDTO> getSeatTypes() {
+		SeatDAO seat=SeatDAO.getInstance();
+		try {
+			seats=seat.getSeatTypes();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return seats;
 	}
 

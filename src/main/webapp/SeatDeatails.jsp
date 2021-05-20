@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="in.riyasahamed.dto.SeatDTO"%>
 <%@page import="in.riyasahamed.model.Seat"%>
 <%@page import="java.util.List"%>
 <%@page import="in.riyasahamed.service.SeatService"%>
@@ -21,15 +22,15 @@
 			</thead>
 			<tbody>
 				<%
-			List<Seat> seats = SeatService.getSeatTypes();
+			List<SeatDTO> seats = SeatService.getSeatTypes();
 		int i =0;
-		for(Seat seat: seats){
+		for(SeatDTO seat: seats){
 		i++;				
 			%>
 			<tr>
 			<td ><%=i%></td>
 			<td ><%=seat.getSeatType()%></td>
-			<td >Rs.<%=seat.getPrice()%></td>
+			<td >Rs. <%=seat.getPrice()%></td>
 			</tr>
 		<%} %>
 			</tbody>

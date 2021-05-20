@@ -10,9 +10,12 @@
 <title>Movies</title>
 </head>
 <body>
+	<%
+	String loggedInUsername = (String) session.getAttribute("LOGGED_IN_USER");
+	%>
 	<jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
-	<jsp:include page="Message.jsp"></jsp:include>
+		<jsp:include page="Message.jsp"></jsp:include>
 		<h3>List Of Movies</h3>
 		<table class="table table-bordered">
 			<caption>This Table is for Showing Movie Details</caption>
@@ -23,7 +26,14 @@
 					<th id="actorName">Actor</th>
 					<th id="movieRating">Rating</th>
 					<th id="movieTickets">Tickets Available</th>
-					<th id="delete">Delete</th>
+					<th id="delete">
+						<%
+						if (loggedInUsername != null && loggedInUsername.equalsIgnoreCase("ADMIN")) {
+						%>Delete
+					</th>
+					<%
+					}
+					%>
 				</tr>
 			</thead>
 			<tbody>
@@ -40,7 +50,18 @@
 					<td><%=movie.getActor()%></td>
 					<td><%=movie.getRating()%></td>
 					<td><%=movie.getTickets()%></td>
-					<td><a href="DeleteMovieServlet?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>" class=" btn btn-danger">Delete</a></td>
+
+					<td>
+						<%
+						if (loggedInUsername != null && loggedInUsername.equalsIgnoreCase("ADMIN")) {
+						%>
+						<a
+						href="DeleteMovieServlet?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>"
+						class=" btn btn-danger">Delete</a>
+					</td>
+					<%
+					}
+					%>
 				</tr>
 				<%
 				}

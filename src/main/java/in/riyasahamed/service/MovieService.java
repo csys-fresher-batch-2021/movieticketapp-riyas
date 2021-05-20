@@ -1,8 +1,7 @@
 package in.riyasahamed.service;
 
-import java.sql.SQLException;
 import in.riyasahamed.dao.MovieDAO;
-import in.riyasahamed.exceptions.ValidationException;
+import in.riyasahamed.exceptions.ServiceException;
 import in.riyasahamed.model.Movie;
 import in.riyasahamed.validator.MovieValidator;
 
@@ -28,18 +27,18 @@ public class MovieService {
 			movieDAO.addMovie(movie);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new ValidationException(e.getMessage());
+			throw new ServiceException(e.getMessage());
 		}
 	}
 	
-	public static void deleteMovieDetails(String name, String actor) throws ClassNotFoundException, SQLException { 	
+	public static void deleteMovieDetails(String name, String actor){ 	
 		try {
 			MovieValidator.checkMovie(name, actor);
 			movieDAO.deleteMovie(name,actor);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			throw new ValidationException(e.getMessage());
+			throw new ServiceException(e.getMessage());
 		}
 	}
 }

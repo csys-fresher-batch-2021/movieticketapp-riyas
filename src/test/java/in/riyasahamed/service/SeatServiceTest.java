@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import in.riyasahamed.model.Seat;
+import in.riyasahamed.dto.SeatDTO;
 
 public class SeatServiceTest {
 
@@ -15,7 +15,7 @@ public class SeatServiceTest {
 	 */
 	@Test
 	public void testGetSeatTypes() {
-		List<Seat> seats=SeatService.getSeatTypes();
+		List<SeatDTO> seats=SeatService.getSeatTypes();
 		assertEquals(3,seats.size());
 	}
 
