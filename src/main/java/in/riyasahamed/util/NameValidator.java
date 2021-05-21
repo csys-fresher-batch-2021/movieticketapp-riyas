@@ -15,7 +15,7 @@ public class NameValidator {
 		if (name == null || name.trim().equals("")) {
 			throw new ValidationException("Name Cannot be Null");
 		}
-		String condition = "[a-zA-z\\s*]+";
+		String condition = "[a-zA-Z\\s*]+";
 		Pattern pattern = Pattern.compile(condition);
 		Matcher matcher = pattern.matcher(name);
 		boolean valid = matcher.matches();
