@@ -22,8 +22,7 @@ public class MovieValidator {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public static void validateMovieDetails(String name, String actor, Float rating)
-			throws ClassNotFoundException, SQLException {
+	public static void validateMovieDetails(String name, String actor, Float rating){
 		MovieDAO movieDAO = MovieDAO.getInstance();
 		List<Movie> movies = movieDAO.getAllMovies();
 		for (Movie movie : movies) {

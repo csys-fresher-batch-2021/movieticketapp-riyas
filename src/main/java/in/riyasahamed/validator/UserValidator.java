@@ -12,6 +12,10 @@ import in.riyasahamed.util.NameValidator;
 
 public class UserValidator {
 
+	private UserValidator() {
+		//Default Constructor
+	}
+
 	public static void isValidUser(UserDTO user) {
 
 		try {

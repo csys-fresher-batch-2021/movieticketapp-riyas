@@ -8,8 +8,13 @@ import in.riyasahamed.model.Movie;
 
 public class MovieConvertor {
 
+	private MovieConvertor() {
+		// Default Constructor	
+	}
+
 	/**
 	 * This Method Converts Model Objects into DTO objects
+	 * 
 	 * @param movie
 	 * @return
 	 */
@@ -27,6 +32,7 @@ public class MovieConvertor {
 
 	/**
 	 * This Method Converts DTO object into Model Object
+	 * 
 	 * @param movieDTO
 	 * @return
 	 */
@@ -44,6 +50,7 @@ public class MovieConvertor {
 
 	/**
 	 * This Method Converts List of Model Objects into List of DTO Objects
+	 * 
 	 * @param movies
 	 * @return
 	 */
@@ -58,11 +65,12 @@ public class MovieConvertor {
 
 	/**
 	 * This Method Converts List of DTO Objects into List of Model Objects
+	 * 
 	 * @param movies
 	 * @return
 	 */
 	public static List<Movie> toMovie(List<MovieDTO> movies) {
-		List<Movie> movieList = new ArrayList<Movie>();
+		List<Movie> movieList = new ArrayList<>();
 		for (MovieDTO movie : movies) {
 			Movie movieModel = MovieConvertor.toMovie(movie);
 			movieList.add(movieModel);

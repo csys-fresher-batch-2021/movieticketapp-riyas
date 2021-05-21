@@ -8,8 +8,13 @@ import in.riyasahamed.model.User;
 
 public class UserConverter {
 
+	private UserConverter() {
+		// Default COnstructor
+	}
+
 	/**
-	 * This Method Converts DTO object to Model Object 
+	 * This Method Converts DTO object to Model Object
+	 * 
 	 * @param dto
 	 * @return
 	 */
@@ -25,6 +30,7 @@ public class UserConverter {
 
 	/**
 	 * This Method Converts Model object to DTO object
+	 * 
 	 * @param user
 	 * @return
 	 */
@@ -40,6 +46,7 @@ public class UserConverter {
 
 	/**
 	 * This method converts List of Model objects to List of DTO objects
+	 * 
 	 * @param users
 	 * @return
 	 */
@@ -54,6 +61,7 @@ public class UserConverter {
 
 	/**
 	 * This Method Converts List of DTO objects into Model Objects
+	 * 
 	 * @param users
 	 * @return
 	 */

@@ -7,6 +7,10 @@ import in.riyasahamed.exceptions.ValidationException;
 
 public class NameValidator {
 	
+	private NameValidator() {
+		// Default Constructor
+	}
+
 	public static void isValidName(String name) {
 		if (name == null || name.trim().equals("")) {
 			throw new ValidationException("Name Cannot be Null");

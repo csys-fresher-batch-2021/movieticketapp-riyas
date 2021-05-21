@@ -14,7 +14,6 @@ public class SeatService {
 		// Default Constructor
 	}
 	
-	private static List<Seat> seats=new ArrayList<>();
 	
 	/**
 	 * This Method returns all the Seat Types
@@ -22,6 +21,7 @@ public class SeatService {
 	 */
 	public static List<SeatDTO> getSeatTypes() {
 		SeatDAO seat=SeatDAO.getInstance();
+		List<Seat> seats=new ArrayList<>();
 		List<SeatDTO> seatsList= new ArrayList<>();
 		try {
 			seats=seat.getSeatTypes();

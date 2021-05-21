@@ -6,6 +6,10 @@ import in.riyasahamed.exceptions.ValidationException;
 
 public class PasswordValidator {
 
+	private PasswordValidator() {
+		// Default Constructor
+	}
+
 	public static void isValidPassword(String password) {
 
 		if (password == null || password.trim().equals("")) {

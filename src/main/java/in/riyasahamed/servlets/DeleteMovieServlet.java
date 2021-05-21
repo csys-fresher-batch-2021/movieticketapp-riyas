@@ -20,11 +20,10 @@ public class DeleteMovieServlet extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
     public DeleteMovieServlet() {
-        super();
-        // TODO Auto-generated constructor stub
+       //Default Constructor
     }
 
-	
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String movie=request.getParameter("name");
 		String actor=request.getParameter("actor");		

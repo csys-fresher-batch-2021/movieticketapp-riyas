@@ -11,6 +11,14 @@ import in.riyasahamed.validator.UserValidator;
 
 public class UserService {
 
+	private UserService() {
+		// Default Constructor
+	}
+
+	/**
+	 * This Method is used to Register the User
+	 * @param userDTO
+	 */
 	public static void registerUser(UserDTO userDTO) {
 
 		try {
@@ -24,11 +32,14 @@ public class UserService {
 		}
 	}
 
+	/**
+	 * This Method is Used to Fetch All Users
+	 * @return 
+	 */
 	public static List<UserDTO> getUsers() {
 		UserDAO userDAO = UserDAO.getInstance();
 		List<User> allUsers = userDAO.getAllUsers();
-		List<UserDTO> userDTOList = UserConverter.toUserDTO(allUsers);
-		return userDTOList;
+		return UserConverter.toUserDTO(allUsers);
 	}
 
 }

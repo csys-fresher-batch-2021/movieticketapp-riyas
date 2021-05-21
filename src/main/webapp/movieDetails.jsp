@@ -38,8 +38,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				<%
-				List<MovieDTO> movies=MovieService.getAllMovies();
+				<%				
+				List<MovieDTO> movies=(List<MovieDTO>)request.getAttribute("MOVIE_LIST");
+				if(movies!=null){
+				//List<MovieDTO> movies=MovieService.getAllMovies();
 				int i = 0;
 				for (MovieDTO movie : movies) {
 					i++;
@@ -64,8 +66,9 @@
 					%>
 				</tr>
 				<%
-				}
+				} }
 				%>
+				
 			</tbody>
 		</table>
 

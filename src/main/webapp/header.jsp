@@ -17,7 +17,8 @@ String loggedInUsername = (String)session.getAttribute("LOGGED_IN_USER");
         <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="movieDetails.jsp">Movies</a>
+      <% if (loggedInUsername != null){ %>
+        <a class="nav-link" href="MovieDetailsServlet">Movies</a>
       </li>
        <li class="nav-item">
         <a class="nav-link" href="SeatDeatails.jsp">Seat Types</a>
@@ -30,10 +31,14 @@ String loggedInUsername = (String)session.getAttribute("LOGGED_IN_USER");
         </div>
       </li>
     </ul>
+    <%} %>
      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <% if (loggedInUsername == null){ %>
       <li class="nav-item active">
         <a class="nav-link" href="AdminLogin.jsp">Admin Login</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="UserLogin.jsp">User Login</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="RegisterUser.jsp">Register</a>
