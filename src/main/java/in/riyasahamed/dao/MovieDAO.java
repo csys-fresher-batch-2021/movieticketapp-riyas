@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.riyasahamed.exceptions.DBException;
 import in.riyasahamed.model.Movie;
 import in.riyasahamed.util.ConnectionUtil;
 
@@ -32,96 +33,113 @@ public class MovieDAO {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void addMovie(Movie movie) throws ClassNotFoundException, SQLException {
+	public void addMovie(Movie movie)throws DBException{
 
-		// Get Connection
-		Connection connection = ConnectionUtil.getConnection();
+		try {
+			// Get Connection
+			Connection connection = ConnectionUtil.getConnection();
 
-		// Sql command
-		String sql = "insert into movies( movie_name,actor_name,rating,available_tickets ) values (?,?,?,?)";
+			// Sql command
+			String sql = "insert into movies( movie_name,actor_name,rating,available_tickets ) values (?,?,?,?)";
 
-		// Execution Step
-		PreparedStatement pst = connection.prepareStatement(sql);
+			// Execution Step
+			PreparedStatement pst = connection.prepareStatement(sql);
 
-		pst.setString(1, movie.getName());
-		pst.setString(2, movie.getActor());
-		pst.setFloat(3, movie.getRating());
-		pst.setInt(4, movie.getTickets());
-		pst.executeUpdate();
+			pst.setString(1, movie.getName());
+			pst.setString(2, movie.getActor());
+			pst.setFloat(3, movie.getRating());
+			pst.setInt(4, movie.getTickets());
+			pst.executeUpdate();
 
-		// Closing the Session
-		ConnectionUtil.closeConnection(connection);
+			// Closing the Session
+			ConnectionUtil.closeConnection(pst,connection);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException("Unable to Add Movie");
+		}
 	}
 
 	/**
-	 * This Method Will returns  all Movie Details Stored in DataBase
+	 * This Method Will returns all Movie Details Stored in DataBase
+	 * 
 	 * @return
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public List<Movie> getAllMovies() throws ClassNotFoundException, SQLException {
+	public List<Movie> getAllMovies() throws DBException {
 
 		final List<Movie> movies = new ArrayList<>();
 
-		// Get the Connection
+		try {
+			// Get the Connection
 
-		Connection connection = ConnectionUtil.getConnection();
+			Connection connection = ConnectionUtil.getConnection();
 
-		// Query Statement
+			// Query Statement
 
-		String sql = "select * from movies";
+			String sql = "select * from movies";
 
-		// Executing Query Statement
+			// Executing Query Statement
 
-		PreparedStatement pst = connection.prepareStatement(sql);
+			PreparedStatement pst = connection.prepareStatement(sql);
 
-		ResultSet result = pst.executeQuery();
+			ResultSet result = pst.executeQuery();
 
-		while (result.next()) {
+			while (result.next()) {
 
-			// Getting the Values
+				// Getting the Values
 
-			String movieName = result.getString("movie_name");
-			String actorName = result.getString("actor_name");
-			float rating = result.getFloat("rating");
+				String movieName = result.getString("movie_name");
+				String actorName = result.getString("actor_name");
+				float rating = result.getFloat("rating");
 
-			// Store the value in an object
+				// Store the value in an object
 
-			Movie movie = new Movie(movieName, actorName, rating);
-			movies.add(movie);
+				Movie movie = new Movie(movieName, actorName, rating);
+				movies.add(movie);
+			}
+
+			// Closing the Connection
+			ConnectionUtil.closeConnection(result,pst,connection);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException("Unable to Fetch Movies");
 		}
-
-		// Closing the Connection
-		ConnectionUtil.closeConnection(connection);
 		return movies;
 
 	}
-	
+
 	/**
 	 * This Method will Delete the Movie in DataBase
+	 * 
 	 * @param name
 	 * @param actor
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void deleteMovie(String name, String actor) throws ClassNotFoundException, SQLException {
+	public void deleteMovie(String name, String actor)throws DBException{
 
-		// Get the Connection
-		Connection connection = ConnectionUtil.getConnection();
+		try {
+			// Get the Connection
+			Connection connection = ConnectionUtil.getConnection();
 
-		// SQL Command
-		String sql = "delete from movies where movie_name = ? and actor_name= ? ";
+			// SQL Command
+			String sql = "delete from movies where movie_name = ? and actor_name= ? ";
 
-		// Executing the Query
-		PreparedStatement pst = connection.prepareStatement(sql);
+			// Executing the Query
+			PreparedStatement pst = connection.prepareStatement(sql);
 
-		pst.setString(1, name);
-		pst.setString(2, actor);
+			pst.setString(1, name);
+			pst.setString(2, actor);
 
-		pst.executeUpdate();
+			pst.executeUpdate();
 
-		// Closing the Connection
-		ConnectionUtil.closeConnection(connection);
+			// Closing the Connection
+			ConnectionUtil.closeConnection(pst,connection);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException("Unable to Delete Movie");
+		}
 
 	}
 
