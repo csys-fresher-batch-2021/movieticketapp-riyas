@@ -47,7 +47,7 @@ public class UserDAO {
 		}
 	}
 
-	public List<User> getAllUsers() {
+	public List<User> getAllUsers()throws DBException {
 
 		List<User> users = new ArrayList<>();
 		Connection connection = null;

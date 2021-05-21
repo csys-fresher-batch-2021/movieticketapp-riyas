@@ -15,7 +15,7 @@ public class UserValidatorTest {
 	 * @throws SQLException 
 	 */
 	@Test
-	public void testValidUserDetails() throws SQLException {
+	public void testValidUserDetails(){
 		try {
 			UserDTO user = new UserDTO();
 			user.setName("Riyas Ahamed");
@@ -127,7 +127,7 @@ public class UserValidatorTest {
 	}
 	
 	/**
-	 * This test case is for Invalid Mobile Number
+	 * This test case is for Same Mobile Number
 	 */
 	@Test
 	public void testWithSameMobileNumber() {
@@ -141,8 +141,46 @@ public class UserValidatorTest {
 			UserValidator.isValidUser(user);
 			fail();
 		} catch (RuntimeException e) {
-			assertEquals("Mobile Number Already Exists", e.getMessage());
+			assertEquals("Mobile Number Already Registered", e.getMessage());
 		}
 	}
+	
+	/**
+	 * This test case is for Same Email
+	 */
+	@Test
+	public void testWithSameEmail() {
+		try {
+			UserDTO user = new UserDTO();
+			user.setName("Riyas");
+			user.setEmail("riyas21052@gmail.com");
+			user.setMobileNumber(9375442250l);
+			user.setUserName("riyas210521");
+			user.setPassword("riyas@12");
+			UserValidator.isValidUser(user);
+			fail();
+		} catch (RuntimeException e) {
+			assertEquals("Email ID Already Registered", e.getMessage());
+		}
+	}
+	/**
+	 * This test case is for Same User Name
+	 */
+	@Test
+	public void testWithSameUserName() {
+		try {
+			UserDTO user = new UserDTO();
+			user.setName("Riyas");
+			user.setEmail("riyas21053@gmail.com");
+			user.setMobileNumber(9375442250l);
+			user.setUserName("riyas21052");
+			user.setPassword("riyas@12");
+			UserValidator.isValidUser(user);
+			fail();
+		} catch (RuntimeException e) {
+			assertEquals("User Name Already Registered", e.getMessage());
+		}
+	}
+	
 	
 }

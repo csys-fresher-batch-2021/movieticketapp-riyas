@@ -32,13 +32,13 @@ public class UserValidator {
 
 		for (User userObj : allUsers) {
 			if (userDTO.getEmail().equals(userObj.getEmail())) {
-				throw new ValidationException("UserName Already Exists");
+				throw new ValidationException("Email ID Already Registered");
 			}
 			if (userDTO.getMobileNumber().equals(userObj.getMobileNumber())) {
-				throw new ValidationException("Mobile Number Already Exists");
+				throw new ValidationException("Mobile Number Already Registered");
 			}
 			if (userDTO.getUserName().equals(userObj.getUserName())) {
-				throw new ValidationException("Mobile Number Already Exists");
+				throw new ValidationException("User Name Already Registered");
 			}
 		}
 	}

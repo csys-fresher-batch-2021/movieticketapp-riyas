@@ -1,3 +1,4 @@
+<%@page import="in.riyasahamed.dto.MovieDTO"%>
 <%@page import="in.riyasahamed.dao.MovieDAO"%>
 <%@page import="in.riyasahamed.model.Movie"%>
 <%@page import="java.util.List"%>
@@ -38,10 +39,9 @@
 			</thead>
 			<tbody>
 				<%
-				MovieDAO movieDAO = MovieDAO.getInstance();
-				List<Movie> movies = movieDAO.getAllMovies();
+				List<MovieDTO> movies=MovieService.getAllMovies();
 				int i = 0;
-				for (Movie movie : movies) {
+				for (MovieDTO movie : movies) {
 					i++;
 				%>
 				<tr>

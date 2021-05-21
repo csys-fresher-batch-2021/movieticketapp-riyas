@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.riyasahamed.dto.SeatDTO;
 import in.riyasahamed.exceptions.DBException;
+import in.riyasahamed.model.Seat;
 import in.riyasahamed.util.ConnectionUtil;
 
 public class SeatDAO {
@@ -21,32 +21,36 @@ public class SeatDAO {
 			return instance;
 		}
 		
-		public List<SeatDTO> getSeatTypes(){
+		public List<Seat> getSeatTypes(){
 			
-			List<SeatDTO> seatTypes;
+			List<Seat> seatTypes = new ArrayList<>();
+			Connection connection = null;
+			ResultSet result = null;
+			PreparedStatement pst = null;
 			try {
-				seatTypes = new ArrayList<>();
 				
-				Connection connection = ConnectionUtil.getConnection();
+				connection = ConnectionUtil.getConnection();
 				
 				String sql="select * from seat_types";
 				
-				PreparedStatement pst=connection.prepareStatement(sql);
+				pst =connection.prepareStatement(sql);
 				
-				ResultSet result=pst.executeQuery();
+				result =pst.executeQuery();
 				
 				while(result.next()) {
 					String seatType=result.getString("seat_type");
 					int price=result.getInt("price");
-					SeatDTO seat=new SeatDTO(seatType,price);
+					Seat seat=new Seat(seatType,price);
 					seatTypes.add(seat);
 				}
 				
-				ConnectionUtil.closeConnection(result, pst, connection);
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 				throw new DBException("Unable to Get Seat Types");
 				
+			}finally {
+				ConnectionUtil.closeConnection(result, pst, connection);             
 			}
 			
 			return seatTypes;

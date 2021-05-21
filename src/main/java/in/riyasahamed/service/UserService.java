@@ -20,7 +20,7 @@ public class UserService {
 			userDAO.addUser(user);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new ServiceException("Unable to Register User");
+			throw new ServiceException(e.getMessage());
 		}
 	}
 
