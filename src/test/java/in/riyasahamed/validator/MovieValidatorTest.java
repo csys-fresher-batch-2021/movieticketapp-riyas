@@ -21,7 +21,6 @@ public class MovieValidatorTest {
 			MovieService.addMovieDetails("Riyas", "riyas", (float) 8.5);
 			assertTrue(true);
 		} catch (RuntimeException e) {
-			e.printStackTrace();
 			fail();
 		}
 
@@ -91,7 +90,6 @@ public class MovieValidatorTest {
 			MovieValidator.checkMovie("master", "vijay");
 			assertTrue(true);
 		} catch (RuntimeException e) {
-			e.printStackTrace();
 			fail();
 		}
 	}

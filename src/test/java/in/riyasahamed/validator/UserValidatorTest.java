@@ -45,7 +45,7 @@ public class UserValidatorTest {
 			user.setPassword("riyas_12");
 			UserValidator.isValidUser(user);
 			fail();
-		} catch (RuntimeException e) {
+		} catch (Exception e) {
 			assertEquals("Invalid User Name", e.getMessage());
 		}
 	}
@@ -64,7 +64,7 @@ public class UserValidatorTest {
 			user.setPassword("riyas_12");
 			UserValidator.isValidUser(user);
 			fail();
-		} catch (RuntimeException e) {
+		} catch (Exception e) {
 			assertEquals("Invalid Name", e.getMessage());
 		}
 	}
@@ -83,7 +83,7 @@ public class UserValidatorTest {
 			user.setPassword("riyas");
 			UserValidator.isValidUser(user);
 			fail();
-		} catch (RuntimeException e) {
+		} catch (Exception e) {
 			assertEquals("Invalid Password", e.getMessage());
 		}
 	}
@@ -102,7 +102,7 @@ public class UserValidatorTest {
 			user.setPassword("riyas@12");
 			UserValidator.isValidUser(user);
 			fail();
-		} catch (RuntimeException e) {
+		} catch (Exception e) {
 			assertEquals("Invalid Email", e.getMessage());
 		}
 	}
@@ -121,7 +121,7 @@ public class UserValidatorTest {
 			user.setPassword("riyas@12");
 			UserValidator.isValidUser(user);
 			fail();
-		} catch (RuntimeException e) {
+		} catch (Exception e) {
 			assertEquals("Invalid Mobile Number", e.getMessage());
 		}
 	}
@@ -140,7 +140,7 @@ public class UserValidatorTest {
 			user.setPassword("riyas@12");
 			UserValidator.isValidUser(user);
 			fail();
-		} catch (RuntimeException e) {
+		} catch (Exception e) {
 			assertEquals("Mobile Number Already Registered", e.getMessage());
 		}
 	}
@@ -159,7 +159,7 @@ public class UserValidatorTest {
 			user.setPassword("riyas@12");
 			UserValidator.isValidUser(user);
 			fail();
-		} catch (RuntimeException e) {
+		} catch (Exception e) {
 			assertEquals("Email ID Already Registered", e.getMessage());
 		}
 	}
@@ -177,7 +177,7 @@ public class UserValidatorTest {
 			user.setPassword("riyas@12");
 			UserValidator.isValidUser(user);
 			fail();
-		} catch (RuntimeException e) {
+		} catch (Exception e) {
 			assertEquals("User Name Already Registered", e.getMessage());
 		}
 	}

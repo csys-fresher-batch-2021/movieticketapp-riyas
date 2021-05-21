@@ -21,7 +21,7 @@ public class SeatConvertor {
 	}
 
 	public static List<SeatDTO> toSeatDTO(List<Seat> seats) {
-		List<SeatDTO> dtoList = new ArrayList<SeatDTO>();
+		List<SeatDTO> dtoList = new ArrayList<>();
 		for (Seat seat : seats) {
 			SeatDTO dto = SeatConvertor.toSeatDTO(seat);
 			dtoList.add(dto);

@@ -15,7 +15,6 @@ public class AdminValidatorTest {
 			AdminValidator.validateAdmin("admin", "Admin@12");
 			assertTrue(true);
 		} catch (RuntimeException e) {
-			e.printStackTrace();
 			fail();
 		}
 	}

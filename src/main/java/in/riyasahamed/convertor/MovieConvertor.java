@@ -55,7 +55,7 @@ public class MovieConvertor {
 	 * @return
 	 */
 	public static List<MovieDTO> toMovieDTO(List<Movie> movies) {
-		List<MovieDTO> dtoList = new ArrayList<MovieDTO>();
+		List<MovieDTO> dtoList = new ArrayList<>();
 		for (Movie movie : movies) {
 			MovieDTO dto = MovieConvertor.toMovieDTO(movie);
 			dtoList.add(dto);

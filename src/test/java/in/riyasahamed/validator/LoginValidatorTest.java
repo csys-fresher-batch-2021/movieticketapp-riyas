@@ -13,7 +13,6 @@ public class LoginValidatorTest {
 			LoginValidator.isValidLogin("riyas21052", "Riiyas@12");
 			assertTrue(true);
 		} catch (Exception e) {
-			e.printStackTrace();
 			fail();
 		}
 	}
