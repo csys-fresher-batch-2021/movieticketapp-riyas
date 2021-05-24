@@ -15,7 +15,6 @@ public class PasswordValidatorTest {
 			PasswordValidator.isValidPassword("riyas@1212");
 			assertTrue(true);
 		} catch (RuntimeException e) {
-			e.printStackTrace();
 			fail();
 		}
 	}

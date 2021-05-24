@@ -7,6 +7,10 @@ import in.riyasahamed.exceptions.ValidationException;
 
 public class MobileNumberValidator {
 	
+	private MobileNumberValidator() {
+		// Default Constructor
+	}
+
 	/**
 	 * This Method Checks the Mobile Number Whether it is Valid or Not
 	 * @param mobileNumber

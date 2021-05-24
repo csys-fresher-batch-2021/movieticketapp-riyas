@@ -49,8 +49,7 @@ public class MovieService {
 		try {
 			MovieDAO movieDAO=MovieDAO.getInstance();
 			List<Movie> movies=movieDAO.getAllMovies();
-			List<MovieDTO> moviesDTO=MovieConvertor.toMovieDTO(movies); 
-			return moviesDTO;
+			return MovieConvertor.toMovieDTO(movies); 
 		} catch (DBException e) {
 			throw new ServiceException("Unable to Get Movies");
 		}

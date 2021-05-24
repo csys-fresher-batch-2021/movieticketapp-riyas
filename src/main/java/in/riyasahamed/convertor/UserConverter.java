@@ -8,8 +8,13 @@ import in.riyasahamed.model.User;
 
 public class UserConverter {
 
+	private UserConverter() {
+		// Default COnstructor
+	}
+
 	/**
-	 * This Method Converts DTO object to Model Object 
+	 * This Method Converts DTO object to Model Object
+	 * 
 	 * @param dto
 	 * @return
 	 */
@@ -25,6 +30,7 @@ public class UserConverter {
 
 	/**
 	 * This Method Converts Model object to DTO object
+	 * 
 	 * @param user
 	 * @return
 	 */
@@ -40,11 +46,12 @@ public class UserConverter {
 
 	/**
 	 * This method converts List of Model objects to List of DTO objects
+	 * 
 	 * @param users
 	 * @return
 	 */
 	public static List<UserDTO> toUserDTO(List<User> users) {
-		List<UserDTO> dtoList = new ArrayList<UserDTO>();
+		List<UserDTO> dtoList = new ArrayList<>();
 		for (User user : users) {
 			UserDTO dto = toUserDTO(user);
 			dtoList.add(dto);
@@ -54,11 +61,12 @@ public class UserConverter {
 
 	/**
 	 * This Method Converts List of DTO objects into Model Objects
+	 * 
 	 * @param users
 	 * @return
 	 */
 	public static List<User> toUser(List<UserDTO> users) {
-		List<User> userList = new ArrayList<User>();
+		List<User> userList = new ArrayList<>();
 		for (UserDTO user : users) {
 			User dto = toUser(user);
 			userList.add(dto);

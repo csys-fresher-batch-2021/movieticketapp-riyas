@@ -9,6 +9,11 @@ import java.sql.Statement;
 import in.riyasahamed.exceptions.DBException;
 
 public class ConnectionUtil {
+
+	private ConnectionUtil() {
+		// Default Constructor
+	}
+
 	/**
 	 * This Method Will get the Connection from the Data BAse
 	 * 
@@ -26,7 +31,6 @@ public class ConnectionUtil {
 			// Step 1: Load the jdbc driver in memory
 			Class.forName(driverClass);
 			connection = DriverManager.getConnection(url, username, password);
-			System.out.println("Connection Created");
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new DBException("Unable to Get Connection From Data Base");
@@ -38,12 +42,10 @@ public class ConnectionUtil {
 		try {
 			if (pst != null) {
 				pst.close();
-				System.out.println("Statement Closed");
 			}
 
 			if (connection != null) {
 				connection.close();
-				System.out.println("Connection Closed");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -56,16 +58,13 @@ public class ConnectionUtil {
 		try {
 			if (rs != null) {
 				rs.close();
-				System.out.println("Result Set Closed");
 			}
 			if (pst != null) {
 				pst.close();
-				System.out.println("Statement Closed");
 			}
 
 			if (connection != null) {
 				connection.close();
-				System.out.println("Connection Closed");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -16,7 +16,6 @@ public class UserNameValidatorTest {
 			UserNameValidator.isValidUserName("riyas21052");
 			assertTrue(true);
 		} catch (RuntimeException e) {
-			e.printStackTrace();
 			fail();
 		}
 
