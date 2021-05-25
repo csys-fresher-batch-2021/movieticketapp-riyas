@@ -17,16 +17,14 @@ import in.riyasahamed.validator.AdminValidator;
 public class AdminLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
+	
 	public AdminLoginServlet() {
 		super();
+		//Default Constructor
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * This method will used to admin login
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

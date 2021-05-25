@@ -7,6 +7,17 @@ public class User {
 	public String getName() {
 		return name;
 	}
+	
+	private Integer  userId;
+	
+	public Integer getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
 	private String userName;
 
@@ -27,11 +38,12 @@ public class User {
 	}
 
 	private String email;
-
-	public String getGender() {
+	
+	public String getEmail() {
 		return email;
 	}
 
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -66,13 +78,11 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [name=" + name + ", userName=" + userName + ", password=" + password + ", mobileNumber="
-				+ mobileNumber + ", gender=" + email + "]";
+		return "User [name=" + name + ", userId=" + userId + ", userName=" + userName + ", password=" + password
+				+ ", mobileNumber=" + mobileNumber + ", email=" + email + "]";
 	}
 
-	public String getEmail() {
-		return email;
-	}
+	
 
 	
 

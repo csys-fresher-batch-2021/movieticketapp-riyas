@@ -25,6 +25,7 @@ public class UserConverter {
 		user.setPassword(dto.getPassword());
 		user.setUserName(dto.getUserName());
 		user.setMobileNumber(dto.getMobileNumber());
+		user.setUserId(dto.getUserId());
 		return user;
 	}
 
@@ -41,6 +42,7 @@ public class UserConverter {
 		dto.setUserName(user.getUserName());
 		dto.setPassword(user.getPassword());
 		dto.setMobileNumber(user.getMobileNumber());
+		dto.setUserId(user.getUserId());
 		return dto;
 	}
 

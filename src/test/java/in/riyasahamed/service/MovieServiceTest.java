@@ -24,5 +24,21 @@ public class MovieServiceTest {
 		}
 
 	}
+	
+	/**
+	 * This test case is for Delete Movie Feature 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	@Test
+	public void testWithInValidMovieDetails() throws ClassNotFoundException, SQLException {
+		try {
+			MovieService.deleteMovieDetails("vikaram","kamal");
+			fail();
+		} catch (RuntimeException e) {
+			assertEquals("Movie Does Not Exists",e.getMessage());
+		}
+
+	}
 
 }

@@ -10,23 +10,18 @@ import javax.servlet.http.HttpSession;
 
 import in.riyasahamed.validator.LoginValidator;
 
-/**
- * Servlet implementation class UserLoginServlet
- */
+
 @WebServlet("/UserLoginServlet")
 public class UserLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
+	
 	public UserLoginServlet() {
 		super();
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * This Servlet is used to login the user
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
