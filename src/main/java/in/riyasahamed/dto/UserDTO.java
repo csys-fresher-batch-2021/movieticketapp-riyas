@@ -26,6 +26,16 @@ public class UserDTO {
 	public Long getMobileNumber() {
 		return mobileNumber;
 	}
+	
+	private Integer userId;
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
 	private String email;
 

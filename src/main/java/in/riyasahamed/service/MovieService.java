@@ -11,13 +11,13 @@ import in.riyasahamed.model.Movie;
 import in.riyasahamed.validator.MovieValidator;
 
 public class MovieService {
-	
+
 	private MovieService() {
 		// Default Constructor
 	}
 
-	private static  MovieDAO movieDAO=MovieDAO.getInstance();
-	
+	private static MovieDAO movieDAO = MovieDAO.getInstance();
+
 	/**
 	 * This Method adds Movie Details..
 	 * 
@@ -34,24 +34,27 @@ public class MovieService {
 			throw new ServiceException(e.getMessage());
 		}
 	}
-	
-	public static void deleteMovieDetails(String name, String actor){ 	
+
+	public static void deleteMovieDetails(String name, String actor) {
 		try {
 			MovieValidator.checkMovie(name, actor);
-			movieDAO.deleteMovie(name,actor);
-		}
-		catch(Exception e) {
+			movieDAO.deleteMovie(name, actor);
+		} catch (Exception e) {
 			throw new ServiceException(e.getMessage());
 		}
 	}
-	
+
 	public static List<MovieDTO> getAllMovies() {
 		try {
-			MovieDAO movieDAO=MovieDAO.getInstance();
-			List<Movie> movies=movieDAO.getAllMovies();
-			return MovieConvertor.toMovieDTO(movies); 
+			List<Movie> movies = movieDAO.getAllMovies();
+			return MovieConvertor.toMovieDTO(movies);
 		} catch (DBException e) {
-			throw new ServiceException("Unable to Get Movies");
+			throw new ServiceException(e.getMessage());
 		}
+	}
+
+	public static MovieDTO findByMovieName(String movieName) {
+		Movie movie = movieDAO.findByMovieName(movieName);
+		return MovieConvertor.toMovieDTO(movie);
 	}
 }

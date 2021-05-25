@@ -25,7 +25,10 @@ public class MovieDetailsServlet extends HttpServlet {
         super();
     }
 
-	@Override
+	/**
+	 * This Servlet is used to diplay movie Details
+	 */
+    @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<MovieDTO> movies=MovieService.getAllMovies();
 		request.setAttribute("MOVIE_LIST", movies);

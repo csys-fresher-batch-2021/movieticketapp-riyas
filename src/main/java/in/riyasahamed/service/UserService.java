@@ -5,8 +5,10 @@ import java.util.List;
 import in.riyasahamed.convertor.UserConverter;
 import in.riyasahamed.dao.UserDAO;
 import in.riyasahamed.dto.UserDTO;
+import in.riyasahamed.exceptions.DBException;
 import in.riyasahamed.exceptions.ServiceException;
 import in.riyasahamed.model.User;
+import in.riyasahamed.validator.UserDeatailsValidator;
 import in.riyasahamed.validator.UserValidator;
 
 public class UserService {
@@ -37,9 +39,33 @@ public class UserService {
 	 * @return 
 	 */
 	public static List<UserDTO> getUsers() {
-		UserDAO userDAO = UserDAO.getInstance();
-		List<User> allUsers = userDAO.getAllUsers();
+		List<User> allUsers = null;
+		try {
+			UserDAO userDAO = UserDAO.getInstance();
+			allUsers = userDAO.getAllUsers();
+		} catch (DBException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		}
 		return UserConverter.toUserDTO(allUsers);
+	}
+	
+	/**
+	 * This Method is Used to Find the User Details by UserName
+	 * @param userName
+	 * @return
+	 */
+	public static UserDTO findByUserName(String userName) {
+		User user = new User();
+		try {
+			UserDAO userDAO = UserDAO.getInstance();
+			user = userDAO.findByUserName(userName);
+			UserDeatailsValidator.isUserExists(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		}
+		return UserConverter.toUserDTO(user);
 	}
 
 }

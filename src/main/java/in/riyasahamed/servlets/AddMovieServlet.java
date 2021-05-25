@@ -9,9 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import in.riyasahamed.service.MovieService;
 
-/**
- * Servlet implementation class AddMovieServlet
- */
+
 @WebServlet("/AddMovieServlet")
 public class AddMovieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -24,7 +22,7 @@ public class AddMovieServlet extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * This Servlet is used to add the user Details..
 	 */
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

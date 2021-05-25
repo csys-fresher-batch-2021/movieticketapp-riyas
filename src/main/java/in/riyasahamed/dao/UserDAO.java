@@ -20,6 +20,12 @@ public class UserDAO {
 		return instance;
 	}
 
+	/**
+	 * This Method will add the user details in Data Base.
+	 * 
+	 * @param user
+	 * @throws DBException
+	 */
 	public void addUser(User user) throws DBException {
 
 		Connection connection = null;
@@ -47,7 +53,13 @@ public class UserDAO {
 		}
 	}
 
-	public List<User> getAllUsers()throws DBException {
+	/**
+	 * This Method will return the list of all users stored in database.
+	 * 
+	 * @return
+	 * @throws DBException
+	 */
+	public List<User> getAllUsers() throws DBException {
 
 		List<User> users = new ArrayList<>();
 		Connection connection = null;
@@ -71,13 +83,14 @@ public class UserDAO {
 				String email = result.getString("email");
 				String password = result.getString("password");
 				Long mobileNumber = result.getLong("mobile_number");
+				Integer userId = result.getInt("id");
 
 				user.setName(name);
 				user.setUserName(userName);
 				user.setEmail(email);
 				user.setMobileNumber(mobileNumber);
 				user.setPassword(password);
-
+				user.setUserId(userId);
 				users.add(user);
 			}
 		} catch (SQLException e) {
@@ -89,6 +102,61 @@ public class UserDAO {
 		}
 
 		return users;
+
+	}
+
+	/**
+	 * This Method will fetch the user Details by entering username
+	 * 
+	 * @param userName
+	 * @return
+	 */
+	public User findByUserName(String userName) {
+
+		Connection connection = null;
+		ResultSet result = null;
+		PreparedStatement pst = null;
+
+		User user = new User();
+
+		try {
+
+			connection = ConnectionUtil.getConnection();
+
+			String sql = "select * from users where user_name= ?";
+
+			pst = connection.prepareStatement(sql);
+
+			pst.setString(1, userName);
+
+			result = pst.executeQuery();
+
+			while (result.next()) {
+
+				String name = result.getString("name");
+				String userId = result.getString("user_name");
+				String email = result.getString("email");
+				String password = result.getString("password");
+				Long mobileNumber = result.getLong("mobile_number");
+				Integer id = result.getInt("id");
+
+				user.setName(name);
+				user.setUserName(userId);
+				user.setEmail(email);
+				user.setMobileNumber(mobileNumber);
+				user.setPassword(password);
+				user.setUserId(id);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException("Unable to Get User Detail");
+
+		} finally {
+			ConnectionUtil.closeConnection(result, pst, connection);
+		}
+
+		return user;
 
 	}
 

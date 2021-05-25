@@ -9,9 +9,7 @@ import in.riyasahamed.dto.UserDTO;
 import in.riyasahamed.service.UserService;
 
 
-/**
- * Servlet implementation class RegisterUserServlet
- */
+
 @WebServlet(description = "This Servlet is Used to Register User", urlPatterns = { "/RegisterUserServlet" })
 public class RegisterUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

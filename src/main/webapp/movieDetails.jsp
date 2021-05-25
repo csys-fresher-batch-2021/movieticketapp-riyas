@@ -27,10 +27,15 @@
 					<th id="actorName">Actor</th>
 					<th id="movieRating">Rating</th>
 					<th id="movieTickets">Tickets Available</th>
-					<th id="delete">
+					<th id="action">
 						<%
 						if (loggedInUsername != null && loggedInUsername.equalsIgnoreCase("ADMIN")) {
-						%>Delete
+						%>Delete<%
+					}
+					%>
+						<%
+						if (loggedInUsername != null && !loggedInUsername.equalsIgnoreCase("ADMIN")) {
+						%>Book
 					</th>
 					<%
 					}
@@ -41,7 +46,6 @@
 				<%				
 				List<MovieDTO> movies=(List<MovieDTO>)request.getAttribute("MOVIE_LIST");
 				if(movies!=null){
-				//List<MovieDTO> movies=MovieService.getAllMovies();
 				int i = 0;
 				for (MovieDTO movie : movies) {
 					i++;
@@ -56,10 +60,16 @@
 					<td>
 						<%
 						if (loggedInUsername != null && loggedInUsername.equalsIgnoreCase("ADMIN")) {
-						%>
-						<a
+						%> <a
 						href="DeleteMovieServlet?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>"
-						class=" btn btn-danger">Delete</a>
+						class=" btn btn-danger">Delete</a> <%
+					}
+					%> <%
+						if (loggedInUsername != null && !loggedInUsername.equalsIgnoreCase("ADMIN")) {
+						%> <a
+						href="Booking.jsp?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>"
+						class=" btn btn-primary">Book</a>
+
 					</td>
 					<%
 					}
@@ -68,7 +78,7 @@
 				<%
 				} }
 				%>
-				
+
 			</tbody>
 		</table>
 

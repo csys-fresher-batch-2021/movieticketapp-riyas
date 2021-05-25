@@ -19,6 +19,16 @@ public class Movie {
 	public Float getRating() {
 		return rating;
 	}
+	
+	public Integer getMovieId() {
+		return movieId;
+	}
+
+	public void setMovieId(Integer movieId) {
+		this.movieId = movieId;
+	}
+
+	private Integer movieId;
 		
 	private String actor;
 	
@@ -57,7 +67,8 @@ public class Movie {
 
 	@Override
 	public String toString() {
-		return "Movie [name=" + name + ", tickets=" + tickets + ", rating=" + rating + ", actor=" + actor + "]";
+		return "Movie [name=" + name + ", tickets=" + tickets + ", rating=" + rating + ", movieId=" + movieId
+				+ ", actor=" + actor + "]";
 	}
 
 }

@@ -7,6 +7,10 @@ public class ValidationException extends RuntimeException {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Thi method will rise the exception when there is any validation issues
+	 * @param message
+	 */
 	public ValidationException(String message) {
 		super(message);
 	}
