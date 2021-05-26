@@ -11,10 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import in.riyasahamed.dto.MovieDTO;
 import in.riyasahamed.dto.TicketDTO;
 import in.riyasahamed.dto.UserDTO;
-import in.riyasahamed.service.MovieService;
 import in.riyasahamed.service.PricingService;
 import in.riyasahamed.service.TicketService;
 import in.riyasahamed.service.UserService;
@@ -44,9 +42,8 @@ public class BookMovieServlet extends HttpServlet {
 			LocalDateTime bookingDate=LocalDateTime.now();
 			Integer numberOfTickets=Integer.parseInt(request.getParameter("tickets"));
 			UserDTO user=UserService.findByUserName(username);
-			MovieDTO movie = MovieService.findByMovieName(movieName);
 			String name=user.getName();
-			Integer movieId=movie.getMovieId();
+			Integer movieId=Integer.parseInt(request.getParameter("movieId"));
 			Integer userId=user.getUserId();
 			Float totalPrice=PricingService.getPrice(seatType, numberOfTickets);
 			TicketDTO ticket=new TicketDTO();

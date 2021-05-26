@@ -58,11 +58,6 @@ public class MovieService {
 		return MovieConvertor.toMovieDTO(movies);
 	}
 
-	public static MovieDTO findByMovieName(String movieName) {
-		Movie movie = movieDAO.findByMovieName(movieName);
-		return MovieConvertor.toMovieDTO(movie);
-	}
-
 	public static List<MovieDTO> findMovieByKeyword(String keyword) {
 
 		List<Movie> movies = null;

@@ -67,7 +67,7 @@
 					%> <%
 						if (loggedInUsername != null && !loggedInUsername.equalsIgnoreCase("ADMIN")) {
 						%> <a
-						href="Booking.jsp?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>"
+						href="Booking.jsp?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>&movieId=<%=movie.getMovieId()%>"
 						class=" btn btn-primary">Book</a>
 
 					</td>

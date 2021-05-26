@@ -150,62 +150,6 @@ public class MovieDAO {
 
 	}
 
-	/**
-	 * This Method will Search the movie from Database
-	 * 
-	 * @param movieName
-	 * @return
-	 * @return
-	 */
-	public Movie findByMovieName(String movieName) throws DBException {
-		Connection connection = null;
-		ResultSet result = null;
-		PreparedStatement pst = null;
-
-		Movie movie = new Movie();
-
-		try {
-
-			connection = ConnectionUtil.getConnection();
-
-			String sql = " select * from movies where movie_name ILIKE ? ";
-
-			pst = connection.prepareStatement(sql);
-
-			pst.setString(1, movieName);
-
-			result = pst.executeQuery();
-
-			while (result.next()) {
-
-				// Getting the Values
-
-				String name = result.getString("movie_name");
-				String actorName = result.getString("actor_name");
-				float rating = result.getFloat("rating");
-				Integer movieId = result.getInt("id");
-				Integer tickets = result.getInt("available_tickets");
-
-				// Store the value in an object
-
-				movie.setName(name);
-				movie.setActor(actorName);
-				movie.setRating(rating);
-				movie.setMovieId(movieId);
-				movie.setTickets(tickets);
-
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DBException("Unable to Get Movie Details");
-
-		} finally {
-			ConnectionUtil.closeConnection(result, pst, connection);
-		}
-
-		return movie;
-
-	}
 
 	/**
 	 * This Method will return the list of movie details which contains the keyword.
