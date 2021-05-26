@@ -114,9 +114,8 @@ public class Ticket {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
 	private Integer UserId;
-	
 
 	public Integer getUserId() {
 		return UserId;
@@ -125,7 +124,7 @@ public class Ticket {
 	public void setUserId(Integer userId) {
 		UserId = userId;
 	}
-	
+
 	private Integer movieId;
 
 	public Integer getMovieId() {

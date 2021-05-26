@@ -24,10 +24,10 @@ public class ConnectionUtil {
 		// Step 2: Get the connection
 		Connection connection = null;
 		try {
-			String driverClass = "org.postgresql.Driver";
-			String url = "jdbc:postgresql://localhost/movieticketapp_db";
-			String username = "postgres";
-			String password = "Riiyas@12";
+			String driverClass = System.getenv("spring.datasource.driver-class-name");
+			String url = System.getenv("spring.datasource.url");
+			String username = System.getenv("spring.datasource.username");
+			String password = System.getenv("spring.datasource.password");
 			// Step 1: Load the jdbc driver in memory
 			Class.forName(driverClass);
 			connection = DriverManager.getConnection(url, username, password);
