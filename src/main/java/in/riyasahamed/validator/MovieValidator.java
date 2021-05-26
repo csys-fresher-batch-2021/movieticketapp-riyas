@@ -38,6 +38,11 @@ public class MovieValidator {
 		}
 	}
 
+	/**
+	 * This Method checks whether the movie already entered in Database
+	 * @param name
+	 * @param actor
+	 */
 	public static void checkMovie(String name, String actor){
 		MovieDAO movieDAO = MovieDAO.getInstance();
 		List<Movie> movies = movieDAO.getAllMovies();
@@ -50,6 +55,16 @@ public class MovieValidator {
 		}
 		if (!valid) {
 			throw new ValidationException("Movie Does Not Exists");
+		}
+	}
+	
+	/**
+	 * This method Validates the list returned by the DAO
+	 * @param movies
+	 */
+	public static void isMovieExists(List<Movie> movies) {
+		if(movies.isEmpty()) {
+			throw new ValidationException("Movie Not Found");
 		}
 	}
 }

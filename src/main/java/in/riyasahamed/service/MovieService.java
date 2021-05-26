@@ -1,5 +1,6 @@
 package in.riyasahamed.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import in.riyasahamed.convertor.MovieConvertor;
@@ -45,16 +46,36 @@ public class MovieService {
 	}
 
 	public static List<MovieDTO> getAllMovies() {
+
+		List<Movie> movies = new ArrayList<>();
 		try {
-			List<Movie> movies = movieDAO.getAllMovies();
-			return MovieConvertor.toMovieDTO(movies);
+
+			movies = movieDAO.getAllMovies();
+
 		} catch (DBException e) {
 			throw new ServiceException(e.getMessage());
 		}
+		return MovieConvertor.toMovieDTO(movies);
 	}
 
 	public static MovieDTO findByMovieName(String movieName) {
 		Movie movie = movieDAO.findByMovieName(movieName);
 		return MovieConvertor.toMovieDTO(movie);
 	}
+
+	public static List<MovieDTO> findMovieByKeyword(String keyword) {
+
+		List<Movie> movies = null;
+
+		try {
+			movies = movieDAO.findMovieByKeyword(keyword);
+			MovieValidator.isMovieExists(movies);
+
+		} catch (DBException e) {
+			throw new ServiceException(e.getMessage());
+		}
+
+		return MovieConvertor.toMovieDTO(movies);
+	}
+
 }

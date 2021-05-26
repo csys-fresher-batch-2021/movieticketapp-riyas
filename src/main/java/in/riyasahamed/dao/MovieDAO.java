@@ -149,19 +149,20 @@ public class MovieDAO {
 		}
 
 	}
-	
+
 	/**
-	 *This Method will Search the movie from Database 
+	 * This Method will Search the movie from Database
+	 * 
 	 * @param movieName
-	 * @return 
-	 * @return 
+	 * @return
+	 * @return
 	 */
-	public Movie findByMovieName(String movieName)throws DBException {
+	public Movie findByMovieName(String movieName) throws DBException {
 		Connection connection = null;
 		ResultSet result = null;
 		PreparedStatement pst = null;
-		
-		Movie movie = new Movie();		
+
+		Movie movie = new Movie();
 
 		try {
 
@@ -171,11 +172,9 @@ public class MovieDAO {
 
 			pst = connection.prepareStatement(sql);
 
-			pst.setString(1,movieName);
+			pst.setString(1, movieName);
 
 			result = pst.executeQuery();
-			
-			
 
 			while (result.next()) {
 
@@ -189,13 +188,11 @@ public class MovieDAO {
 
 				// Store the value in an object
 
-				
 				movie.setName(name);
 				movie.setActor(actorName);
 				movie.setRating(rating);
 				movie.setMovieId(movieId);
 				movie.setTickets(tickets);
-				
 
 			}
 		} catch (SQLException e) {
@@ -205,8 +202,69 @@ public class MovieDAO {
 		} finally {
 			ConnectionUtil.closeConnection(result, pst, connection);
 		}
-		
+
 		return movie;
+
+	}
+
+	/**
+	 * This Method will return the list of movie details which contains the keyword.
+	 * @return
+	 * @throws DBException
+	 */
+	public List<Movie> findMovieByKeyword(String keyword) throws DBException {
+
+		final List<Movie> movies = new ArrayList<>();
+
+		try {
+			// Get the Connection
+
+			Connection connection = ConnectionUtil.getConnection();
+
+			// Query Statement
+
+			String sql = "select * from movies where movie_name ILIKE  ? OR actor_name ILIKE ?;";
+
+			// Executing Query Statement
+
+			PreparedStatement pst = connection.prepareStatement(sql);
+			
+			
+			
+			pst.setString(1,"%" + keyword + "%" );
+			
+			pst.setString(2, "%" + keyword + "%");
+
+			ResultSet result = pst.executeQuery();
+
+			while (result.next()) {
+
+				// Getting the Values
+
+				String movieName = result.getString("movie_name");
+				String actorName = result.getString("actor_name");
+				float rating = result.getFloat("rating");
+				Integer movieId = result.getInt("id");
+				Integer tickets = result.getInt("available_tickets");
+
+				// Store the value in an object
+
+				Movie movie = new Movie();
+				movie.setName(movieName);
+				movie.setActor(actorName);
+				movie.setRating(rating);
+				movie.setMovieId(movieId);
+				movie.setTickets(tickets);
+				movies.add(movie);
+			}
+
+			// Closing the Connection
+			ConnectionUtil.closeConnection(result, pst, connection);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException("Unable to Fetch Movies");
+		}
+		return movies;
 
 	}
 }
