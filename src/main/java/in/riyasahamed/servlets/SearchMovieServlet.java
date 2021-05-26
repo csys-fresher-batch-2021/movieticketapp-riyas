@@ -25,7 +25,7 @@ public class SearchMovieServlet extends HttpServlet {
         super();
     }
 
-	
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String keyword = request.getParameter("keyword");
 		try {
