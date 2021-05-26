@@ -11,8 +11,9 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
 		<h3>Seat Types</h3>
+
 		<table class="table table-bordered">
-		<caption>This Table is for Showing Different Seat Types</caption>
+			<caption>This Table is for Showing Different Seat Types</caption>
 			<thead>
 				<tr>
 					<th id="S.no">S.No</th>
@@ -20,22 +21,26 @@
 					<th id="price">Price Per Ticket</th>
 				</tr>
 			</thead>
-			<tbody>
-				<%
-			List<SeatDTO> seats = SeatService.getSeatTypes();
-		int i =0;
-		for(SeatDTO seat: seats){
-		i++;				
-			%>
-			<tr>
-			<td ><%=i%></td>
-			<td ><%=seat.getSeatType()%></td>
-			<td >Rs. <%=seat.getPrice()%></td>
-			</tr>
-		<%} %>
+			<tbody id="seat">
+
 			</tbody>
 		</table>
-
+		<script>
+			function getSeatTypes() {
+				let url = "SeatDetailsServlet";
+				fetch(url).then(res=> res.json()).then(res=>{
+				let seatTypes=res;				
+				let content="";				
+				let i = 0;
+				for(let seat of seatTypes){
+					content+="<tr><td>"+ ++i + "</td><td>" + seat.seatType + "</td><td>" + seat.price + "</td></tr>";	
+				}				
+				document.querySelector("#seat").innerHTML= content;
+				});		
+			}
+			
+			getSeatTypes();
+		</script>
 	</main>
 </body>
 </html>
