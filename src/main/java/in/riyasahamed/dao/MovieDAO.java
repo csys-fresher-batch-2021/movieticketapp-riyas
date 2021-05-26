@@ -149,39 +149,43 @@ public class MovieDAO {
 		}
 
 	}
-	
+
+
 	/**
-	 *This Method will Search the movie from Database 
-	 * @param movieName
-	 * @return 
-	 * @return 
+	 * This Method will return the list of movie details which contains the keyword.
+	 * @return
+	 * @throws DBException
 	 */
-	public Movie findByMovieName(String movieName)throws DBException {
-		Connection connection = null;
-		ResultSet result = null;
-		PreparedStatement pst = null;
-		
-		Movie movie = new Movie();		
+	public List<Movie> findMovieByKeyword(String keyword) throws DBException {
+
+		final List<Movie> movies = new ArrayList<>();
 
 		try {
+			// Get the Connection
 
-			connection = ConnectionUtil.getConnection();
+			Connection connection = ConnectionUtil.getConnection();
 
-			String sql = " select * from movies where movie_name ILIKE ? ";
+			// Query Statement
 
-			pst = connection.prepareStatement(sql);
+			String sql = "select * from movies where movie_name ILIKE  ? OR actor_name ILIKE ?;";
 
-			pst.setString(1,movieName);
+			// Executing Query Statement
 
-			result = pst.executeQuery();
+			PreparedStatement pst = connection.prepareStatement(sql);
 			
 			
+			
+			pst.setString(1,"%" + keyword + "%" );
+			
+			pst.setString(2, "%" + keyword + "%");
+
+			ResultSet result = pst.executeQuery();
 
 			while (result.next()) {
 
 				// Getting the Values
 
-				String name = result.getString("movie_name");
+				String movieName = result.getString("movie_name");
 				String actorName = result.getString("actor_name");
 				float rating = result.getFloat("rating");
 				Integer movieId = result.getInt("id");
@@ -189,24 +193,22 @@ public class MovieDAO {
 
 				// Store the value in an object
 
-				
-				movie.setName(name);
+				Movie movie = new Movie();
+				movie.setName(movieName);
 				movie.setActor(actorName);
 				movie.setRating(rating);
 				movie.setMovieId(movieId);
 				movie.setTickets(tickets);
-				
-
+				movies.add(movie);
 			}
+
+			// Closing the Connection
+			ConnectionUtil.closeConnection(result, pst, connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DBException("Unable to Get Movie Details");
-
-		} finally {
-			ConnectionUtil.closeConnection(result, pst, connection);
+			throw new DBException("Unable to Fetch Movies");
 		}
-		
-		return movie;
+		return movies;
 
 	}
 }

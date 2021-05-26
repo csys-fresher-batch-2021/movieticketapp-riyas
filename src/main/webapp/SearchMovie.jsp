@@ -16,8 +16,16 @@
 	%>
 	<jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
-		<jsp:include page="Message.jsp"></jsp:include>
-		<h3>List Of Movies</h3>
+		<div class="text-center">
+		<br><h3> Search Movies</h3><br/>
+		<form action=SearchMovieServlet>
+		<br><label for="keyword">Search Movie : </label>
+		<input type="text" name="keyword" id="keyword" placeholder="Enter Movie Name or Actor Name" required><br/>
+		<br><button type="submit" class="btn btn-primary">Search</button><br/>
+		</form>		
+		</div>	
+		<br><h3>Available Movies</h3>
+		<jsp:include page="Message.jsp"></jsp:include><br/>
 		<table class="table table-bordered">
 			<caption>This Table is for Showing Movie Details</caption>
 			<thead>
@@ -67,7 +75,7 @@
 					%> <%
 						if (loggedInUsername != null && !loggedInUsername.equalsIgnoreCase("ADMIN")) {
 						%> <a
-						href="Booking.jsp?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>&movieId=<%=movie.getMovieId()%>"
+						href="Booking.jsp?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>"
 						class=" btn btn-primary">Book</a>
 
 					</td>

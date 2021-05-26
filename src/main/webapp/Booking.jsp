@@ -11,10 +11,16 @@
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
+	<%
+	Integer movieId = Integer.parseInt(request.getParameter("movieId"));
+	out.println(movieId);
+	
+	%>
 	<main class="container-fluid">
 		<h3>Booking</h3>
 		<jsp:include page="Message.jsp"></jsp:include>
-		<form action=BookMovieServlet>
+		<form action=BookMovieServlet?movieId=<%=movieId%>>
+		<input type="hidden" name="movieId" value="<%=movieId%>" required />
 			<br> <label for="name">Movie Name: </label> <input type="text"
 				name="name" id="name" value=<%=request.getParameter("name")%>><br />
 			<br> <label for="actor">Actor Name: </label> <input type="text"

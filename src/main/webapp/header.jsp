@@ -29,15 +29,16 @@ String loggedInUsername = (String)session.getAttribute("LOGGED_IN_USER");
         <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-      <% if (loggedInUsername != null){ %>
         <a class="nav-link" href="MovieDetailsServlet">Movies</a>
       </li>
        <li class="nav-item">
         <a class="nav-link" href="SeatDeatails.jsp">Seat Types</a>
       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="SearchMovie.jsp">Search Movie</a>
+      </li>
      
     </ul>
-    <%} %>
      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <% if (loggedInUsername == null){ %>
       
