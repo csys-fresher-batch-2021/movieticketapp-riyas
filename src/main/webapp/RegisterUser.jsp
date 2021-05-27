@@ -18,22 +18,30 @@
 					placeholder="Enter Your Name" autofocus><br /> <br> <label
 					for="name">Email:</label> <input type="email" name="email"
 					id="email" autocomplete="off" required
-					placeholder="Enter Your Email"><br /> <br>
-				<label for="name">Mobile Number:</label> <input type="number"
+					placeholder="Enter Your Email"><br /> <br> <label
+					for="name">Mobile Number:</label> <input type="number"
 					name="mobileNumber" id="mobileNumber" autocomplete="off" required
-					placeholder="Enter Your Mobile Number"><br /> <br>
-				<label for="name">User Name :</label> <input type="text"
-					name="userName" id="userName" autocomplete="off" required
+					placeholder="Enter Your Mobile Number"><br /> <br> <label
+					for="name">User Name :</label> <input type="text" name="userName"
+					id="userName" autocomplete="off" required
 					placeholder="Set Your User Name" autofocus><br /> <br>
 				<br> <label for="name">Password:</label> <input type="password"
 					name="password" id="password" autocomplete="off" required
 					placeholder="Set Your Password" autofocus><br /> <br>
 				<button class="btn btn-primary" type="submit">Register</button>
 				<button class="btn btn-danger" type="reset">Reset</button>
-				<br />
-			</form>
-
+				<br/>
+			</form>			
 		</div>
+		<br>
+		<br>
+		<ul>
+				<li><h6>User Name Must Contain 7-15 Characters.No Special
+					Characters are Allowed</h6></li>
+				<li><h6>Password Must Contain 7-15 Characters.Special Characters
+					are Allowed</h6></li>
+			</ul>
+			<br/>
 	</main>
 </body>
 </html>

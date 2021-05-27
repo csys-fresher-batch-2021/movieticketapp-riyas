@@ -2,6 +2,18 @@ package in.riyasahamed.model;
 
 public class Seat {
 	
+	public Seat() {
+		//Default Constructor
+	}
+
+	public void setSeatType(String seatType) {
+		this.seatType = seatType;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
 	private String seatType;
 	
 	private Integer price;

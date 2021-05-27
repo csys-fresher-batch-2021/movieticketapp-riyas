@@ -1,6 +1,7 @@
 package in.riyasahamed.servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import in.riyasahamed.validator.LoginValidator;
+import in.riyasahamed.service.UserService;
 
 
 @WebServlet("/UserLoginServlet")
@@ -31,7 +32,7 @@ public class UserLoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		try {
 			// validating UserName and Password
-			LoginValidator.isValidLogin(userName, password);
+			UserService.checkUserLogin(userName, password);
 			HttpSession session = request.getSession();
 			session.setAttribute("LOGGED_IN_USER", userName);
 			String infoMessage = "Successfully Logged In";
