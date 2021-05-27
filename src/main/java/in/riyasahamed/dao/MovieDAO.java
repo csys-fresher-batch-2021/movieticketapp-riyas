@@ -26,12 +26,12 @@ public class MovieDAO {
 		return instance;
 	}
 
-	private static final String MOVIE = "movie_name";  
+	private static final String MOVIE = "movie_name";
 	private static final String ACTOR = "actor_name";
-	private static final String RATING = "rating";  
-	private static final String TICKETS = "available_tickets"; 
-	private static final String FETCH_ERROR = "Unable to Fetch Movies"; 
-	
+	private static final String RATING = "rating";
+	private static final String TICKETS = "available_tickets";
+	private static final String FETCH_ERROR = "Unable to Fetch Movies";
+
 	/**
 	 * This Method Add Movie Details in Movie
 	 * 
@@ -41,15 +41,19 @@ public class MovieDAO {
 	 */
 	public void addMovie(Movie movie) throws DBException {
 
+		Connection connection = null;
+
+		PreparedStatement pst = null;
+
 		try {
 			// Get Connection
-			Connection connection = ConnectionUtil.getConnection();
+			connection = ConnectionUtil.getConnection();
 
 			// Sql command
 			String sql = "insert into movies( movie_name,actor_name,rating,available_tickets ) values (?,?,?,?)";
 
 			// Execution Step
-			PreparedStatement pst = connection.prepareStatement(sql);
+			pst = connection.prepareStatement(sql);
 
 			pst.setString(1, movie.getName());
 			pst.setString(2, movie.getActor());
@@ -57,11 +61,14 @@ public class MovieDAO {
 			pst.setInt(4, movie.getTickets());
 			pst.executeUpdate();
 
-			// Closing the Session
-			ConnectionUtil.closeConnection(pst, connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBException("Unable to Add Movie");
+		} finally {
+
+			// Closing the Session
+			ConnectionUtil.closeConnection(pst, connection);
+
 		}
 	}
 
@@ -76,10 +83,16 @@ public class MovieDAO {
 
 		final List<Movie> movies = new ArrayList<>();
 
+		Connection connection = null;
+
+		PreparedStatement pst = null;
+
+		ResultSet result = null;
+
 		try {
 			// Get the Connection
 
-			Connection connection = ConnectionUtil.getConnection();
+			connection = ConnectionUtil.getConnection();
 
 			// Query Statement
 
@@ -87,9 +100,9 @@ public class MovieDAO {
 
 			// Executing Query Statement
 
-			PreparedStatement pst = connection.prepareStatement(sql);
+			pst = connection.prepareStatement(sql);
 
-			ResultSet result = pst.executeQuery();
+			result = pst.executeQuery();
 
 			while (result.next()) {
 
@@ -112,11 +125,12 @@ public class MovieDAO {
 				movies.add(movie);
 			}
 
-			// Closing the Connection
-			ConnectionUtil.closeConnection(result, pst, connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBException(FETCH_ERROR);
+		} finally {
+			// Closing the Connection
+			ConnectionUtil.closeConnection(result, pst, connection);
 		}
 		return movies;
 
@@ -132,26 +146,31 @@ public class MovieDAO {
 	 */
 	public void deleteMovie(String name, String actor) throws DBException {
 
+		Connection connection = null;
+
+		PreparedStatement pst = null;
+
 		try {
 			// Get the Connection
-			Connection connection = ConnectionUtil.getConnection();
+			connection = ConnectionUtil.getConnection();
 
 			// SQL Command
 			String sql = "delete from movies where movie_name = ? and actor_name= ? ";
 
 			// Executing the Query
-			PreparedStatement pst = connection.prepareStatement(sql);
+			pst = connection.prepareStatement(sql);
 
 			pst.setString(1, name);
 			pst.setString(2, actor);
 
 			pst.executeUpdate();
 
-			// Closing the Connection
-			ConnectionUtil.closeConnection(pst, connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBException("Unable to Delete Movie");
+		} finally {
+			// Closing the Connection
+			ConnectionUtil.closeConnection(pst, connection);
 		}
 
 	}
@@ -166,10 +185,16 @@ public class MovieDAO {
 
 		final List<Movie> movies = new ArrayList<>();
 
+		Connection connection = null;
+
+		PreparedStatement pst = null;
+
+		ResultSet result = null;
+
 		try {
 			// Get the Connection
 
-			Connection connection = ConnectionUtil.getConnection();
+			connection = ConnectionUtil.getConnection();
 
 			// Query Statement
 
@@ -177,13 +202,13 @@ public class MovieDAO {
 
 			// Executing Query Statement
 
-			PreparedStatement pst = connection.prepareStatement(sql);
+			pst = connection.prepareStatement(sql);
 
 			pst.setString(1, "%" + keyword + "%");
 
 			pst.setString(2, "%" + keyword + "%");
 
-			ResultSet result = pst.executeQuery();
+			result = pst.executeQuery();
 
 			while (result.next()) {
 
@@ -205,12 +230,12 @@ public class MovieDAO {
 				movie.setTickets(tickets);
 				movies.add(movie);
 			}
-
-			// Closing the Connection
-			ConnectionUtil.closeConnection(result, pst, connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBException(FETCH_ERROR);
+		} finally {
+			// Closing the Connection
+			ConnectionUtil.closeConnection(result, pst, connection);
 		}
 		return movies;
 	}
@@ -225,10 +250,15 @@ public class MovieDAO {
 
 		Movie movie = new Movie();
 
+		Connection connection = null;
+
+		PreparedStatement pst = null;
+
+		ResultSet result = null;
 		try {
 			// Get the Connection
 
-			Connection connection = ConnectionUtil.getConnection();
+			connection = ConnectionUtil.getConnection();
 
 			// Query Statement
 
@@ -236,11 +266,11 @@ public class MovieDAO {
 
 			// Executing Query Statement
 
-			PreparedStatement pst = connection.prepareStatement(sql);
+			pst = connection.prepareStatement(sql);
 
 			pst.setInt(1, id);
 
-			ResultSet result = pst.executeQuery();
+			result = pst.executeQuery();
 
 			while (result.next()) {
 
@@ -261,11 +291,14 @@ public class MovieDAO {
 				movie.setTickets(tickets);
 			}
 
-			// Closing the Connection
-			ConnectionUtil.closeConnection(result, pst, connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBException(FETCH_ERROR);
+		} finally {
+
+			// Closing the Connection
+			ConnectionUtil.closeConnection(result, pst, connection);
+
 		}
 		return movie;
 	}

@@ -20,13 +20,22 @@
 			MovieDTO movie = ticket.getMovie();			
 			SeatDTO seat = ticket.getSeat();			
 		%>
-		<br><a>Movie Name : <%=movie.getName()%></a><br/>
-		<br><a>Actor : <%=movie.getActor()%></a><br/>
-		<br><a>Seat Type : <%=seat.getSeatType()%></a><br/>
-		<br><a>Show Date : <%=ticket.getShowDate()%></a><br/>
-		<br><a>Number of Tickets : <%=ticket.getNoOfTickets()%></a><br/>
-		<br><a>Total Bill : <%=ticket.getTotalPrice()%></a><br/>
-		<br><a href="index.jsp" class="btn btn-primary">Home Page</a><br/>
+		<table class="table table-bordered">
+		<caption>This Table is for Showing Booking Details</caption>
+		<thead>
+		<tr><th id="particulars">Particulars</th>
+			<th id="Details">Details</th></tr>
+			</thead>
+			<tbody>
+		<tr><td>Movie Name</td> <td><%=movie.getName()%></td> </tr>
+		<tr><td>Actor </td> <td> <%=movie.getActor()%></td> </tr>
+		<tr><td>Seat Type </td> <td> <%=seat.getSeatType()%></td> </tr>
+		<tr><td>Show Date </td> <td> <%=ticket.getShowDate()%></td> </tr>
+		<tr><td>Number of Tickets </td> <td> <%=ticket.getNoOfTickets()%></td> </tr>
+		<tr><td>Total Bill(inclusive of all taxes) </td> <td>Rs: <%=ticket.getTotalPrice()%></td> </tr>
+		</tbody>
+		</table>
+		<br><a href="index.jsp" class="btn btn-primary">Home Page</a>
 	</main>
 	</div>
 </body>
