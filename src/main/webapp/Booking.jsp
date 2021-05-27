@@ -50,10 +50,10 @@
 			let date = new Date();
 			date.setDate(date.getDate() + 1);
 			let tommorow = date.toJSON().substring(0, 10);
-			document.querySelector("#date").setAttribute("min", tommorow);
+			//document.querySelector("#date").setAttribute("min", tommorow);
 			
 			let endDate = new Date();
-			endDate.setDate(endDate.getDate() + 5);
+			endDate.setDate(endDate.getDate() + 10);
 			let maxDate=endDate.toJSON().substring(0, 10);
 			document.querySelector("#date").setAttribute("max", maxDate);			
 		</script>

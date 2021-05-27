@@ -1,5 +1,6 @@
 package in.riyasahamed.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import in.riyasahamed.convertor.TicketConvertor;
@@ -7,17 +8,19 @@ import in.riyasahamed.dao.TicketDAO;
 import in.riyasahamed.dto.TicketDTO;
 import in.riyasahamed.exceptions.ServiceException;
 import in.riyasahamed.model.Ticket;
+import in.riyasahamed.validator.DateValidator;
 
 public class TicketService {
-	
+
 	private TicketService() {
-		//Default Constructor
+		// Default Constructor
 	}
-	
-	private static TicketDAO ticketDAO= TicketDAO.getInstance();
-	
+
+	private static TicketDAO ticketDAO = TicketDAO.getInstance();
+
 	/**
-	 * This Method will store the Booking Details 
+	 * This Method will store the Booking Details
+	 * 
 	 * @param ticketDTO
 	 */
 	public static void addTicketDetails(TicketDTO ticketDTO) {
@@ -28,32 +31,53 @@ public class TicketService {
 			throw new ServiceException(e.getMessage());
 		}
 	}
-	
+
+	/**
+	 * This Method will return the Booking Details of all Users
+	 * @return
+	 */
 	public static List<TicketDTO> getAllBookingDetails() {
-		
+
 		List<Ticket> tickets = null;
-		
+
 		try {
-			tickets= ticketDAO.getAllBookings();
+			tickets = ticketDAO.getAllBookings();
 		} catch (Exception e) {
 			throw new ServiceException(e.getMessage());
 		}
-		 return TicketConvertor.toTicketDTO(tickets);
-		
+		return TicketConvertor.toTicketDTO(tickets);
+
 	}
-	
-public static List<TicketDTO> getUserBookingDetails(Integer userId) {
-		
+
+	/**
+	 * This Method will return the Booking Details of Particular User
+	 * @return
+	 */
+	public static List<TicketDTO> getUserBookingDetails(Integer userId) {
+
 		List<Ticket> tickets = null;
-		
+
 		try {
-			tickets= ticketDAO.getUserBookings(userId);
+			tickets = ticketDAO.getUserBookings(userId);
 		} catch (Exception e) {
 			throw new ServiceException(e.getMessage());
 		}
-		 return TicketConvertor.toTicketDTO(tickets);
-		
+		return TicketConvertor.toTicketDTO(tickets);
+
 	}
 	
-	
+	/**
+	 * This Method will Cancel the Booking Details
+	 * @param id
+	 */
+	public static void cancelBooking(Integer id,LocalDate showDate) {
+		
+		try {
+			DateValidator.isAfterDate(showDate);
+			ticketDAO.cancelBooking(id);
+		} catch (Exception e) {
+			throw new ServiceException(e.getMessage());
+		}
+	}
+
 }
