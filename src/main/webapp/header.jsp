@@ -61,9 +61,21 @@ String loggedInUsername = (String)session.getAttribute("LOGGED_IN_USER");
       </li>
       <%} %>
       
+     <% if (loggedInUsername != null && !loggedInUsername.equalsIgnoreCase("ADMIN")){ %>
+           
+      <li class="nav-item">
+        <a class="nav-link" href=UserBookingsServlet>My Bookings</a>
+      </li>
+   
+      
+        <%} %>
+      
       <% if (loggedInUsername != null && loggedInUsername.equalsIgnoreCase("ADMIN")){ %>
       <li class="nav-item">
         <a class="nav-link" href="addMovie.jsp">Add Movie</a>
+      </li>      
+      <li class="nav-item">
+        <a class="nav-link" href=AllBookingsServlet>Booking Details</a>
       </li>
       </ul>
     <%} %>
