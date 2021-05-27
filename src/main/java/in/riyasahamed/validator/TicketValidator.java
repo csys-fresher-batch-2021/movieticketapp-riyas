@@ -6,7 +6,7 @@ import in.riyasahamed.model.Movie;
 
 public class TicketValidator {
 	
-	public TicketValidator() {
+	private TicketValidator() {
 		// Default Constructor
 	}
 
