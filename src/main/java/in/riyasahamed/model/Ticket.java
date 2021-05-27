@@ -7,23 +7,44 @@ public class Ticket {
 
 	private Integer ticketId;
 
-	private String movieName;
-
-	private String seatType;
-
 	private LocalDateTime bookingDate;
+
+	
+	public Movie getMovie() {
+		return movie;
+	}
+
+	public void setMovie(Movie movie) {
+		this.movie = movie;
+	}
+
+	public Seat getSeat() {
+		return seat;
+	}
+
+	public void setSeat(Seat seat) {
+		this.seat = seat;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	private Integer noOfTickets;
 
 	private float totalPrice;
 
-	private String userName;
-
-	private String name;
-
-	private String actor;
-
 	private LocalDate showDate;
+	
+	private Movie movie;
+	
+	private Seat seat;
+	
+	private User user;
 
 	public LocalDate getShowDate() {
 		return showDate;
@@ -33,36 +54,12 @@ public class Ticket {
 		this.showDate = showDate;
 	}
 
-	public String getActor() {
-		return actor;
-	}
-
-	public void setActor(String actor) {
-		this.actor = actor;
-	}
-
 	public Integer getTicketId() {
 		return ticketId;
 	}
 
 	public void setTicketId(Integer ticketId) {
 		this.ticketId = ticketId;
-	}
-
-	public String getMovieName() {
-		return movieName;
-	}
-
-	public void setMovieName(String movieName) {
-		this.movieName = movieName;
-	}
-
-	public String getSeatType() {
-		return seatType;
-	}
-
-	public void setSeatType(String seatType) {
-		this.seatType = seatType;
 	}
 
 	public LocalDateTime getBookingDate() {
@@ -89,22 +86,6 @@ public class Ticket {
 		this.totalPrice = totalPrice;
 	}
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	private String status;
 
 	public String getStatus() {
@@ -115,35 +96,16 @@ public class Ticket {
 		this.status = status;
 	}
 
-	private Integer UserId;
-
-	public Integer getUserId() {
-		return UserId;
-	}
-
-	public void setUserId(Integer userId) {
-		UserId = userId;
-	}
-
-	private Integer movieId;
-
-	public Integer getMovieId() {
-		return movieId;
-	}
-
-	public void setMovieId(Integer movieId) {
-		this.movieId = movieId;
-	}
-
-	@Override
-	public String toString() {
-		return "Ticket [ticketId=" + ticketId + ", movieName=" + movieName + ", seatType=" + seatType + ", bookingDate="
-				+ bookingDate + ", noOfTickets=" + noOfTickets + ", totalPrice=" + totalPrice + ", userName=" + userName
-				+ ", name=" + name + ", actor=" + actor + ", showDate=" + showDate + "]";
-	}
-
 	public Ticket() {
 		// Default Constructor
 	}
+	
+	@Override
+	public String toString() {
+		return "Ticket [ticketId=" + ticketId + ", bookingDate=" + bookingDate + ", noOfTickets=" + noOfTickets
+				+ ", totalPrice=" + totalPrice + ", showDate=" + showDate + ", movie=" + movie + ", seat=" + seat
+				+ ", user=" + user + ", status=" + status + "]";
+	}
+
 
 }

@@ -28,4 +28,22 @@ public class SeatConvertor {
 		}
 		return dtoList;
 	}
+	
+	public static Seat toSeat(SeatDTO seatDTO) {
+
+		Seat seat = new Seat();
+		seat.setSeatType(seatDTO.getSeatType());
+		seat.setPrice(seatDTO.getPrice());
+		return seat;
+	}
+	
+	public static List<Seat> toSeat(List<SeatDTO> seatsDTO) {
+		List<Seat> seatsList = new ArrayList<>();
+		for (SeatDTO seat : seatsDTO) {
+			Seat seats=SeatConvertor.toSeat(seat);
+			seatsList.add(seats);
+		}
+		return seatsList;
+	}
+	
 }

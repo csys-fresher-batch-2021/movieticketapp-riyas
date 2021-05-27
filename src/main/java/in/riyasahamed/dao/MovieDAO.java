@@ -26,6 +26,12 @@ public class MovieDAO {
 		return instance;
 	}
 
+	private static final String MOVIE = "movie_name";  
+	private static final String ACTOR = "actor_name";
+	private static final String RATING = "rating";  
+	private static final String TICKETS = "available_tickets"; 
+	private static final String FETCH_ERROR = "Unable to Fetch Movies"; 
+	
 	/**
 	 * This Method Add Movie Details in Movie
 	 * 
@@ -89,11 +95,11 @@ public class MovieDAO {
 
 				// Getting the Values
 
-				String movieName = result.getString("movie_name");
-				String actorName = result.getString("actor_name");
-				float rating = result.getFloat("rating");
+				String movieName = result.getString(MOVIE);
+				String actorName = result.getString(ACTOR);
+				float rating = result.getFloat(RATING);
 				Integer movieId = result.getInt("id");
-				Integer tickets = result.getInt("available_tickets");
+				Integer tickets = result.getInt(TICKETS);
 
 				// Store the value in an object
 
@@ -110,7 +116,7 @@ public class MovieDAO {
 			ConnectionUtil.closeConnection(result, pst, connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DBException("Unable to Fetch Movies");
+			throw new DBException(FETCH_ERROR);
 		}
 		return movies;
 
@@ -150,9 +156,9 @@ public class MovieDAO {
 
 	}
 
-
 	/**
 	 * This Method will return the list of movie details which contains the keyword.
+	 * 
 	 * @return
 	 * @throws DBException
 	 */
@@ -172,11 +178,9 @@ public class MovieDAO {
 			// Executing Query Statement
 
 			PreparedStatement pst = connection.prepareStatement(sql);
-			
-			
-			
-			pst.setString(1,"%" + keyword + "%" );
-			
+
+			pst.setString(1, "%" + keyword + "%");
+
 			pst.setString(2, "%" + keyword + "%");
 
 			ResultSet result = pst.executeQuery();
@@ -185,11 +189,11 @@ public class MovieDAO {
 
 				// Getting the Values
 
-				String movieName = result.getString("movie_name");
-				String actorName = result.getString("actor_name");
-				float rating = result.getFloat("rating");
+				String movieName = result.getString(MOVIE);
+				String actorName = result.getString(ACTOR);
+				float rating = result.getFloat(RATING);
 				Integer movieId = result.getInt("id");
-				Integer tickets = result.getInt("available_tickets");
+				Integer tickets = result.getInt(TICKETS);
 
 				// Store the value in an object
 
@@ -206,9 +210,63 @@ public class MovieDAO {
 			ConnectionUtil.closeConnection(result, pst, connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DBException("Unable to Fetch Movies");
+			throw new DBException(FETCH_ERROR);
 		}
 		return movies;
+	}
 
+	/**
+	 * This Method will return the list of movie details which contains the keyword.
+	 * 
+	 * @return
+	 * @throws DBException
+	 */
+	public Movie findMovieByMovieId(Integer id) throws DBException {
+
+		Movie movie = new Movie();
+
+		try {
+			// Get the Connection
+
+			Connection connection = ConnectionUtil.getConnection();
+
+			// Query Statement
+
+			String sql = "select * from movies where id= ? ;";
+
+			// Executing Query Statement
+
+			PreparedStatement pst = connection.prepareStatement(sql);
+
+			pst.setInt(1, id);
+
+			ResultSet result = pst.executeQuery();
+
+			while (result.next()) {
+
+				// Getting the Values
+
+				String movieName = result.getString(MOVIE);
+				String actorName = result.getString(ACTOR);
+				float rating = result.getFloat(RATING);
+				Integer movieId = result.getInt("id");
+				Integer tickets = result.getInt(TICKETS);
+
+				// Store the value in an object
+
+				movie.setName(movieName);
+				movie.setActor(actorName);
+				movie.setRating(rating);
+				movie.setMovieId(movieId);
+				movie.setTickets(tickets);
+			}
+
+			// Closing the Connection
+			ConnectionUtil.closeConnection(result, pst, connection);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(FETCH_ERROR);
+		}
+		return movie;
 	}
 }

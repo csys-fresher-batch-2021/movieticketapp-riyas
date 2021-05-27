@@ -14,13 +14,12 @@
 	<%
 	Integer movieId = Integer.parseInt(request.getParameter("movieId"));
 	out.println(movieId);
-	
 	%>
 	<main class="container-fluid">
 		<h3>Booking</h3>
 		<jsp:include page="Message.jsp"></jsp:include>
-		<form action=BookMovieServlet?movieId=<%=movieId%>>
-		<input type="hidden" name="movieId" value="<%=movieId%>" required />
+		<form action=BookMovieServlet?movieId= <%=movieId%>>
+			<input type="hidden" name="movieId" value="<%=movieId%>" required />
 			<br> <label for="name">Movie Name: </label> <input type="text"
 				name="name" id="name" value=<%=request.getParameter("name")%>><br />
 			<br> <label for="actor">Actor Name: </label> <input type="text"
@@ -47,6 +46,17 @@
 			<br />
 		</form>
 
+		<script>
+			let date = new Date();
+			date.setDate(date.getDate() + 1);
+			let tommorow = date.toJSON().substring(0, 10);
+			document.querySelector("#date").setAttribute("min", tommorow);
+			
+			let endDate = new Date();
+			endDate.setDate(endDate.getDate() + 5);
+			let maxDate=endDate.toJSON().substring(0, 10);
+			document.querySelector("#date").setAttribute("max", maxDate);			
+		</script>
 
 
 	</main>

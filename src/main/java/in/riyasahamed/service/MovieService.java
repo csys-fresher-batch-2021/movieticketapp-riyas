@@ -10,6 +10,7 @@ import in.riyasahamed.exceptions.DBException;
 import in.riyasahamed.exceptions.ServiceException;
 import in.riyasahamed.model.Movie;
 import in.riyasahamed.validator.MovieValidator;
+import in.riyasahamed.validator.TicketValidator;
 
 public class MovieService {
 
@@ -31,7 +32,7 @@ public class MovieService {
 			MovieValidator.validateMovieDetails(name, actor, rating);
 			Movie movie = new Movie(name, actor, rating);
 			movieDAO.addMovie(movie);
-		} catch (Exception e) {
+		} catch (Exception  e) {
 			throw new ServiceException(e.getMessage());
 		}
 	}
@@ -71,6 +72,15 @@ public class MovieService {
 		}
 
 		return MovieConvertor.toMovieDTO(movies);
+	}
+	
+	public static void checkTickets(Integer id , Integer noOfTickets) {
+		try {
+			TicketValidator.checkAvailabilty(id, noOfTickets);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ServiceException("Tickets Not Available");
+		}
 	}
 
 }

@@ -8,6 +8,8 @@ import in.riyasahamed.dto.UserDTO;
 import in.riyasahamed.exceptions.DBException;
 import in.riyasahamed.exceptions.ServiceException;
 import in.riyasahamed.model.User;
+import in.riyasahamed.validator.AdminValidator;
+import in.riyasahamed.validator.LoginValidator;
 import in.riyasahamed.validator.UserDeatailsValidator;
 import in.riyasahamed.validator.UserValidator;
 
@@ -66,6 +68,27 @@ public class UserService {
 			throw new ServiceException(e.getMessage());
 		}
 		return UserConverter.toUserDTO(user);
+	}
+	
+	/**
+	 * This Methods Validates the User Login
+	 * @param userName
+	 * @param password
+	 */
+	public static void checkUserLogin(String userName, String password) {
+		try {
+			LoginValidator.isValidLogin(userName, password);
+		} catch (Exception e) {
+			throw new ServiceException("Invalid Login Credentails");
+		}
+	}
+	
+	public static void checkAdminLogin(String userName, String password) {
+		try {
+			AdminValidator.validateAdmin(userName, password);
+		} catch (Exception e) {
+			throw new ServiceException("Invalid Login Credentials");
+		}
 	}
 
 }

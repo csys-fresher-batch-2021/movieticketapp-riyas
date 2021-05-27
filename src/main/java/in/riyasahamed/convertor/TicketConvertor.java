@@ -3,8 +3,14 @@ package in.riyasahamed.convertor;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.riyasahamed.dto.MovieDTO;
+import in.riyasahamed.dto.SeatDTO;
 import in.riyasahamed.dto.TicketDTO;
+import in.riyasahamed.dto.UserDTO;
+import in.riyasahamed.model.Movie;
+import in.riyasahamed.model.Seat;
 import in.riyasahamed.model.Ticket;
+import in.riyasahamed.model.User;
 
 public class TicketConvertor {
 
@@ -13,55 +19,60 @@ public class TicketConvertor {
 	}
 
 	/**
-	 * This Method will Converts Ticket DTO  objects to Model Objects
+	 * This Method will Converts Ticket DTO objects to Model Objects
+	 * 
 	 * @param dto
 	 * @return
 	 */
 	public static Ticket toTicket(TicketDTO dto) {
 		Ticket ticket = new Ticket();
-		ticket.setActor(dto.getActor());
+
 		ticket.setBookingDate(dto.getBookingDate());
-		ticket.setMovieId(dto.getMovieId());
-		ticket.setMovieName(dto.getMovieName());
-		ticket.setName(dto.getName());
 		ticket.setNoOfTickets(dto.getNoOfTickets());
-		ticket.setSeatType(dto.getSeatType());
+
+		// copy movie dto to model
+		Movie movie = MovieConvertor.toMovie(dto.getMovie());
+		Seat seat = SeatConvertor.toSeat(dto.getSeat());
+		User user = UserConverter.toUser(dto.getUser());
+		ticket.setMovie(movie);
+		ticket.setSeat(seat);
+		ticket.setUser(user);
 		ticket.setShowDate(dto.getShowDate());
 		ticket.setStatus(dto.getStatus());
 		ticket.setTicketId(dto.getTicketId());
 		ticket.setTotalPrice(dto.getTotalPrice());
-		ticket.setUserId(dto.getUserId());
-		ticket.setUserName(dto.getUserName());
 
 		return ticket;
 	}
 
 	/**
-	 * This Method will Converts Model  object to Ticket DTO Objects
+	 * This Method will Converts Model object to Ticket DTO Objects
+	 * 
 	 * @param dto
 	 * @return
 	 */
 	public static TicketDTO toTicketDTO(Ticket ticket) {
 		TicketDTO dto = new TicketDTO();
-		dto.setActor(ticket.getActor());
+		MovieDTO movieDTO = MovieConvertor.toMovieDTO(ticket.getMovie());
+		SeatDTO seatDTO = SeatConvertor.toSeatDTO(ticket.getSeat());
+		UserDTO userDTO = UserConverter.toUserDTO(ticket.getUser());
 		dto.setBookingDate(ticket.getBookingDate());
-		dto.setMovieId(ticket.getMovieId());
-		dto.setMovieName(ticket.getMovieName());
-		dto.setName(ticket.getName());
+		dto.setMovie(movieDTO);
+		dto.setSeat(seatDTO);
+		dto.setUser(userDTO);
 		dto.setNoOfTickets(ticket.getNoOfTickets());
-		dto.setSeatType(ticket.getSeatType());
+
 		dto.setShowDate(ticket.getShowDate());
 		dto.setStatus(ticket.getStatus());
 		dto.setTicketId(ticket.getTicketId());
 		dto.setTotalPrice(ticket.getTotalPrice());
-		dto.setUserId(ticket.getUserId());
-		dto.setUserName(ticket.getUserName());
 
 		return dto;
 	}
 
 	/**
-	 * This Method will Converts List of Model  objects to  List of Ticket DTO Objects
+	 * This Method will Converts List of Model objects to List of Ticket DTO Objects
+	 * 
 	 * @param dto
 	 * @return
 	 */
@@ -75,7 +86,8 @@ public class TicketConvertor {
 	}
 
 	/**
-	 * This Method will Converts List of DTO  objects to Model Objects
+	 * This Method will Converts List of DTO objects to Model Objects
+	 * 
 	 * @param dto
 	 * @return
 	 */
