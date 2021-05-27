@@ -26,6 +26,9 @@ public class TicketDAO {
 		return instance;
 	}
 
+	private static final String BASE_QUERY = "select b.id, u.name as user, b.movie_id, m.movie_name as movie_name, u.mobile_number as mobile_number , b.booking_date ,b.showdate , b.seat_type, b.tickets,b.total_price, b.status \r\n"
+			+ "from users u, movies m , booking_details b  where b.user_id= u.id and b.movie_id=m.id\r\n" + "";
+
 	/**
 	 * This Methods stores Booking Details in DataBase
 	 * 
@@ -65,7 +68,7 @@ public class TicketDAO {
 	}
 
 	public List<Ticket> getAllBookings() {
-	
+
 		final List<Ticket> tickets = new ArrayList<>();
 
 		Connection connection = null;
@@ -78,51 +81,15 @@ public class TicketDAO {
 
 			// Query Statement
 
-			String sql = "\r\n"
-					+ "select b.id, u.name as user, b.movie_id, m.movie_name as movie_name, u.mobile_number as mobile_number , b.booking_date ,b.showdate , b.seat_type, b.tickets,b.total_price, b.status \r\n"
-					+ "from users u, movies m , booking_details b  where b.user_id= u.id and b.movie_id=m.id;\r\n"
-					+ "";
-
 			// Executing Query Statement
-
+			String sql = BASE_QUERY;
 			pst = connection.prepareStatement(sql);
 
 			result = pst.executeQuery();
 
 			while (result.next()) {
-				
-				Ticket ticket = new Ticket();
-				Movie movie=new Movie();
-				Seat seat = new Seat();
-				User user = new User();
-				Integer bookigId=result.getInt("id");
-				String name=result.getString("user");
-				Integer movieId=result.getInt("movie_id");
-				String movieName=result.getString("movie_name");
-				Long mobileNumber=result.getLong("mobile_number");
-				Timestamp bookingDate=result.getTimestamp("booking_date");
-				LocalDateTime bDate=bookingDate.toLocalDateTime();
-				Date showDate=result.getDate("showdate");
-				LocalDate sDate = showDate.toLocalDate();
-				String seatType= result.getString("seat_type");
-				Integer noOftickets=result.getInt("tickets");
-				Float price=result.getFloat("total_price");
-				String status=result.getString("status");
-				user.setName(name);
-				user.setMobileNumber(mobileNumber);
-				seat.setSeatType(seatType);
-				movie.setName(movieName);
-				movie.setMovieId(movieId);
-				ticket.setTicketId(bookigId);
-				ticket.setBookingDate(bDate);
-				ticket.setNoOfTickets(noOftickets);
-				ticket.setShowDate(sDate);
-				ticket.setTotalPrice(price);
-				ticket.setStatus(status);
-				ticket.setMovie(movie);
-				ticket.setSeat(seat);
-				ticket.setUser(user);
-				
+
+				Ticket ticket = toRow(result);
 				tickets.add(ticket);
 			}
 
@@ -133,12 +100,12 @@ public class TicketDAO {
 			// Closing the Connection
 			ConnectionUtil.closeConnection(result, pst, connection);
 		}
-		
+
 		return tickets;
 	}
-	
+
 	public List<Ticket> getUserBookings(Integer userId) {
-		
+
 		final List<Ticket> tickets = new ArrayList<>();
 
 		Connection connection = null;
@@ -151,52 +118,19 @@ public class TicketDAO {
 
 			// Query Statement
 
-			String sql = "select b.id, u.name as user, b.movie_id, m.movie_name as movie_name, u.mobile_number as mobile_number , b.booking_date ,b.showdate , b.seat_type, b.tickets,b.total_price, b.status \r\n"
-					+ "from users u, movies m , booking_details b  where b.user_id= u.id and b.movie_id=m.id and u.id= ? ;\r\n"
-					+ "";
-
+			String sql = BASE_QUERY + " and u.id= ?";
 			// Executing Query Statement
 
 			pst = connection.prepareStatement(sql);
-			
+
 			pst.setInt(1, userId);
 
 			result = pst.executeQuery();
 
 			while (result.next()) {
-				
-				Ticket ticket = new Ticket();
-				Movie movie=new Movie();
-				Seat seat = new Seat();
-				User user = new User();
-				Integer bookigId=result.getInt("id");
-				String name=result.getString("user");
-				Integer movieId=result.getInt("movie_id");
-				String movieName=result.getString("movie_name");
-				Long mobileNumber=result.getLong("mobile_number");
-				Timestamp bookingDate=result.getTimestamp("booking_date");
-				LocalDateTime bDate=bookingDate.toLocalDateTime();
-				Date showDate=result.getDate("showdate");
-				LocalDate sDate = showDate.toLocalDate();
-				String seatType= result.getString("seat_type");
-				Integer noOftickets=result.getInt("tickets");
-				Float price=result.getFloat("total_price");
-				String status=result.getString("status");
-				user.setName(name);
-				user.setMobileNumber(mobileNumber);
-				seat.setSeatType(seatType);
-				movie.setName(movieName);
-				movie.setMovieId(movieId);
-				ticket.setTicketId(bookigId);
-				ticket.setBookingDate(bDate);
-				ticket.setNoOfTickets(noOftickets);
-				ticket.setShowDate(sDate);
-				ticket.setTotalPrice(price);
-				ticket.setStatus(status);
-				ticket.setMovie(movie);
-				ticket.setSeat(seat);
-				ticket.setUser(user);
-				
+
+				Ticket ticket = toRow(result);
+
 				tickets.add(ticket);
 			}
 
@@ -207,8 +141,74 @@ public class TicketDAO {
 			// Closing the Connection
 			ConnectionUtil.closeConnection(result, pst, connection);
 		}
-		
+
 		return tickets;
 	}
 
+	public void cancelBooking(Integer id) {
+
+		Connection connection = null;
+
+		PreparedStatement pst = null;
+
+		try {
+			// Get Connection
+			connection = ConnectionUtil.getConnection();
+
+			// Sql command
+			String sql = "update booking_details set status = 'CANCELLED' where id = ?";
+
+			// Execution Step
+			pst = connection.prepareStatement(sql);
+
+			pst.setInt(1, id);
+
+			pst.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException("Unable to Update Movie");
+		} finally {
+
+			// Closing the Session
+			ConnectionUtil.closeConnection(pst, connection);
+
+		}
+
+	}
+
+	private Ticket toRow(ResultSet result) throws SQLException {
+		Ticket ticket = new Ticket();
+		Movie movie = new Movie();
+		Seat seat = new Seat();
+		User user = new User();
+		Integer bookigId = result.getInt("id");
+		String name = result.getString("user");
+		Integer movieId = result.getInt("movie_id");
+		String movieName = result.getString("movie_name");
+		Long mobileNumber = result.getLong("mobile_number");
+		Timestamp bookingDate = result.getTimestamp("booking_date");
+		LocalDateTime bDate = bookingDate.toLocalDateTime();
+		Date showDate = result.getDate("showdate");
+		LocalDate sDate = showDate.toLocalDate();
+		String seatType = result.getString("seat_type");
+		Integer noOftickets = result.getInt("tickets");
+		Float price = result.getFloat("total_price");
+		String status = result.getString("status");
+		user.setName(name);
+		user.setMobileNumber(mobileNumber);
+		seat.setSeatType(seatType);
+		movie.setName(movieName);
+		movie.setMovieId(movieId);
+		ticket.setTicketId(bookigId);
+		ticket.setBookingDate(bDate);
+		ticket.setNoOfTickets(noOftickets);
+		ticket.setShowDate(sDate);
+		ticket.setTotalPrice(price);
+		ticket.setStatus(status);
+		ticket.setMovie(movie);
+		ticket.setSeat(seat);
+		ticket.setUser(user);
+		return ticket;
+	}
 }

@@ -302,4 +302,35 @@ public class MovieDAO {
 		}
 		return movie;
 	}
+	
+	public void updateTickets(Integer movieId , Integer tickets) {
+		
+		Connection connection = null;
+
+		PreparedStatement pst = null;
+
+		try {
+			// Get Connection
+			connection = ConnectionUtil.getConnection();
+
+			// Sql command
+			String sql = " update movies set available_tickets = ? where id = ? ;";
+
+			// Execution Step
+			pst = connection.prepareStatement(sql);
+
+			pst.setInt(1, tickets);
+			pst.setInt(2, movieId);
+			pst.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException("Unable to Update Movie");
+		} finally {
+
+			// Closing the Session
+			ConnectionUtil.closeConnection(pst, connection);
+
+		}
+	}
 }

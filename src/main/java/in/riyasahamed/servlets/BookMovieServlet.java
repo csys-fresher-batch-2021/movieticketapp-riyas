@@ -68,6 +68,7 @@ public class BookMovieServlet extends HttpServlet {
 			ticket.setShowDate(showDate);
 			ticket.setBookingDate(bookingDate);
 			TicketService.addTicketDetails(ticket);
+			MovieService.updateTickets(movieId, numberOfTickets, "BOOK");
 			request.setAttribute("BOOKING_DETAILS", ticket);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("BookingDetails.jsp");
 			requestDispatcher.forward(request, response);

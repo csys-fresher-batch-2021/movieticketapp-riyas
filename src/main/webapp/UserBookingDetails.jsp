@@ -35,6 +35,7 @@
 					<th id="tickets">Number of Tickets</th>
 					<th id="price">Total Price</th>
 					<th id="status">Status</th>
+					<th id="cancel">Cancel</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -61,7 +62,9 @@
 					<td><%=ticket.getNoOfTickets()%></td>
 					<td><%=ticket.getTotalPrice()%></td>
 					<td><%=ticket.getStatus()%></td>
-					<%
+					<td><a
+						href="CancelMovieServlet?orderId=<%=ticket.getTicketId()%>&movieId=<%=movie.getMovieId()%>&tickets=<%=ticket.getNoOfTickets()%>&showDate=<%=ticket.getShowDate()%>"
+						class="btn btn-danger">Cancel</a> <%
 					}
 					%>
 				</tr>

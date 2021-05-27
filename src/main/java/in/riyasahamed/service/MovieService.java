@@ -32,11 +32,16 @@ public class MovieService {
 			MovieValidator.validateMovieDetails(name, actor, rating);
 			Movie movie = new Movie(name, actor, rating);
 			movieDAO.addMovie(movie);
-		} catch (Exception  e) {
+		} catch (Exception e) {
 			throw new ServiceException(e.getMessage());
 		}
 	}
 
+	/**
+	 * This Method is Used to Delete the Movie Details
+	 * @param name
+	 * @param actor
+	 */
 	public static void deleteMovieDetails(String name, String actor) {
 		try {
 			MovieValidator.checkMovie(name, actor);
@@ -46,6 +51,10 @@ public class MovieService {
 		}
 	}
 
+	/**
+	 * This Method is Used to get All Movies from the DataBase
+	 * @return
+	 */
 	public static List<MovieDTO> getAllMovies() {
 
 		List<Movie> movies = new ArrayList<>();
@@ -59,6 +68,11 @@ public class MovieService {
 		return MovieConvertor.toMovieDTO(movies);
 	}
 
+	/**
+	 * This Method is Used to Search Movie Details by using movie name or actor name
+	 * @param keyword
+	 * @return
+	 */
 	public static List<MovieDTO> findMovieByKeyword(String keyword) {
 
 		List<Movie> movies = null;
@@ -73,14 +87,55 @@ public class MovieService {
 
 		return MovieConvertor.toMovieDTO(movies);
 	}
-	
-	public static void checkTickets(Integer id , Integer noOfTickets) {
+
+	public static void checkTickets(Integer id, Integer noOfTickets) {
 		try {
 			TicketValidator.checkAvailabilty(id, noOfTickets);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ServiceException("Tickets Not Available");
 		}
+	}
+
+	/**
+	 * This Method is Used to Update the Number of Tickets After Booking or Canceling
+	 * @param id
+	 * @param noOfTickets
+	 * @param action
+	 */
+	public static void updateTickets(Integer id, Integer noOfTickets, String action) {
+
+		try {
+			if (action.equalsIgnoreCase("BOOK")) {
+				Integer availableTickets = MovieService.getAvailableTickets(id);
+				Integer tickets = availableTickets - noOfTickets;
+				movieDAO.updateTickets(id, tickets);
+			}
+			if (action.equalsIgnoreCase("CANCEL")) {
+				Integer availableTickets = MovieService.getAvailableTickets(id);
+				Integer tickets = availableTickets + noOfTickets;
+				movieDAO.updateTickets(id, tickets);
+			}
+		} catch (Exception e) {
+			throw new ServiceException("Unable to Update Tickets");
+		}
+
+	}
+
+	/**
+	 * This Method is Used to Fetch Available Tickets of the Particular Movie
+	 * @param id
+	 * @return
+	 */
+	public static Integer getAvailableTickets(Integer id) {
+
+		MovieDAO dao = MovieDAO.getInstance();
+
+		Movie movie = dao.findMovieByMovieId(id);
+
+		int availableTickets = movie.getTickets();
+
+		return availableTickets;
 	}
 
 }
