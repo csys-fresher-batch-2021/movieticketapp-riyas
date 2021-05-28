@@ -1,7 +1,9 @@
 package in.riyasahamed.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import in.riyasahamed.convertor.MovieConvertor;
 import in.riyasahamed.dao.MovieDAO;
@@ -97,31 +99,7 @@ public class MovieService {
 		}
 	}
 
-	/**
-	 * This Method is Used to Update the Number of Tickets After Booking or Canceling
-	 * @param id
-	 * @param noOfTickets
-	 * @param action
-	 */
-	public static void updateTickets(Integer id, Integer noOfTickets, String action) {
-
-		try {
-			if (action.equalsIgnoreCase("BOOK")) {
-				Integer availableTickets = MovieService.getAvailableTickets(id);
-				Integer tickets = availableTickets - noOfTickets;
-				movieDAO.updateTickets(id, tickets);
-			}
-			if (action.equalsIgnoreCase("CANCEL")) {
-				Integer availableTickets = MovieService.getAvailableTickets(id);
-				Integer tickets = availableTickets + noOfTickets;
-				movieDAO.updateTickets(id, tickets);
-			}
-		} catch (Exception e) {
-			throw new ServiceException("Unable to Update Tickets");
-		}
-
-	}
-
+	
 	/**
 	 * This Method is Used to Fetch Available Tickets of the Particular Movie
 	 * @param id
@@ -129,13 +107,24 @@ public class MovieService {
 	 */
 	public static Integer getAvailableTickets(Integer id) {
 
-		MovieDAO dao = MovieDAO.getInstance();
-
-		Movie movie = dao.findMovieByMovieId(id);
+		Movie movie = movieDAO.findMovieByMovieId(id);
 
 		int availableTickets = movie.getTickets();
 
 		return availableTickets;
 	}
+
+	public static Map<Integer, Integer> getBookedTickets(LocalDate localDate) {
+
+		Map<Integer, Integer> bookedTickets = null;
+		try {
+			bookedTickets = movieDAO.getBookedTickets(localDate);
+		} catch (Exception e) {
+			throw new ServiceException("Unable to Get Available Tickets");
+		}
+		return bookedTickets;
+		
+	}
+
 
 }

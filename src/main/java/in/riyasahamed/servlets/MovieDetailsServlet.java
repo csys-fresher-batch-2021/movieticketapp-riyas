@@ -1,7 +1,9 @@
 package in.riyasahamed.servlets;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,8 +32,15 @@ public class MovieDetailsServlet extends HttpServlet {
 	 */
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	
+    	String dateStr = request.getParameter("showDate");
+    	LocalDate showDate = dateStr != null && !dateStr.trim().equals("") ? LocalDate.parse(dateStr) : LocalDate.now() ;
+    	Map<Integer, Integer> bookedTickets = MovieService.getBookedTickets(showDate);
 		List<MovieDTO> movies=MovieService.getAllMovies();
 		request.setAttribute("MOVIE_LIST", movies);
+		request.setAttribute("BOOKED_TICKETS", bookedTickets);
+		request.setAttribute("DATE", showDate);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("movieDetails.jsp");
 		requestDispatcher.forward(request, response);
 	}

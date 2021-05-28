@@ -40,7 +40,7 @@ public class UserBookingsServlet extends HttpServlet {
 			List<TicketDTO> tickets = TicketService.getUserBookingDetails(userId);
 			request.setAttribute("TICKET_DETAILS", tickets);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("UserBookingDetails.jsp");
-			requestDispatcher.forward(request, response);
+			requestDispatcher.forward(request, response);		
 		} catch (ServletException | IOException  | ServiceException e) {
 			String errorMessage=e.getMessage();
 			response.sendRedirect("UserBookingDetails.jsp?errorMessage=" + errorMessage);

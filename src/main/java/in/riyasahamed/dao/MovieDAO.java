@@ -1,11 +1,15 @@
 package in.riyasahamed.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import in.riyasahamed.exceptions.DBException;
 import in.riyasahamed.model.Movie;
@@ -302,35 +306,48 @@ public class MovieDAO {
 		}
 		return movie;
 	}
-	
-	public void updateTickets(Integer movieId , Integer tickets) {
-		
+
+	public Map<Integer, Integer> getBookedTickets(LocalDate date) {
+
 		Connection connection = null;
 
 		PreparedStatement pst = null;
+
+		ResultSet result = null;
+
+		Map<Integer, Integer> bookedTickets = new HashMap<>();
 
 		try {
 			// Get Connection
 			connection = ConnectionUtil.getConnection();
 
 			// Sql command
-			String sql = " update movies set available_tickets = ? where id = ? ;";
+			String sql = "select  b.movie_id , SUM(b.tickets) AS total_tickets  from booking_details b, movies m \r\n"
+					+ "where status !='CANCELLED' and showdate = ?  and b.movie_id = m.id group by b.movie_id;\r\n"
+					+ " ";
 
 			// Execution Step
 			pst = connection.prepareStatement(sql);
-
-			pst.setInt(1, tickets);
-			pst.setInt(2, movieId);
-			pst.executeUpdate();
+			Date showDate = Date.valueOf(date);
+			pst.setDate(1, showDate);
+			result = pst.executeQuery();
+			while (result.next()) {
+				Integer id = result.getInt("movie_id");
+				Integer tickets = result.getInt("total_tickets");
+				bookedTickets.put(id, tickets);
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DBException("Unable to Update Movie");
+			throw new DBException("Unable to get Booked Tickets");
 		} finally {
 
 			// Closing the Session
 			ConnectionUtil.closeConnection(pst, connection);
 
 		}
+
+		return bookedTickets;
 	}
+
 }

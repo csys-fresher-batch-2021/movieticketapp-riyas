@@ -62,11 +62,14 @@
 					<td><%=ticket.getNoOfTickets()%></td>
 					<td><%=ticket.getTotalPrice()%></td>
 					<td><%=ticket.getStatus()%></td>
+					<%if(ticket.getShowDate().isAfter(LocalDate.now()) && ticket.getStatus().equalsIgnoreCase("BOOKED")) {%>
 					<td><a
 						href="CancelMovieServlet?orderId=<%=ticket.getTicketId()%>&movieId=<%=movie.getMovieId()%>&tickets=<%=ticket.getNoOfTickets()%>&showDate=<%=ticket.getShowDate()%>"
-						class="btn btn-danger">Cancel</a> <%
-					}
-					%>
+						class="btn btn-danger">Cancel</a>
+							 <%} else {%>
+							<td> <button class="btn btn-danger" disabled> Cancel</button></td>
+					<% } }%>
+	
 				</tr>
 				<%
 				} 

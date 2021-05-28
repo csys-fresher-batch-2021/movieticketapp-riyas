@@ -13,19 +13,21 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	<%
 	Integer movieId = Integer.parseInt(request.getParameter("movieId"));
-	out.println(movieId);
+	String name = request.getParameter("name");
+	Integer tickets = Integer.parseInt(request.getParameter("tickets"));
+	 String showDate =request.getParameter("showDate"); 
 	%>
 	<main class="container-fluid">
 		<h3>Booking</h3>
 		<jsp:include page="Message.jsp"></jsp:include>
 		<form action=BookMovieServlet?movieId= <%=movieId%>>
-			<input type="hidden" name="movieId" value="<%=movieId%>" required />
+			<input type="hidden" name="movieId" value="<%=movieId%>" required readonly/>
 			<br> <label for="name">Movie Name: </label> <input type="text"
-				name="name" id="name" value=<%=request.getParameter("name")%>><br />
+				name="name" id="name" value="<%=name%>" readonly><br />
 			<br> <label for="actor">Actor Name: </label> <input type="text"
-				name="actor" id="actor" value=<%=request.getParameter("actor")%>><br />
-			<br> <label for="date"> Date: </label> <input type=date
-				id="date" name="date" required><br />
+				name="actor" id="actor" value="<%=request.getParameter("actor")%>" readonly><br />
+			<br> <label for="date"> Date: </label> <input type="date"
+				id="date" name="date"  value=<%=showDate%> required readonly><br/>
 			<%
 			List<SeatDTO> seats = SeatService.getSeatTypes();
 			%>
@@ -39,14 +41,15 @@
 				}
 				%>
 			</select> <br /> <br> <label for="tickets">Number of Tickets : </label>
-			<input type="number" name="tickets" id="tickets" min=1 required><br />
+			<input type="number" name="tickets" id="tickets" min=1 max=<%=tickets%> value=1 required>(Available Tickets = <%=tickets%>)<br />
 			<br>
 			<button class="btn btn-primary" type="submit">Book</button>
 			<button class="btn btn-danger" type="reset">Reset</button>
 			<br />
 		</form>
-
-		<script>
+		
+		
+		<!-- <script>
 			let date = new Date();
 			date.setDate(date.getDate() + 1);
 			let tommorow = date.toJSON().substring(0, 10);
@@ -56,7 +59,7 @@
 			endDate.setDate(endDate.getDate() + 10);
 			let maxDate=endDate.toJSON().substring(0, 10);
 			document.querySelector("#date").setAttribute("max", maxDate);			
-		</script>
+		</script> -->
 
 
 	</main>
