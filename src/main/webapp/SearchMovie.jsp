@@ -34,20 +34,13 @@
 					<th id="movieName">Movie Name</th>
 					<th id="actorName">Actor</th>
 					<th id="movieRating">Rating</th>
-					<th id="movieTickets">Tickets Available</th>
 					<th id="action">
 						<%
 						if (loggedInUsername != null && loggedInUsername.equalsIgnoreCase("ADMIN")) {
 						%>Delete<%
 					}
 					%>
-						<%
-						if (loggedInUsername != null && !loggedInUsername.equalsIgnoreCase("ADMIN")) {
-						%>Book
 					</th>
-					<%
-					}
-					%>
 				</tr>
 			</thead>
 			<tbody>
@@ -63,7 +56,6 @@
 					<td><%=movie.getName()%></td>
 					<td><%=movie.getActor()%></td>
 					<td><%=movie.getRating()%></td>
-					<td><%=movie.getTickets()%></td>
 
 					<td>
 						<%
@@ -72,16 +64,9 @@
 						href="DeleteMovieServlet?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>"
 						class=" btn btn-danger">Delete</a> <%
 					}
-					%> <%
-						if (loggedInUsername != null && !loggedInUsername.equalsIgnoreCase("ADMIN")) {
-						%> <a
-						href="Booking.jsp?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>&movieId=<%=movie.getMovieId()%>"
-						class=" btn btn-primary">Book</a>
+					%> 
 
 					</td>
-					<%
-					}
-					%>
 				</tr>
 				<%
 				} }

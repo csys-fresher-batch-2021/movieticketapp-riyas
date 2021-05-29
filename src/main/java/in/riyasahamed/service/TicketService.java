@@ -8,7 +8,6 @@ import in.riyasahamed.dao.TicketDAO;
 import in.riyasahamed.dto.TicketDTO;
 import in.riyasahamed.exceptions.ServiceException;
 import in.riyasahamed.model.Ticket;
-import in.riyasahamed.validator.DateValidator;
 
 public class TicketService {
 
@@ -70,14 +69,23 @@ public class TicketService {
 	 * This Method will Cancel the Booking Details
 	 * @param id
 	 */
-	public static void cancelBooking(Integer id,LocalDate showDate) {
+	public static void cancelBooking(Integer id) {
 		
 		try {
-			DateValidator.isAfterDate(showDate);
 			ticketDAO.cancelBooking(id);
 		} catch (Exception e) {
 			throw new ServiceException(e.getMessage());
 		}
+	}
+	
+	public static void updateAllBookings() {
+		
+		try {
+				LocalDate showDate = LocalDate.now();
+				ticketDAO.UpdateAllBookings(showDate);
+		} catch (Exception e) {
+			 throw new ServiceException(e.getMessage());
+		}		
 	}
 
 }

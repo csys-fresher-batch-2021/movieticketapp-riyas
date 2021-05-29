@@ -29,7 +29,7 @@ String loggedInUsername = (String)session.getAttribute("LOGGED_IN_USER");
         <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="MovieDetailsServlet">Movies</a>
+        <a class="nav-link" href=MovieDetailsServlet>Movies</a>
       </li>
        <li class="nav-item">
         <a class="nav-link" href="SeatDeatails.jsp">Seat Types</a>

@@ -19,6 +19,9 @@
 	<main class="container-fluid">
 		<jsp:include page="Message.jsp"></jsp:include>
 		<h3>Bookings by All Users</h3>
+		<div class="text-right">
+		<a href="UpdateBookingServlet" class="btn btn-primary">Update Bookings</a>
+		</div><br>
 		<table class="table table-bordered">
 			<caption>This Table is for Showing Booking Details</caption>
 			<thead>

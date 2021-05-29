@@ -176,6 +176,43 @@ public class TicketDAO {
 		}
 
 	}
+	
+	
+	public void UpdateAllBookings(LocalDate showDate) {
+
+		Connection connection = null;
+
+		PreparedStatement pst = null;
+
+		try {
+			// Get Connection
+			connection = ConnectionUtil.getConnection();
+
+			// Sql command
+			
+			String sql = "update booking_details set status= 'FINISHED' where status ='BOOKED' and showdate < ? ;";
+			
+			Date date = Date.valueOf(showDate);
+			
+
+			// Execution Step
+			pst = connection.prepareStatement(sql);
+			pst.setDate(1, date);
+			
+
+			pst.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException("Unable to Update Movies");
+		} finally {
+
+			// Closing the Session
+			ConnectionUtil.closeConnection(pst, connection);
+
+		}
+
+	}
 
 	private Ticket toRow(ResultSet result) throws SQLException {
 		Ticket ticket = new Ticket();

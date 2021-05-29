@@ -1,7 +1,6 @@
- package in.riyasahamed.servlets;
+package in.riyasahamed.servlets;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,28 +10,30 @@ import javax.servlet.http.HttpServletResponse;
 import in.riyasahamed.service.TicketService;
 
 /**
- * Servlet implementation class CancelMovieServlet
+ * Servlet implementation class UpdateBookingServlet
  */
-@WebServlet("/CancelMovieServlet")
-public class CancelMovieServlet extends HttpServlet {
+@WebServlet("/UpdateBookingServlet")
+public class UpdateBookingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
-    public CancelMovieServlet() {
+       
+    
+    public UpdateBookingServlet() {
         super();
+       //Default Constructor
     }
 
-	@Override
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
-			Integer bookingId=Integer.parseInt(request.getParameter("orderId"));
-			TicketService.cancelBooking(bookingId);
-			String infoMessage="Successfully Cancelled movie";
-			response.sendRedirect("UserBookingDetails.jsp?infoMessage=" + infoMessage);
+			TicketService.updateAllBookings();
+			String infoMessage="Successfully Updated  movie";
+			response.sendRedirect("AllBookingDetails.jsp?infoMessage=" + infoMessage);
 		} catch (Exception e) {
 			String errorMessage=e.getMessage();
-			response.sendRedirect("UserBookingDetails.jsp?errorMessage=" + errorMessage);			
+			response.sendRedirect("AllBookingDetails.jsp?errorMessage=" + errorMessage);	
 		}
+		
 	}
 
 }
