@@ -5,9 +5,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +28,8 @@ public class TicketDAO {
 		return instance;
 	}
 
-	private static final String BASE_QUERY = "select b.id, u.name as user, b.movie_id, m.movie_name as movie_name, u.mobile_number as mobile_number , b.booking_date ,b.showdate , b.seat_type, b.tickets,b.total_price, b.status \r\n"
-			+ "from users u, movies m , booking_details b  where b.user_id= u.id and b.movie_id=m.id\r\n" + "";
+	private static final String BASE_QUERY = "select b.id, u.name as user, b.movie_id, m.movie_name as movie_name, u.mobile_number as mobile_number , b.booking_date ,b.showdate , b.seat_type, b.show_time, b.tickets,b.total_price, b.status \r\n"
+			+ "from users u, movies m , booking_details b , show_times s where b.user_id= u.id and b.movie_id=m.id and b.show_time=s.show_time\r\n" + "";
 
 	/**
 	 * This Methods stores Booking Details in DataBase
@@ -43,7 +45,7 @@ public class TicketDAO {
 		try {
 			connection = ConnectionUtil.getConnection();
 
-			String sql = "insert into booking_details(user_id,movie_id,showdate,booking_date,total_price,seat_type,tickets) values( ?,?,?,?,?,?,?)";
+			String sql = "insert into booking_details(user_id,movie_id,showdate,booking_date,total_price,seat_type,tickets,show_time) values( ?,?,?,?,?,?,?,?)";
 
 			pst = connection.prepareStatement(sql);
 			Movie movie = ticket.getMovie();
@@ -58,6 +60,8 @@ public class TicketDAO {
 			pst.setFloat(5, ticket.getTotalPrice());
 			pst.setString(6, seat.getSeatType());
 			pst.setInt(7, ticket.getNoOfTickets());
+			Time showTime = Time.valueOf(ticket.getShow_time());
+			pst.setTime(8, showTime);
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -213,6 +217,52 @@ public class TicketDAO {
 		}
 
 	}
+	
+	public List<LocalTime> getShowTimes() {
+		
+		final List<LocalTime> showTimes = new ArrayList<>();
+
+		Connection connection = null;
+		PreparedStatement pst = null;
+		ResultSet result = null;
+
+		try { // Get the Connection
+
+			connection = ConnectionUtil.getConnection();
+
+			// Query Statement
+
+			String sql = "select * from show_times";
+			// Executing Query Statement
+
+			pst = connection.prepareStatement(sql);
+
+			result = pst.executeQuery();
+
+			while (result.next()) {
+
+				
+				Time time = result.getTime("show_time");
+				
+				LocalTime showTime = time.toLocalTime();
+				
+
+				showTimes.add(showTime);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException("Unable to Fetch Show Times");
+		} finally {
+			// Closing the Connection
+			ConnectionUtil.closeConnection(result, pst, connection);
+		}
+
+		return showTimes;
+	}
+
+		
+		
 
 	private Ticket toRow(ResultSet result) throws SQLException {
 		Ticket ticket = new Ticket();
@@ -228,6 +278,8 @@ public class TicketDAO {
 		LocalDateTime bDate = bookingDate.toLocalDateTime();
 		Date showDate = result.getDate("showdate");
 		LocalDate sDate = showDate.toLocalDate();
+		Time showTime = result.getTime("show_time");
+		LocalTime sTime = showTime.toLocalTime();
 		String seatType = result.getString("seat_type");
 		Integer noOftickets = result.getInt("tickets");
 		Float price = result.getFloat("total_price");
@@ -241,11 +293,13 @@ public class TicketDAO {
 		ticket.setBookingDate(bDate);
 		ticket.setNoOfTickets(noOftickets);
 		ticket.setShowDate(sDate);
+		ticket.setShow_time(sTime);
 		ticket.setTotalPrice(price);
 		ticket.setStatus(status);
 		ticket.setMovie(movie);
 		ticket.setSeat(seat);
 		ticket.setUser(user);
+		
 		return ticket;
 	}
 }

@@ -20,14 +20,6 @@
 	%>
 	<jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
-		<div class="text-center">
-		<br><h3> Search Movies</h3><br/>
-		<form action=SearchMovieServlet>
-		<br><label for="keyword">Search Movie : </label>
-		<input type="text" name="keyword" id="keyword" placeholder="Enter Movie Name or Actor Name" required><br/>
-		<br><button type="submit" class="btn btn-primary">Search</button><br/>
-		</form>		
-		</div>	
 		<br><h3>Available Movies</h3>
 		<jsp:include page="Message.jsp"></jsp:include><br/>
 		<table class="table table-bordered">
@@ -38,18 +30,18 @@
 					<th id="movieName">Movie Name</th>
 					<th id="actorName">Actor</th>
 					<th id="movieRating">Rating</th>
-					<th id="action">
+					
 						<%
 						if (loggedInUsername != null && role.equalsIgnoreCase("ADMIN")) {
-						%>Delete<%
+						%><th id="action">Delete </th><%
 					}
 					%>
-					</th>
+					
 				</tr>
 			</thead>
 			<tbody>
 				<%				
-				List<MovieDTO> movies=(List<MovieDTO>)request.getAttribute("MOVIE_LIST");
+				List<MovieDTO> movies = MovieService.getAllMovies();
 				if(movies!=null){
 				int i = 0;
 				for (MovieDTO movie : movies) {
@@ -61,16 +53,16 @@
 					<td><%=movie.getActor()%></td>
 					<td><%=movie.getRating()%></td>
 
-					<td>
+					
 						<%
 						if (loggedInUsername != null && role.equalsIgnoreCase("ADMIN")) {
-						%> <a
+						%><td> <a
 						href="DeleteMovieServlet?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>"
-						class=" btn btn-danger">Delete</a> <%
+						class=" btn btn-danger">Delete</a> </td><%
 					}
 					%> 
 
-					</td>
+					
 				</tr>
 				<%
 				} }

@@ -5,7 +5,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -307,7 +309,7 @@ public class MovieDAO {
 		return movie;
 	}
 
-	public Map<Integer, Integer> getBookedTickets(LocalDate date) {
+	public Map<Integer, Integer> getBookedTickets(LocalDate date , LocalTime time) {
 
 		Connection connection = null;
 
@@ -323,13 +325,15 @@ public class MovieDAO {
 
 			// Sql command
 			String sql = "select  b.movie_id , SUM(b.tickets) AS total_tickets  from booking_details b, movies m \r\n"
-					+ "where status !='CANCELLED' and showdate = ?  and b.movie_id = m.id group by b.movie_id;\r\n"
+					+ "where status !='CANCELLED' and showdate = ? and show_time = ? and b.movie_id = m.id group by b.movie_id;\r\n"
 					+ " ";
 
 			// Execution Step
 			pst = connection.prepareStatement(sql);
 			Date showDate = Date.valueOf(date);
 			pst.setDate(1, showDate);
+			Time showTime = Time.valueOf(time);
+			pst.setTime(2, showTime);
 			result = pst.executeQuery();
 			while (result.next()) {
 				Integer id = result.getInt("movie_id");

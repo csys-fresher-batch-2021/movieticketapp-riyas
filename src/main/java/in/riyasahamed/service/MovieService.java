@@ -1,6 +1,7 @@
 package in.riyasahamed.service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -114,11 +115,11 @@ public class MovieService {
 		return availableTickets;
 	}
 
-	public static Map<Integer, Integer> getBookedTickets(LocalDate localDate) {
+	public static Map<Integer, Integer> getBookedTickets(LocalDate showDate , LocalTime showTime) {
 
 		Map<Integer, Integer> bookedTickets = null;
 		try {
-			bookedTickets = movieDAO.getBookedTickets(localDate);
+			bookedTickets = movieDAO.getBookedTickets(showDate, showTime);
 		} catch (Exception e) {
 			throw new ServiceException("Unable to Get Available Tickets");
 		}

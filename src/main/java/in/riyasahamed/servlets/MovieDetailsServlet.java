@@ -2,6 +2,7 @@ package in.riyasahamed.servlets;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import in.riyasahamed.dto.MovieDTO;
 import in.riyasahamed.service.MovieService;
+import in.riyasahamed.service.TicketService;
 
 /**
  * Servlet implementation class MovieDetailsServlet
@@ -34,15 +36,27 @@ public class MovieDetailsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
     	
-    	String dateStr = request.getParameter("showDate");
-    	LocalDate showDate = dateStr != null && !dateStr.trim().equals("") ? LocalDate.parse(dateStr) : LocalDate.now() ;
-    	Map<Integer, Integer> bookedTickets = MovieService.getBookedTickets(showDate);
-		List<MovieDTO> movies=MovieService.getAllMovies();
-		request.setAttribute("MOVIE_LIST", movies);
-		request.setAttribute("BOOKED_TICKETS", bookedTickets);
-		request.setAttribute("DATE", showDate);
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("movieDetails.jsp");
-		requestDispatcher.forward(request, response);
+    	try {
+			String dateStr = request.getParameter("showDate");
+			String timeStr = request.getParameter("showTime");
+			LocalTime showTime = LocalTime.of(10, 0);
+			LocalDate showDate = dateStr != null && !dateStr.trim().equals("") ? LocalDate.parse(dateStr) : LocalDate.now() ;
+			showTime = timeStr != null && !timeStr.trim().equals("") ? LocalTime.parse(timeStr) : showTime ;
+			Map<Integer, Integer> bookedTickets = MovieService.getBookedTickets(showDate , showTime);
+			List<MovieDTO> movies=MovieService.getAllMovies();
+			List<LocalTime> showTimes = TicketService.getShowTimes();
+			request.setAttribute("MOVIE_LIST", movies);
+			request.setAttribute("BOOKED_TICKETS", bookedTickets);
+			request.setAttribute("SHOW_TIMES", showTimes);
+			request.setAttribute("DATE", showDate);
+			request.setAttribute("SHOW_TIME", showTime);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("movieDetails.jsp");
+			requestDispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			String errorMessage = "Unable to Fetch Movie Details";
+			response.sendRedirect("movieDetails.jsp?errorMessage=" + errorMessage);
+		}
 	}
 
 

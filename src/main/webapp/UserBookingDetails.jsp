@@ -31,6 +31,7 @@
 					<th id="movieName">Movie Name</th>
 					<th id="bookedDate">Booked Date</th>
 					<th id="showDate">Show Date</th>
+					<th id="showTime">Show Time</th>
 					<th id="seatType">Seat Type</th>
 					<th id="tickets">Number of Tickets</th>
 					<th id="price">Total Price</th>
@@ -58,6 +59,7 @@
 					<td><%=movie.getName()%></td>
 					<td><%=ticket.getBookingDate()%></td>
 					<td><%=ticket.getShowDate()%></td>
+					<td><%=ticket.getShowTime()%></td>
 					<td><%=seat.getSeatType()%></td>
 					<td><%=ticket.getNoOfTickets()%></td>
 					<td><%=ticket.getTotalPrice()%></td>

@@ -38,6 +38,7 @@ public class AdminLoginServlet extends HttpServlet {
 			UserService.checkAdminLogin(userName, password);
 			HttpSession session = request.getSession();
 			session.setAttribute("LOGGED_IN_USER", userName);
+			session.setAttribute("ROLE", "ADMIN");
 			String infoMessage="Successfully Logged In";
 			// Redirecting to Add Movie Page
 			response.sendRedirect("addMovie.jsp?infoMessage=" + infoMessage);
