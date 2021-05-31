@@ -33,7 +33,7 @@ if(role == null){
         <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="ShowDetails.jsp">Book Movie</a>
+        <a class="nav-link" href="ListMovies.jsp">Movies</a>
       </li>
        <li class="nav-item">
         <a class="nav-link" href="SeatDeatails.jsp">Seat Types</a>
@@ -70,7 +70,9 @@ if(role == null){
       <li class="nav-item">
         <a class="nav-link" href=UserBookingsServlet>My Bookings</a>
       </li>
-   
+   		 <li class="nav-item">
+        <a class="nav-link" href=ShowDetails.jsp>Book Movie</a>
+      </li>
       
         <%} %>
       

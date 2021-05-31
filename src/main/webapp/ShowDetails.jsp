@@ -67,7 +67,7 @@
 				console.log(date1);
 				document.querySelector("#showDate").setAttribute("value", date1);
 				console.log(typeof date1);
-				let url = "ShowMovieTimesServlet2";
+				let url = "ShowTimesServlet";
 				fetch(url).then(res=> res.json()).then(res=>{
 				let showTimes=res;
 				let content="";	

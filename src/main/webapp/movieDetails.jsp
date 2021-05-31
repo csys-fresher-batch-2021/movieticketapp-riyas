@@ -37,14 +37,13 @@
 			<form action=MovieDetailsServlet>
 				<br> <label for="showDate">Show Date :</label> <input
 					type="date" placeholder="ShowDate" id="showDate" name="showDate"
-					required value=<%=showDate%> readonly><br /> <label for="showTime">Enter
+					required value=<%=showDate%>><br /> <label for="showTime">Enter
 					Show Time :</label>
-					<% String checked = time.equals(time) ?"checked":"";%>
+					<%-- <% String checked = time.equals(time) ?"checked":"";%>
 					<input type="radio" name="showTime" id="showTime"
 					value="<%=time%>" <%=checked %>  required>
-				<%=time%>
-				<h3>Movies And Ticket Details</h3>
-				<%-- <%
+				<%=time%> --%>
+				<%
 				if (showTimes != null) {
 					for (LocalTime showTime : showTimes) {
 						if(showDate.isEqual(LocalDate.now())){
@@ -69,10 +68,10 @@
 				<br>
 				<button type="submit" class="btn btn-primary">Search</button>
 				<br />
-				
-	 --%>		</form>
+		</form>
 		</div>
 		<br>
+		<h3>Movies And Ticket Details</h3>
 		<table class="table table-bordered">
 			<caption>This Table is for Showing Movie Details</caption>
 			<thead>
@@ -83,11 +82,7 @@
 					<th id="movieRating">Rating</th>
 					<th id="movieTickets">Tickets Available</th>
 					<th id="action">
-						<%
-						if (loggedInUsername != null && role.equalsIgnoreCase("ADMIN")) {
-						%>Delete<%
-						}
-						%> <%
+				 <%
  					if (loggedInUsername != null && !role.equalsIgnoreCase("ADMIN")) {
 					 %>Book
 					</th>
@@ -118,13 +113,7 @@
 					<td><%=ticketsAvailable%></td>
 
 					<td>
-						<%
-						if (loggedInUsername != null && role.equalsIgnoreCase("ADMIN")) {
-						%> <a
-						href="DeleteMovieServlet?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>"
-						class=" btn btn-danger">Delete</a> <%
- }
-						 %> <%
+						 <%
  						if (loggedInUsername != null && role.equalsIgnoreCase("USER")) {
  						%> <a
 						href="Booking.jsp?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>&movieId=<%=movie.getMovieId()%>
