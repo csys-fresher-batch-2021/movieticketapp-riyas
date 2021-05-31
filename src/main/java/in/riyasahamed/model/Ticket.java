@@ -2,6 +2,7 @@ package in.riyasahamed.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Ticket {
 
@@ -45,6 +46,16 @@ public class Ticket {
 	private Seat seat;
 	
 	private User user;
+	
+	private LocalTime show_time;
+
+	public LocalTime getShow_time() {
+		return show_time;
+	}
+
+	public void setShow_time(LocalTime show_time) {
+		this.show_time = show_time;
+	}
 
 	public LocalDate getShowDate() {
 		return showDate;
@@ -104,7 +115,7 @@ public class Ticket {
 	public String toString() {
 		return "Ticket [ticketId=" + ticketId + ", bookingDate=" + bookingDate + ", noOfTickets=" + noOfTickets
 				+ ", totalPrice=" + totalPrice + ", showDate=" + showDate + ", movie=" + movie + ", seat=" + seat
-				+ ", user=" + user + ", status=" + status + "]";
+				+ ", user=" + user + ", show_time=" + show_time + ", status=" + status + "]";
 	}
 
 

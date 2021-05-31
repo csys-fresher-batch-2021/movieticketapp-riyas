@@ -27,8 +27,7 @@ public class CancelMovieServlet extends HttpServlet {
 		try {
 			Integer bookingId=Integer.parseInt(request.getParameter("orderId"));
 			TicketService.cancelBooking(bookingId);
-			String infoMessage="Successfully Cancelled movie";
-			response.sendRedirect("UserBookingDetails.jsp?infoMessage=" + infoMessage);
+			response.sendRedirect("UserBookingsServlet");
 		} catch (Exception e) {
 			String errorMessage=e.getMessage();
 			response.sendRedirect("UserBookingDetails.jsp?errorMessage=" + errorMessage);			

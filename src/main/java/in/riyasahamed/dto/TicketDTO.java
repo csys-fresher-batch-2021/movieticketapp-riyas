@@ -2,6 +2,7 @@ package in.riyasahamed.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class TicketDTO {
 
@@ -12,6 +13,16 @@ public class TicketDTO {
 	private SeatDTO seat;
 
 	private UserDTO user;
+
+	private LocalTime showTime;
+	
+	public LocalTime getShowTime() {
+		return showTime;
+	}
+
+	public void setShowTime(LocalTime showTime) {
+		this.showTime = showTime;
+	}
 
 	public MovieDTO getMovie() {
 		return movie;
@@ -104,8 +115,8 @@ public class TicketDTO {
 	@Override
 	public String toString() {
 		return "TicketDTO [ticketId=" + ticketId + ", movie=" + movie + ", seat=" + seat + ", user=" + user
-				+ ", bookingDate=" + bookingDate + ", noOfTickets=" + noOfTickets + ", totalPrice=" + totalPrice
-				+ ", showDate=" + showDate + ", status=" + status + "]";
+				+ ", showTime=" + showTime + ", bookingDate=" + bookingDate + ", noOfTickets=" + noOfTickets
+				+ ", totalPrice=" + totalPrice + ", showDate=" + showDate + ", status=" + status + "]";
 	}
 
 

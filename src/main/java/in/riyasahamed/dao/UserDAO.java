@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import in.riyasahamed.exceptions.DBException;
+import in.riyasahamed.model.Admin;
 import in.riyasahamed.model.User;
 import in.riyasahamed.util.ConnectionUtil;
 
@@ -158,6 +159,44 @@ public class UserDAO {
 
 		return user;
 
+	}
+	
+	public List<Admin> getAllAdminDetails() {
+		List<Admin> admins = new ArrayList<>();
+		Connection connection = null;
+		ResultSet result = null;
+		PreparedStatement pst = null;
+
+		try {
+
+			connection = ConnectionUtil.getConnection();
+
+			String sql = "select * from admins";
+
+			pst = connection.prepareStatement(sql);
+
+			result = pst.executeQuery();
+
+			while (result.next()) {
+				Admin admin = new Admin();
+				String userName = result.getString("user_name");
+				String password = result.getString("password");
+				Integer userId = result.getInt("id");
+			
+				admin.setUserName(userName);
+				admin.setPassword(password);
+				admin.setId(userId);
+				admins.add(admin);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException("Unable to Get User Details");
+
+		} finally {
+			ConnectionUtil.closeConnection(result, pst, connection);
+		}
+
+		return admins;
 	}
 
 }

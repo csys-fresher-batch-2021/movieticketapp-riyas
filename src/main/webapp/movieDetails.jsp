@@ -1,3 +1,5 @@
+<%@page import="java.time.LocalTime"%>
+<%@page import="in.riyasahamed.dto.TicketDTO"%>
 <%@page import="java.util.Map"%>
 <%@page import="in.riyasahamed.dto.MovieDTO"%>
 <%@page import="in.riyasahamed.dao.MovieDAO"%>
@@ -14,24 +16,63 @@
 <body>
 	<%
 	String loggedInUsername = (String) session.getAttribute("LOGGED_IN_USER");
+	String role = (String) session.getAttribute("ROLE");
+	if (role == null) {
+		role = "USER";
+	}
 	%>
 	<jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
 		<jsp:include page="Message.jsp"></jsp:include>
-		<h3>Movies And Ticket Details</h3>
+		<%
+				LocalTime time =(LocalTime) request.getAttribute("SHOW_TIME");
+				%>
 		<%
 		LocalDate showDate = (LocalDate) request.getAttribute("DATE");
+		
+		List<LocalTime> showTimes = (List<LocalTime>) request.getAttribute("SHOW_TIMES");
 		%>
 		<div class="text-center">
-		<h4>Select Date</h4>
-		<form action=MovieDetailsServlet>
-			<br>
-			<label for="showDate">Enter Show Date :</label> <input type="date"
-				placeholder="ShowDate" id="showDate" name="showDate" required
-				value=<%=showDate%>><br />
-			<br><button type="submit" class="btn btn-primary">Search</button><br/>
-		</form>
-		</div><br>
+			<h4>Select Date</h4>
+			<form action=MovieDetailsServlet>
+				<br> <label for="showDate">Show Date :</label> <input
+					type="date" placeholder="ShowDate" id="showDate" name="showDate"
+					required value=<%=showDate%> readonly><br /> <label for="showTime">Enter
+					Show Time :</label>
+					<% String checked = time.equals(time) ?"checked":"";%>
+					<input type="radio" name="showTime" id="showTime"
+					value="<%=time%>" <%=checked %>  required>
+				<%=time%>
+				<h3>Movies And Ticket Details</h3>
+				<%-- <%
+				if (showTimes != null) {
+					for (LocalTime showTime : showTimes) {
+						if(showDate.isEqual(LocalDate.now())){
+						if (showTime.isAfter(LocalTime.now())) {
+							String checked = showTime.equals(time) ?"checked":"";
+				%>
+				<input type="radio" name="showTime" id="showTime"
+					value="<%=showTime%>" <%=checked %>  required>
+				<%=showTime%>
+				<%
+				}
+				}else{ 
+					String checked = showTime.equals(time) ?"checked":"";
+				%>
+					<input type="radio" name="showTime" id="showTime"
+							value="<%=showTime%>" <%=checked %> >
+						<%=showTime%>
+					
+				<% }
+				}}
+				%>
+				<br>
+				<button type="submit" class="btn btn-primary">Search</button>
+				<br />
+				
+	 --%>		</form>
+		</div>
+		<br>
 		<table class="table table-bordered">
 			<caption>This Table is for Showing Movie Details</caption>
 			<thead>
@@ -43,12 +84,12 @@
 					<th id="movieTickets">Tickets Available</th>
 					<th id="action">
 						<%
-						if (loggedInUsername != null && loggedInUsername.equalsIgnoreCase("ADMIN")) {
+						if (loggedInUsername != null && role.equalsIgnoreCase("ADMIN")) {
 						%>Delete<%
 						}
 						%> <%
- if (loggedInUsername != null && !loggedInUsername.equalsIgnoreCase("ADMIN")) {
- %>Book
+ 					if (loggedInUsername != null && !role.equalsIgnoreCase("ADMIN")) {
+					 %>Book
 					</th>
 					<%
 					}
@@ -78,16 +119,16 @@
 
 					<td>
 						<%
-						if (loggedInUsername != null && loggedInUsername.equalsIgnoreCase("ADMIN")) {
+						if (loggedInUsername != null && role.equalsIgnoreCase("ADMIN")) {
 						%> <a
 						href="DeleteMovieServlet?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>"
 						class=" btn btn-danger">Delete</a> <%
  }
- %> <%
- if (loggedInUsername != null && !loggedInUsername.equalsIgnoreCase("ADMIN")) {
- %> <a
+						 %> <%
+ 						if (loggedInUsername != null && role.equalsIgnoreCase("USER")) {
+ 						%> <a
 						href="Booking.jsp?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>&movieId=<%=movie.getMovieId()%>
-						&showDate=<%=showDate%>&tickets=<%=ticketsAvailable%>"
+						&showDate=<%=showDate%>&tickets=<%=ticketsAvailable%>&time=<%=time%>"
 						class=" btn btn-primary">Book</a>
 
 					</td>
@@ -99,10 +140,20 @@
 				}
 				}
 				%>
-
 			</tbody>
 		</table>
 
+		<script>
+			let date = new Date();
+			date.setDate(date.getDate());
+			let today = date.toJSON().substring(0, 10);
+			document.querySelector("#showDate").setAttribute("min", today);
+
+			let endDate = new Date();
+			endDate.setDate(endDate.getDate() + 10);
+			let maxDate = endDate.toJSON().substring(0, 10);
+			document.querySelector("#showDate").setAttribute("max", maxDate);
+		</script>
 	</main>
 </body>
 </html>

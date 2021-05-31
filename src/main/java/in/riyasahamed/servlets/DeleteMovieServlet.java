@@ -30,7 +30,7 @@ public class DeleteMovieServlet extends HttpServlet {
 		try{
 		MovieService.deleteMovieDetails(movie, actor);
 		String infoMessage="Successfully Deleted movie";
-		response.sendRedirect("movieDetails.jsp?infoMessage=" + infoMessage);
+		response.sendRedirect("MovieDetailsServlet?infoMessage=" + infoMessage);
 		}
 		catch(Exception e){
 			String errorMessage=e.getMessage();

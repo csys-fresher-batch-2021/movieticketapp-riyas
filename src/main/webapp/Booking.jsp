@@ -16,6 +16,7 @@
 	String name = request.getParameter("name");
 	Integer tickets = Integer.parseInt(request.getParameter("tickets"));
 	 String showDate =request.getParameter("showDate"); 
+	 String showTime = request.getParameter("time");
 	%>
 	<main class="container-fluid">
 		<h3>Booking</h3>
@@ -28,38 +29,26 @@
 				name="actor" id="actor" value="<%=request.getParameter("actor")%>" readonly><br />
 			<br> <label for="date"> Date: </label> <input type="date"
 				id="date" name="date"  value=<%=showDate%> required readonly><br/>
+				<br><label for="time"> Show Time: </label> <input type="time"
+				id="time" name="time"  value=<%=showTime%> required readonly><br/>
 			<%
 			List<SeatDTO> seats = SeatService.getSeatTypes();
 			%>
-			<br> <label for=" seat"> Seat Type: </label> <select name="seat">
+			<br> <label for=" seat"> Seat Type: </label> 
 				<%
 				for (SeatDTO seat : seats) {
 				%>
-				<option value="<%=seat.getSeatType()%>"><%=seat.getSeatType()%>
-				</option>
+				<input type="radio" name="seat" id ="seat" value="<%=seat.getSeatType()%>" required ><%=seat.getSeatType()%>
 				<%
 				}
 				%>
-			</select> <br /> <br> <label for="tickets">Number of Tickets : </label>
-			<input type="number" name="tickets" id="tickets" min=1 max=<%=tickets%> value=1 required>(Available Tickets = <%=tickets%>)<br />
+			 <br /> <br> <label for="tickets">Number of Tickets : </label>
+			<input type="number" name="tickets" id="tickets" min=1 max=<%=tickets%> value=1 required> (Available Tickets = <%=tickets%>)<br />
 			<br>
 			<button class="btn btn-primary" type="submit">Book</button>
 			<button class="btn btn-danger" type="reset">Reset</button>
 			<br />
 		</form>
-		
-		
-		<!-- <script>
-			let date = new Date();
-			date.setDate(date.getDate() + 1);
-			let tommorow = date.toJSON().substring(0, 10);
-			//document.querySelector("#date").setAttribute("min", tommorow);
-			
-			let endDate = new Date();
-			endDate.setDate(endDate.getDate() + 10);
-			let maxDate=endDate.toJSON().substring(0, 10);
-			document.querySelector("#date").setAttribute("max", maxDate);			
-		</script> -->
 
 
 	</main>

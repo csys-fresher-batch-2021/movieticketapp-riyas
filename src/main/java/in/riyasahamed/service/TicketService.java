@@ -1,6 +1,7 @@
 package in.riyasahamed.service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import in.riyasahamed.convertor.TicketConvertor;
@@ -86,6 +87,18 @@ public class TicketService {
 		} catch (Exception e) {
 			 throw new ServiceException(e.getMessage());
 		}		
+	}
+	
+	public static List<LocalTime> getShowTimes() {
+		List<LocalTime> showTimes = null;
+
+		try {
+			showTimes = ticketDAO.getShowTimes();
+		} catch (Exception e) {
+			throw new ServiceException(e.getMessage());
+		}
+		return showTimes;
+
 	}
 
 }

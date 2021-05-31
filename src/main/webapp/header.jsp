@@ -15,6 +15,10 @@
 	crossorigin="anonymous"></script>
 <%
 String loggedInUsername = (String)session.getAttribute("LOGGED_IN_USER");
+String role = (String)session.getAttribute("ROLE");
+if(role == null){
+	role = "USER";
+}
 %>
 <header>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -29,7 +33,7 @@ String loggedInUsername = (String)session.getAttribute("LOGGED_IN_USER");
         <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href=MovieDetailsServlet>Movies</a>
+        <a class="nav-link" href="ShowDetails.jsp">Book Movie</a>
       </li>
        <li class="nav-item">
         <a class="nav-link" href="SeatDeatails.jsp">Seat Types</a>
@@ -54,14 +58,14 @@ String loggedInUsername = (String)session.getAttribute("LOGGED_IN_USER");
       </li>
        <%}  else {%>
         <li class="nav-item">
-        <a class="nav-link" href="#">Welcome <%=loggedInUsername %></a>
+        <a class="nav-link" href="#">Welcome <%=loggedInUsername %> ( <%= role %>)</a>
       </li>
         <li class="nav-item">
         <a class="nav-link" href="LogoutServlet">Logout</a>
       </li>
       <%} %>
       
-     <% if (loggedInUsername != null && !loggedInUsername.equalsIgnoreCase("ADMIN")){ %>
+     <% if (loggedInUsername != null && ! role.equalsIgnoreCase("ADMIN")){ %>
            
       <li class="nav-item">
         <a class="nav-link" href=UserBookingsServlet>My Bookings</a>
@@ -70,7 +74,7 @@ String loggedInUsername = (String)session.getAttribute("LOGGED_IN_USER");
       
         <%} %>
       
-      <% if (loggedInUsername != null && loggedInUsername.equalsIgnoreCase("ADMIN")){ %>
+      <% if (loggedInUsername != null && role.equalsIgnoreCase("ADMIN")){ %>
       <li class="nav-item">
         <a class="nav-link" href="addMovie.jsp">Add Movie</a>
       </li>      

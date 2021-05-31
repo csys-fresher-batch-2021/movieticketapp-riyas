@@ -41,7 +41,7 @@ public class TicketConvertor {
 		ticket.setStatus(dto.getStatus());
 		ticket.setTicketId(dto.getTicketId());
 		ticket.setTotalPrice(dto.getTotalPrice());
-
+		ticket.setShow_time(dto.getShowTime());
 		return ticket;
 	}
 
@@ -61,12 +61,11 @@ public class TicketConvertor {
 		dto.setSeat(seatDTO);
 		dto.setUser(userDTO);
 		dto.setNoOfTickets(ticket.getNoOfTickets());
-
 		dto.setShowDate(ticket.getShowDate());
 		dto.setStatus(ticket.getStatus());
 		dto.setTicketId(ticket.getTicketId());
 		dto.setTotalPrice(ticket.getTotalPrice());
-
+		dto.setShowTime(ticket.getShow_time());
 		return dto;
 	}
 

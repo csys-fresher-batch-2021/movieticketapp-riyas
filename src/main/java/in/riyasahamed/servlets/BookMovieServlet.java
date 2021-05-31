@@ -3,6 +3,7 @@ package in.riyasahamed.servlets;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,10 +41,12 @@ public class BookMovieServlet extends HttpServlet {
 		String actor = request.getParameter("actor");
 		String dateStr = request.getParameter("date");
 		String seatType = request.getParameter("seat");
+		String showTimeStr = request.getParameter("time");
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("LOGGED_IN_USER");
 		try {
 			LocalDate showDate = LocalDate.parse(dateStr);
+			LocalTime showTime = LocalTime.parse(showTimeStr); 
 			LocalDateTime bookingDate = LocalDateTime.now();
 			Integer numberOfTickets = Integer.parseInt(request.getParameter("tickets"));
 			UserDTO user = UserService.findByUserName(username);
@@ -67,11 +70,13 @@ public class BookMovieServlet extends HttpServlet {
 			ticket.setTotalPrice(totalPrice);
 			ticket.setShowDate(showDate);
 			ticket.setBookingDate(bookingDate);
+			ticket.setShowTime(showTime);
 			TicketService.addTicketDetails(ticket);
 			request.setAttribute("BOOKING_DETAILS", ticket);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("BookingDetails.jsp");
 			requestDispatcher.forward(request, response);
 		} catch (Exception e) {
+			e.printStackTrace();
 			String errorMessage=e.getMessage();
 			response.sendRedirect("movieDetails.jsp?errorMessage=" + errorMessage);
 		}

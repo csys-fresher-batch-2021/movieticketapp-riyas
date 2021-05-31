@@ -1,6 +1,24 @@
 package in.riyasahamed.model;
 
 public class Admin {
+	
+	private Integer id;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	private String userName;
 	
@@ -15,12 +33,11 @@ public class Admin {
 	}
 	
 	public Admin() {
-		this.userName="admin";
-		this.password="Admin@12";
+		//Default Constructor
 	}
 
 	@Override
 	public String toString() {
-		return "Admin [userName=" + userName + ", password=" + password + "]";
+		return "Admin [id=" + id + ", userName=" + userName + ", password=" + password + "]";
 	}
 }
