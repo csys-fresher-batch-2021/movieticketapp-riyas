@@ -1,3 +1,5 @@
+<%@page import="in.riyasahamed.service.SeatService"%>
+<%@page import="in.riyasahamed.dto.SeatDTO"%>
 <%@page import="java.time.LocalTime"%>
 <%@page import="in.riyasahamed.dto.TicketDTO"%>
 <%@page import="java.util.Map"%>
@@ -26,6 +28,7 @@
 		<jsp:include page="Message.jsp"></jsp:include>
 		<%
 				LocalTime time =(LocalTime) request.getAttribute("SHOW_TIME");
+				String seatType = (String) request.getAttribute("SEAT");
 				%>
 		<%
 		LocalDate showDate = (LocalDate) request.getAttribute("DATE");
@@ -33,11 +36,11 @@
 		List<LocalTime> showTimes = (List<LocalTime>) request.getAttribute("SHOW_TIMES");
 		%>
 		<div class="text-center">
-			<h4>Select Date</h4>
+			<h4>Show Timings</h4>
 			<form action=MovieDetailsServlet>
 				<br> <label for="showDate">Show Date :</label> <input
 					type="date" placeholder="ShowDate" id="showDate" name="showDate"
-					required value=<%=showDate%>><br /> <label for="showTime">Enter
+					required value=<%=showDate%> readonly><br /> <label for="showTime">Enter
 					Show Time :</label>
 					<%-- <% String checked = time.equals(time) ?"checked":"";%>
 					<input type="radio" name="showTime" id="showTime"
@@ -64,6 +67,19 @@
 					
 				<% }
 				}}
+				%>
+				<%
+					List<SeatDTO> seats = SeatService.getSeatTypes();
+			%>
+				<br> <label for=" seat"> Seat Type: </label>
+				<%
+				for (SeatDTO seat : seats) {
+					String checked = seat.getSeatType().equals(seatType) ?"checked":"";
+				%>
+				<input type="radio" name="seat" id="seat"
+					value="<%=seat.getSeatType()%>" required <%=checked%>><%=seat.getSeatType()%>
+				<%
+				}
 				%>
 				<br>
 				<button type="submit" class="btn btn-primary">Search</button>
@@ -99,9 +115,16 @@
 					int i = 0;
 					for (MovieDTO movie : movies) {
 						Integer noOfTicketsBooked = bookedTickets.get(movie.getMovieId());
-						Integer ticketsAvailable = 150;
+						Integer ticketsAvailable = 0;
+						if(seatType.equalsIgnoreCase("Platinum")){
+						 ticketsAvailable = 50;
+						}else if(seatType.equalsIgnoreCase("Gold")){
+							ticketsAvailable = 80;
+						}else if(seatType.equalsIgnoreCase("Silver")){
+							ticketsAvailable = 20;
+						}
 						if (noOfTicketsBooked != null) {
-					ticketsAvailable = 150 - noOfTicketsBooked;
+					ticketsAvailable = ticketsAvailable - noOfTicketsBooked;
 						}
 						i++;
 				%>
@@ -117,7 +140,7 @@
  						if (loggedInUsername != null && role.equalsIgnoreCase("USER")) {
  						%> <a
 						href="Booking.jsp?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>&movieId=<%=movie.getMovieId()%>
-						&showDate=<%=showDate%>&tickets=<%=ticketsAvailable%>&time=<%=time%>"
+						&showDate=<%=showDate%>&tickets=<%=ticketsAvailable%>&time=<%=time%>&seat=<%=seatType%>"
 						class=" btn btn-primary">Book</a>
 
 					</td>

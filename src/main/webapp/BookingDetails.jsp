@@ -32,6 +32,7 @@
 		<tr><td>Seat Type </td> <td> <%=seat.getSeatType()%></td> </tr>
 		<tr><td>Show Date </td> <td> <%=ticket.getShowDate()%></td> </tr>
 		<tr><td>Number of Tickets </td> <td> <%=ticket.getNoOfTickets()%></td> </tr>
+		<tr><td>Show Time  </td> <td> <%= ticket.getShowTime()%></td> </tr>
 		<tr><td>Total Bill(inclusive of all taxes) </td> <td>Rs: <%=ticket.getTotalPrice()%></td> </tr>
 		</tbody>
 		</table>
