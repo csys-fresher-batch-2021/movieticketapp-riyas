@@ -8,11 +8,7 @@ public class Movie {
 		return name;
 	}
 	
-	private Integer tickets;
 	
-	public Integer getTickets() {
-		return tickets;
-	}
 	
 	private Float rating;
 	
@@ -40,10 +36,6 @@ public class Movie {
 		this.name = name;
 	}
 
-	public void setTickets(Integer tickets) {
-		this.tickets = tickets;
-	}
-
 	public void setRating(Float rating) {
 		this.rating = rating;
 	}
@@ -52,13 +44,24 @@ public class Movie {
 		this.actor = actor;
 	}
 
-	public Movie(String name, String actor , Float rating) {
-		
-		this.name=name;
-		this.actor=actor;
-		this.rating=rating;
-		//Assigning Default Values
-		this.tickets=500;
+	private String screen;
+	
+	private String status;
+
+	public String getScreen() {
+		return screen;
+	}
+
+	public void setScreen(String screen) {
+		this.screen = screen;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public Movie() {
@@ -67,8 +70,8 @@ public class Movie {
 
 	@Override
 	public String toString() {
-		return "Movie [name=" + name + ", tickets=" + tickets + ", rating=" + rating + ", movieId=" + movieId
-				+ ", actor=" + actor + "]";
+		return "Movie [name=" + name + ", rating=" + rating + ", movieId=" + movieId + ", actor=" + actor + ", screen="
+				+ screen + ", status=" + status + "]";
 	}
 
 }

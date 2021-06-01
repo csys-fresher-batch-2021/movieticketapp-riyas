@@ -1,6 +1,11 @@
 package in.riyasahamed.dto;
 
 public class MovieDTO {
+	
+	public MovieDTO() {
+		// Default Constructor
+	}
+
 
 	private String name;
 
@@ -8,12 +13,6 @@ public class MovieDTO {
 		return name;
 	}
 
-	private Integer tickets;
-
-	public Integer getTickets() {
-		return tickets;
-	}
-	
 	private Integer movieId;
 
 	public Integer getMovieId() {
@@ -36,25 +35,28 @@ public class MovieDTO {
 		return actor;
 	}
 
-	public MovieDTO(String name, String actor, Float rating) {
-
-		this.name = name;
-		this.actor = actor;
-		this.rating = rating;
-		// Assigning Default Values
-		this.tickets = 500;
+	private String screen;
+	
+	private String status;
+	
+	public String getScreen() {
+		return screen;
 	}
 
-	public MovieDTO() {
-		// Default Constructor
+	public void setScreen(String screen) {
+		this.screen = screen;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public void setTickets(Integer tickets) {
-		this.tickets = tickets;
 	}
 
 	public void setRating(Float rating) {
@@ -67,8 +69,8 @@ public class MovieDTO {
 
 	@Override
 	public String toString() {
-		return "MovieDTO [name=" + name + ", tickets=" + tickets + ", movieId=" + movieId + ", rating=" + rating
-				+ ", actor=" + actor + "]";
+		return "MovieDTO [name=" + name + ", movieId=" + movieId + ", rating=" + rating + ", actor=" + actor
+				+ ", screen=" + screen + ", status=" + status + "]";
 	}
 
 }

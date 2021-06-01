@@ -28,7 +28,7 @@ public class TicketDAO {
 		return instance;
 	}
 
-	private static final String BASE_QUERY = "select b.id, u.name as user, b.movie_id, m.movie_name as movie_name, u.mobile_number as mobile_number , b.booking_date ,b.showdate , b.seat_type, b.show_time, b.tickets,b.total_price, b.status \r\n"
+	private static final String BASE_QUERY = "select b.id, u.name as user, b.movie_id, m.movie_name as movie_name, u.mobile_number as mobile_number , b.booking_date ,b.showdate , b.seat_type, b.show_time, b.screen, b.tickets,b.total_price, b.status \r\n"
 			+ "from users u, movies m , booking_details b , show_times s where b.user_id= u.id and b.movie_id=m.id and b.show_time=s.show_time\r\n" + "";
 
 	/**
@@ -45,7 +45,7 @@ public class TicketDAO {
 		try {
 			connection = ConnectionUtil.getConnection();
 
-			String sql = "insert into booking_details(user_id,movie_id,showdate,booking_date,total_price,seat_type,tickets,show_time) values( ?,?,?,?,?,?,?,?)";
+			String sql = "insert into booking_details(user_id,movie_id,showdate,booking_date,total_price,seat_type,tickets,show_time ,screen) values( ?,?,?,?,?,?,?,?,?)";
 
 			pst = connection.prepareStatement(sql);
 			Movie movie = ticket.getMovie();
@@ -62,6 +62,7 @@ public class TicketDAO {
 			pst.setInt(7, ticket.getNoOfTickets());
 			Time showTime = Time.valueOf(ticket.getShow_time());
 			pst.setTime(8, showTime);
+			pst.setString(9, ticket.getScreen());
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -182,7 +183,7 @@ public class TicketDAO {
 	}
 	
 	
-	public void UpdateAllBookings(LocalDate showDate) {
+	public void updateAllBookings(LocalDate showDate , LocalTime showTime ) {
 
 		Connection connection = null;
 
@@ -194,14 +195,18 @@ public class TicketDAO {
 
 			// Sql command
 			
-			String sql = "update booking_details set status= 'FINISHED' where status ='BOOKED' and showdate < ? ;";
+			String sql = "update booking_details set status= 'FINISHED' where status ='BOOKED' and showdate <= ? and show_time <= ? ";
 			
 			Date date = Date.valueOf(showDate);
+			
+			Time time = Time.valueOf(showTime);
 			
 
 			// Execution Step
 			pst = connection.prepareStatement(sql);
 			pst.setDate(1, date);
+			
+			pst.setTime(2, time);
 			
 
 			pst.executeUpdate();
@@ -284,6 +289,7 @@ public class TicketDAO {
 		Integer noOftickets = result.getInt("tickets");
 		Float price = result.getFloat("total_price");
 		String status = result.getString("status");
+		String screen = result.getString("screen");
 		user.setName(name);
 		user.setMobileNumber(mobileNumber);
 		seat.setSeatType(seatType);
@@ -299,6 +305,7 @@ public class TicketDAO {
 		ticket.setMovie(movie);
 		ticket.setSeat(seat);
 		ticket.setUser(user);
+		ticket.setScreen(screen);
 		
 		return ticket;
 	}

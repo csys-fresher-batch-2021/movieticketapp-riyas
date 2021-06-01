@@ -13,7 +13,6 @@ import in.riyasahamed.exceptions.DBException;
 import in.riyasahamed.exceptions.ServiceException;
 import in.riyasahamed.model.Movie;
 import in.riyasahamed.validator.MovieValidator;
-import in.riyasahamed.validator.TicketValidator;
 
 public class MovieService {
 
@@ -30,10 +29,11 @@ public class MovieService {
 	 * @param actor
 	 * @param rating
 	 */
-	public static void addMovieDetails(String name, String actor, Float rating) {
+	public static void addMovieDetails(MovieDTO movieDTO ) {
 		try {
-			MovieValidator.validateMovieDetails(name, actor, rating);
-			Movie movie = new Movie(name, actor, rating);
+			
+			MovieValidator.validateMovieDetails(movieDTO.getName(), movieDTO.getActor(), movieDTO.getRating());
+			Movie movie = MovieConvertor.toMovie(movieDTO);			
 			movieDAO.addMovie(movie);
 		} catch (Exception e) {
 			throw new ServiceException(e.getMessage());
@@ -45,10 +45,10 @@ public class MovieService {
 	 * @param name
 	 * @param actor
 	 */
-	public static void deleteMovieDetails(String name, String actor) {
+	public static void updateMovieStatus(String name, String actor) {
 		try {
 			MovieValidator.checkMovie(name, actor);
-			movieDAO.deleteMovie(name, actor);
+			movieDAO.updateMovieStatus(name, actor);
 		} catch (Exception e) {
 			throw new ServiceException(e.getMessage());
 		}
@@ -91,29 +91,8 @@ public class MovieService {
 		return MovieConvertor.toMovieDTO(movies);
 	}
 
-	public static void checkTickets(Integer id, Integer noOfTickets) {
-		try {
-			TicketValidator.checkAvailabilty(id, noOfTickets);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new ServiceException("Tickets Not Available");
-		}
-	}
 
 	
-	/**
-	 * This Method is Used to Fetch Available Tickets of the Particular Movie
-	 * @param id
-	 * @return
-	 */
-	public static Integer getAvailableTickets(Integer id) {
-
-		Movie movie = movieDAO.findMovieByMovieId(id);
-
-		int availableTickets = movie.getTickets();
-
-		return availableTickets;
-	}
 
 	public static Map<Integer, Integer> getBookedTickets(LocalDate showDate , LocalTime showTime , String seatType) {
 

@@ -38,13 +38,7 @@
 					<th id="movieName">Movie Name</th>
 					<th id="actorName">Actor</th>
 					<th id="movieRating">Rating</th>
-					<th id="action">
-						<%
-						if (loggedInUsername != null && role.equalsIgnoreCase("ADMIN")) {
-						%>Delete<%
-					}
-					%>
-					</th>
+					<th id="screen">Screen</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -53,6 +47,7 @@
 				if(movies!=null){
 				int i = 0;
 				for (MovieDTO movie : movies) {
+					if(movie.getStatus().equalsIgnoreCase("ACTIVE")){
 					i++;
 				%>
 				<tr>
@@ -60,20 +55,10 @@
 					<td><%=movie.getName()%></td>
 					<td><%=movie.getActor()%></td>
 					<td><%=movie.getRating()%></td>
-
-					<td>
-						<%
-						if (loggedInUsername != null && role.equalsIgnoreCase("ADMIN")) {
-						%> <a
-						href="DeleteMovieServlet?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>"
-						class=" btn btn-danger">Delete</a> <%
-					}
-					%> 
-
-					</td>
+					<td><%=movie.getScreen()%></td>
 				</tr>
 				<%
-				} }
+				} }}
 				%>
 
 			</tbody>

@@ -18,6 +18,7 @@
 	 String showDate =request.getParameter("showDate"); 
 	 String showTime = request.getParameter("time");
 	 String seatType = request.getParameter("seat");
+	 String screen = request.getParameter("screen");
 	%>
 	<main class="container-fluid">
 		
@@ -36,12 +37,14 @@
 				id="time" name="time"  value=<%=showTime%> required readonly><br/>
 				<br><label for="seat"> Seat Type: </label> <input type="text"
 				id="seat" name="seat"  value=<%=seatType%> required readonly><br/>
-			 <br /> <br> <label for="tickets">Number of Tickets : </label>
+				<br><label for="screen"> Screen: </label> <input type="text"
+				id="screen" name="screen"  value="<%=screen%>" required readonly><br/>								
+			 	 <br> <label for="tickets">Number of Tickets : </label>
 			<input type="number" name="tickets" id="tickets" min=1 max=<%=tickets%> value=1 required> (Available Tickets = <%=tickets%>)<br />
 			<br>
 			<button onclick="getPrice()" class="btn btn-secondary">Get Price</button><br>
 			<br><div id="price"></div><br/>
-			<br><button class="btn btn-primary" type="submit">Book</button>
+			<button class="btn btn-primary" type="submit">Book</button>
 			<a class="btn btn-danger"  href="index.jsp "type="reset">Cancel</a>
 			<br />
 		</form>

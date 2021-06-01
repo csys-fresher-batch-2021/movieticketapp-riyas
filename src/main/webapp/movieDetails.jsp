@@ -25,11 +25,13 @@
 	%>
 	<jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
+	
 		<jsp:include page="Message.jsp"></jsp:include>
-		<%
+				<%
 				LocalTime time =(LocalTime) request.getAttribute("SHOW_TIME");
 				String seatType = (String) request.getAttribute("SEAT");
 				%>
+		
 		<%
 		LocalDate showDate = (LocalDate) request.getAttribute("DATE");
 		
@@ -42,10 +44,6 @@
 					type="date" placeholder="ShowDate" id="showDate" name="showDate"
 					required value=<%=showDate%> readonly><br /> <label for="showTime">Enter
 					Show Time :</label>
-					<%-- <% String checked = time.equals(time) ?"checked":"";%>
-					<input type="radio" name="showTime" id="showTime"
-					value="<%=time%>" <%=checked %>  required>
-				<%=time%> --%>
 				<%
 				if (showTimes != null) {
 					for (LocalTime showTime : showTimes) {
@@ -83,6 +81,7 @@
 				%>
 				<br>
 				<button type="submit" class="btn btn-primary">Search</button>
+				<a href="ShowDetails.jsp" class="btn btn-secondary">Change Date</a>
 				<br />
 		</form>
 		</div>
@@ -97,6 +96,7 @@
 					<th id="actorName">Actor</th>
 					<th id="movieRating">Rating</th>
 					<th id="movieTickets">Tickets Available</th>
+					<th id="screen">Screen</th>
 					<th id="action">
 				 <%
  					if (loggedInUsername != null && !role.equalsIgnoreCase("ADMIN")) {
@@ -127,20 +127,23 @@
 					ticketsAvailable = ticketsAvailable - noOfTicketsBooked;
 						}
 						i++;
+						if(movie.getStatus().equalsIgnoreCase("ACTIVE")){
 				%>
+			
 				<tr>
 					<td><%=i%></td>
 					<td><%=movie.getName()%></td>
 					<td><%=movie.getActor()%></td>
 					<td><%=movie.getRating()%></td>
 					<td><%=ticketsAvailable%></td>
+					<td><%=movie.getScreen()%>
 
 					<td>
 						 <%
  						if (loggedInUsername != null && role.equalsIgnoreCase("USER")) {
  						%> <a
 						href="Booking.jsp?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>&movieId=<%=movie.getMovieId()%>
-						&showDate=<%=showDate%>&tickets=<%=ticketsAvailable%>&time=<%=time%>&seat=<%=seatType%>"
+						&showDate=<%=showDate%>&tickets=<%=ticketsAvailable%>&time=<%=time%>&seat=<%=seatType%>&screen=<%=movie.getScreen()%>"
 						class=" btn btn-primary">Book</a>
 
 					</td>
@@ -150,6 +153,7 @@
 				</tr>
 				<%
 				}
+					}
 				}
 				%>
 			</tbody>

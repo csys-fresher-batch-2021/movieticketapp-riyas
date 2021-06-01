@@ -6,6 +6,7 @@ import java.util.List;
 import in.riyasahamed.convertor.SeatConvertor;
 import in.riyasahamed.dao.SeatDAO;
 import in.riyasahamed.dto.SeatDTO;
+import in.riyasahamed.exceptions.ServiceException;
 import in.riyasahamed.model.Seat;
 
 public class SeatService {
@@ -31,6 +32,18 @@ public class SeatService {
 		}
 		
 		return seatsList;
+	}
+	
+	public static void updateScreenStatus(String status , String screen) {
+		
+		SeatDAO dao = new SeatDAO();
+		
+		try {
+			dao.updateScreenStatus(status ,screen);
+		} catch (Exception e) {
+			throw new ServiceException(e.getMessage());
+		}
+		
 	}
 
 }

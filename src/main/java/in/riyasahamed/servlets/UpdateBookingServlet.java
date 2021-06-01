@@ -27,8 +27,8 @@ public class UpdateBookingServlet extends HttpServlet {
 		
 		try {
 			TicketService.updateAllBookings();
-			String infoMessage="Successfully Updated  movie";
-			response.sendRedirect("AllBookingDetails.jsp?infoMessage=" + infoMessage);
+			String infoMessage="Successfully Updated Statuses";
+			response.sendRedirect("AllBookingsServlet?infoMessage=" + infoMessage);
 		} catch (Exception e) {
 			String errorMessage=e.getMessage();
 			response.sendRedirect("AllBookingDetails.jsp?errorMessage=" + errorMessage);	

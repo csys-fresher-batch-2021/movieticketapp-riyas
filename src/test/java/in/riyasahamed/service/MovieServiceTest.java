@@ -16,7 +16,7 @@ public class MovieServiceTest {
 	@Test
 	public void testWithValidMovieDetails() throws ClassNotFoundException, SQLException {
 		try {
-			MovieService.deleteMovieDetails("Master","vijay");
+			MovieService.updateMovieStatus("Master","vijay");
 			assertTrue(true);
 		} catch (RuntimeException e) {
 			e.printStackTrace();
@@ -33,7 +33,7 @@ public class MovieServiceTest {
 	@Test
 	public void testWithInValidMovieDetails() throws ClassNotFoundException, SQLException {
 		try {
-			MovieService.deleteMovieDetails("vikaram","kamal");
+			MovieService.updateMovieStatus("vikaram","kamal");
 			fail();
 		} catch (RuntimeException e) {
 			assertEquals("Movie Does Not Exists",e.getMessage());

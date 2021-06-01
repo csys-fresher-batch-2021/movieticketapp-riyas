@@ -17,7 +17,6 @@ import in.riyasahamed.dto.MovieDTO;
 import in.riyasahamed.dto.SeatDTO;
 import in.riyasahamed.dto.TicketDTO;
 import in.riyasahamed.dto.UserDTO;
-import in.riyasahamed.service.MovieService;
 import in.riyasahamed.service.PricingService;
 import in.riyasahamed.service.TicketService;
 import in.riyasahamed.service.UserService;
@@ -42,6 +41,7 @@ public class BookMovieServlet extends HttpServlet {
 		String dateStr = request.getParameter("date");
 		String seatType = request.getParameter("seat");
 		String showTimeStr = request.getParameter("time");
+		String screen = request.getParameter("screen");
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("LOGGED_IN_USER");
 		try {
@@ -53,7 +53,6 @@ public class BookMovieServlet extends HttpServlet {
 			Integer userId = user.getUserId();
 			Integer movieId = Integer.parseInt(request.getParameter("movieId"));
 			Float totalPrice = PricingService.getPrice(seatType, numberOfTickets);
-			MovieService.checkTickets(movieId, numberOfTickets);
 			TicketDTO ticket = new TicketDTO();
 			MovieDTO movieDTO = new MovieDTO();
 			movieDTO.setMovieId(movieId);
@@ -71,6 +70,7 @@ public class BookMovieServlet extends HttpServlet {
 			ticket.setShowDate(showDate);
 			ticket.setBookingDate(bookingDate);
 			ticket.setShowTime(showTime);
+			ticket.setScreen(screen);
 			TicketService.addTicketDetails(ticket);
 			request.setAttribute("BOOKING_DETAILS", ticket);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("BookingDetails.jsp");

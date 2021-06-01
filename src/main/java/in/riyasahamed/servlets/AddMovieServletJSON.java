@@ -34,7 +34,7 @@ public class AddMovieServletJSON extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 			Float rating=Float.parseFloat(request.getParameter("rating"));
-			MovieService.addMovieDetails(movieName, actorName, rating);
+			//MovieService.addMovieDetails(movieName, actorName, rating);
 			JsonObject object = new JsonObject();
 			object.addProperty("infoMessage", "Successfully Added");
 			out.println(object); 	

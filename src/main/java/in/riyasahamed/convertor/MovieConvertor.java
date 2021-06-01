@@ -24,8 +24,9 @@ public class MovieConvertor {
 		movieDTO.setName(movie.getName());
 		movieDTO.setActor(movie.getActor());
 		movieDTO.setRating(movie.getRating());
-		movieDTO.setTickets(movie.getTickets());
 		movieDTO.setMovieId(movie.getMovieId());
+		movieDTO.setScreen(movie.getScreen());
+		movieDTO.setStatus(movie.getStatus());
 
 		return movieDTO;
 
@@ -43,9 +44,9 @@ public class MovieConvertor {
 		movie.setName(movieDTO.getName());
 		movie.setActor(movieDTO.getActor());
 		movie.setRating(movieDTO.getRating());
-		movie.setTickets(movieDTO.getTickets());
 		movie.setMovieId(movieDTO.getMovieId());
-
+		movie.setScreen(movieDTO.getScreen());
+		movie.setStatus(movieDTO.getStatus());
 		return movie;
 
 	}
