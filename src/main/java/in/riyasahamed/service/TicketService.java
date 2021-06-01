@@ -83,7 +83,8 @@ public class TicketService {
 		
 		try {
 				LocalDate showDate = LocalDate.now();
-				ticketDAO.UpdateAllBookings(showDate);
+				LocalTime showTime = LocalTime.now();
+				ticketDAO.updateAllBookings(showDate , showTime);
 		} catch (Exception e) {
 			 throw new ServiceException(e.getMessage());
 		}		

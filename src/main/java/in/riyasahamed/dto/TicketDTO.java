@@ -16,6 +16,16 @@ public class TicketDTO {
 
 	private LocalTime showTime;
 	
+	private String screen;
+	
+	public String getScreen() {
+		return screen;
+	}
+
+	public void setScreen(String screen) {
+		this.screen = screen;
+	}
+
 	public LocalTime getShowTime() {
 		return showTime;
 	}
@@ -115,8 +125,8 @@ public class TicketDTO {
 	@Override
 	public String toString() {
 		return "TicketDTO [ticketId=" + ticketId + ", movie=" + movie + ", seat=" + seat + ", user=" + user
-				+ ", showTime=" + showTime + ", bookingDate=" + bookingDate + ", noOfTickets=" + noOfTickets
-				+ ", totalPrice=" + totalPrice + ", showDate=" + showDate + ", status=" + status + "]";
+				+ ", showTime=" + showTime + ", screen=" + screen + ", bookingDate=" + bookingDate + ", noOfTickets="
+				+ noOfTickets + ", totalPrice=" + totalPrice + ", showDate=" + showDate + ", status=" + status + "]";
 	}
 
 

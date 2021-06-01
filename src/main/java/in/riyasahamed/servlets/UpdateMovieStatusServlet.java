@@ -1,6 +1,7 @@
 package in.riyasahamed.servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,27 +9,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.riyasahamed.service.MovieService;
+import in.riyasahamed.service.SeatService;
 
 /**
  * Servlet implementation class DeleteMovieServlet
  */
-@WebServlet("/DeleteMovieServlet")
-public class DeleteMovieServlet extends HttpServlet {
+@WebServlet("/UpdateMovieStatusServlet")
+public class UpdateMovieStatusServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteMovieServlet() {
+    public UpdateMovieStatusServlet() {
        //Default Constructor
     }
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String movie=request.getParameter("name");
-		String actor=request.getParameter("actor");		
+		String actor=request.getParameter("actor");	
+		String screen = request.getParameter("screen");
 		try{
-		MovieService.deleteMovieDetails(movie, actor);
+		MovieService.updateMovieStatus(movie, actor);
+		SeatService.updateScreenStatus("INACTIVE", screen);
 		String infoMessage="Successfully Deleted movie";
 		response.sendRedirect("ListMovies.jsp?infoMessage=" + infoMessage);
 		}

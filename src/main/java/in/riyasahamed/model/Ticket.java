@@ -47,6 +47,17 @@ public class Ticket {
 	
 	private User user;
 	
+	private String screen;
+	
+	
+	public String getScreen() {
+		return screen;
+	}
+
+	public void setScreen(String screen) {
+		this.screen = screen;
+	}
+
 	private LocalTime show_time;
 
 	public LocalTime getShow_time() {
@@ -115,7 +126,7 @@ public class Ticket {
 	public String toString() {
 		return "Ticket [ticketId=" + ticketId + ", bookingDate=" + bookingDate + ", noOfTickets=" + noOfTickets
 				+ ", totalPrice=" + totalPrice + ", showDate=" + showDate + ", movie=" + movie + ", seat=" + seat
-				+ ", user=" + user + ", show_time=" + show_time + ", status=" + status + "]";
+				+ ", user=" + user + ", screen=" + screen + ", show_time=" + show_time + ", status=" + status + "]";
 	}
 
 

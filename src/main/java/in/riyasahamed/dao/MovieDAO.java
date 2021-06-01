@@ -35,7 +35,8 @@ public class MovieDAO {
 	private static final String MOVIE = "movie_name";
 	private static final String ACTOR = "actor_name";
 	private static final String RATING = "rating";
-	private static final String TICKETS = "available_tickets";
+	private static final String SCREEN = "screen";
+	private static final String STATUS = "status";
 	private static final String FETCH_ERROR = "Unable to Fetch Movies";
 
 	/**
@@ -56,7 +57,7 @@ public class MovieDAO {
 			connection = ConnectionUtil.getConnection();
 
 			// Sql command
-			String sql = "insert into movies( movie_name,actor_name,rating,available_tickets ) values (?,?,?,?)";
+			String sql = "insert into movies( movie_name,actor_name,rating,screen) values (?,?,?,?)";
 
 			// Execution Step
 			pst = connection.prepareStatement(sql);
@@ -64,7 +65,7 @@ public class MovieDAO {
 			pst.setString(1, movie.getName());
 			pst.setString(2, movie.getActor());
 			pst.setFloat(3, movie.getRating());
-			pst.setInt(4, movie.getTickets());
+			pst.setString(4, movie.getScreen());
 			pst.executeUpdate();
 
 		} catch (SQLException e) {
@@ -102,7 +103,7 @@ public class MovieDAO {
 
 			// Query Statement
 
-			String sql = "select * from movies";
+			String sql = "select * from movies order by rating desc";
 
 			// Executing Query Statement
 
@@ -118,7 +119,8 @@ public class MovieDAO {
 				String actorName = result.getString(ACTOR);
 				float rating = result.getFloat(RATING);
 				Integer movieId = result.getInt("id");
-				Integer tickets = result.getInt(TICKETS);
+				String screen = result.getString(SCREEN);
+				String status = result.getString(STATUS);
 
 				// Store the value in an object
 
@@ -127,7 +129,8 @@ public class MovieDAO {
 				movie.setActor(actorName);
 				movie.setRating(rating);
 				movie.setMovieId(movieId);
-				movie.setTickets(tickets);
+				movie.setScreen(screen);
+				movie.setStatus(status);
 				movies.add(movie);
 			}
 
@@ -150,7 +153,7 @@ public class MovieDAO {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void deleteMovie(String name, String actor) throws DBException {
+	public void updateMovieStatus(String name, String actor) throws DBException {
 
 		Connection connection = null;
 
@@ -161,7 +164,7 @@ public class MovieDAO {
 			connection = ConnectionUtil.getConnection();
 
 			// SQL Command
-			String sql = "delete from movies where movie_name = ? and actor_name= ? ";
+			String sql = "update movies set status= 'INACTIVE' where movie_name = ? and actor_name= ? ";
 
 			// Executing the Query
 			pst = connection.prepareStatement(sql);
@@ -224,7 +227,9 @@ public class MovieDAO {
 				String actorName = result.getString(ACTOR);
 				float rating = result.getFloat(RATING);
 				Integer movieId = result.getInt("id");
-				Integer tickets = result.getInt(TICKETS);
+				String screen = result.getString(SCREEN);
+				String status = result.getString(STATUS);
+
 
 				// Store the value in an object
 
@@ -233,7 +238,9 @@ public class MovieDAO {
 				movie.setActor(actorName);
 				movie.setRating(rating);
 				movie.setMovieId(movieId);
-				movie.setTickets(tickets);
+				movie.setScreen(screen);
+				movie.setStatus(status);
+				
 				movies.add(movie);
 			}
 		} catch (SQLException e) {
@@ -286,7 +293,9 @@ public class MovieDAO {
 				String actorName = result.getString(ACTOR);
 				float rating = result.getFloat(RATING);
 				Integer movieId = result.getInt("id");
-				Integer tickets = result.getInt(TICKETS);
+				String screen = result.getString(SCREEN);
+				String status = result.getString(STATUS);
+
 
 				// Store the value in an object
 
@@ -294,7 +303,9 @@ public class MovieDAO {
 				movie.setActor(actorName);
 				movie.setRating(rating);
 				movie.setMovieId(movieId);
-				movie.setTickets(tickets);
+				movie.setScreen(screen);
+				movie.setStatus(status);
+				
 			}
 
 		} catch (SQLException e) {
@@ -325,7 +336,7 @@ public class MovieDAO {
 
 			// Sql command
 			String sql = "select  b.movie_id , SUM(b.tickets) AS total_tickets  from booking_details b, movies m \r\n"
-					+ "where status !='CANCELLED' and showdate = ? and show_time = ? and seat_type ILIKE ? and b.movie_id = m.id group by b.movie_id;\r\n"
+					+ "where b.status !='CANCELLED' and showdate = ? and show_time = ? and seat_type ILIKE ? and b.movie_id = m.id group by b.movie_id;\r\n"
 					+ " ";
 
 			// Execution Step
