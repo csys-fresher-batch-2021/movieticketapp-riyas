@@ -81,6 +81,11 @@ By this Project User Can Book the Movie Ticket Online.
 * After every booking of Movie Number of tickets booked are  reduced from the available Tickets for the Specific date and specific show time.
 * After every Cancellation of booking  Number of tickets cancelled are added to the available Tickets for the Specific date and specific show time.
 
+# Feature 15 : Enhacement of Book Movie Feature
+
+* Now Users can Book the Movie for Specific Date , Specific Time and Specific Seat Type
+* Nou Users can View the Total Bill Amount in Booking Page 
+
 
 
 
