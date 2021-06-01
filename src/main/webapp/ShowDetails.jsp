@@ -1,3 +1,5 @@
+<%@page import="in.riyasahamed.service.SeatService"%>
+<%@page import="in.riyasahamed.dto.SeatDTO"%>
 <%@page import="java.time.LocalTime"%>
 <%@page import="in.riyasahamed.dto.TicketDTO"%>
 <%@page import="java.util.Map"%>
@@ -14,21 +16,6 @@
 <title>Book Movie</title>
 </head>
 <body>
-	<%
-	String loggedInUsername = (String) session.getAttribute("LOGGED_IN_USER");
-	String role = (String) session.getAttribute("ROLE");
-	if (role == null) {
-		role = "USER";
-	}
-	%>
-	
-		<%
-		LocalDate showDate = (LocalDate) request.getAttribute("DATE");
-		
-		List<LocalTime> showTimes = (List<LocalTime>) request.getAttribute("SHOW_TIMES");
-		
-		LocalTime time =(LocalTime) request.getAttribute("SHOW_TIME");
-		%>
 	<jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
 		<jsp:include page="Message.jsp"></jsp:include>
@@ -37,19 +24,30 @@
 			<form action=MovieDetailsServlet>
 				<br> <label for="showDate">Enter Show Date :</label> <input
 					type="date" placeholder="ShowDate" id="showDate" name="showDate"
-					required onchange="getShowTimes()" value="showDate"><br /> <label for="showTime">Enter
-					Show Time :</label>
-					<div id="showTime"></div>
+					required onchange="getShowTimes()"><br />
+				<%
+					List<SeatDTO> seats = SeatService.getSeatTypes();
+			%>
+				<br> <label for=" seat"> Seat Type: </label>
+				<%
+				for (SeatDTO seat : seats) {					
+				%>
+				<input type="radio" name="seat" id="seat"
+					value="<%=seat.getSeatType()%>" required><%=seat.getSeatType()%>
+				<%
+				}
+				%><br>
+				<div id="showTime"></div>
 				<br>
 				<button type="submit" class="btn btn-primary">Search</button>
-				<br />
-				
+				<br/>
+
 			</form>
 		</div>
 		<br>
-		</main>
-			
-			<script>
+	</main>
+
+	<script>
 			let date = new Date();
 			date.setDate(date.getDate());
 			let today = date.toJSON().substring(0, 10);
@@ -70,7 +68,7 @@
 				let url = "ShowTimesServlet";
 				fetch(url).then(res=> res.json()).then(res=>{
 				let showTimes=res;
-				let content="";	
+				let content="Enter Show Time :" +"  ";	
 				for(let time of showTimes){
 					let showHour = parseInt(time.split(":")[0]);
 					let date = new Date();
@@ -80,20 +78,21 @@
 					console.log(date);
 					if(today == date1){
 					if(showHour > hour){
-				    content+=
-				    	"<input type=\"radio\" name=\"showTime\" id=\"showTime\""+
-						"value =\""+time+"\" required >" + showHour + ":00" ;
+
+						content+=
+				    	 "<input type=\"radio\" name=\"showTime\" id=\"showTime\""+
+						"value =\""+time+"\" required >" + showHour + ":00 " ;
 				    	console.log(time);
 					} }else{
 						content+=
 					    	"<input type=\"radio\" name=\"showTime\" id=\"showTime\""+
-							"value =\""+time+"\" required >" + showHour + ":00" ;
+							"value =\""+time+"\" required >" + showHour + ":00 " ;
 					}
 				}
 				document.querySelector("#showTime").innerHTML= content;
 				});
 			}
 		</script>
-			
+
 </body>
 </html>

@@ -86,7 +86,7 @@ public class TicketDAO {
 			// Query Statement
 
 			// Executing Query Statement
-			String sql = BASE_QUERY;
+			String sql = BASE_QUERY + "order by b.status asc";
 			pst = connection.prepareStatement(sql);
 
 			result = pst.executeQuery();
@@ -122,7 +122,7 @@ public class TicketDAO {
 
 			// Query Statement
 
-			String sql = BASE_QUERY + " and u.id= ?";
+			String sql = BASE_QUERY + " and u.id= ?" + "order by b.status asc";
 			// Executing Query Statement
 
 			pst = connection.prepareStatement(sql);

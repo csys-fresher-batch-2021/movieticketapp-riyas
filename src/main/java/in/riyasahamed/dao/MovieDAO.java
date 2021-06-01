@@ -309,7 +309,7 @@ public class MovieDAO {
 		return movie;
 	}
 
-	public Map<Integer, Integer> getBookedTickets(LocalDate date , LocalTime time) {
+	public Map<Integer, Integer> getBookedTickets(LocalDate date , LocalTime time , String seatType) {
 
 		Connection connection = null;
 
@@ -325,7 +325,7 @@ public class MovieDAO {
 
 			// Sql command
 			String sql = "select  b.movie_id , SUM(b.tickets) AS total_tickets  from booking_details b, movies m \r\n"
-					+ "where status !='CANCELLED' and showdate = ? and show_time = ? and b.movie_id = m.id group by b.movie_id;\r\n"
+					+ "where status !='CANCELLED' and showdate = ? and show_time = ? and seat_type ILIKE ? and b.movie_id = m.id group by b.movie_id;\r\n"
 					+ " ";
 
 			// Execution Step
@@ -334,6 +334,7 @@ public class MovieDAO {
 			pst.setDate(1, showDate);
 			Time showTime = Time.valueOf(time);
 			pst.setTime(2, showTime);
+			pst.setString(3, seatType);
 			result = pst.executeQuery();
 			while (result.next()) {
 				Integer id = result.getInt("movie_id");

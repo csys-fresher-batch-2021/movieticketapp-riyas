@@ -115,11 +115,11 @@ public class MovieService {
 		return availableTickets;
 	}
 
-	public static Map<Integer, Integer> getBookedTickets(LocalDate showDate , LocalTime showTime) {
+	public static Map<Integer, Integer> getBookedTickets(LocalDate showDate , LocalTime showTime , String seatType) {
 
 		Map<Integer, Integer> bookedTickets = null;
 		try {
-			bookedTickets = movieDAO.getBookedTickets(showDate, showTime);
+			bookedTickets = movieDAO.getBookedTickets(showDate, showTime , seatType);
 		} catch (Exception e) {
 			throw new ServiceException("Unable to Get Available Tickets");
 		}

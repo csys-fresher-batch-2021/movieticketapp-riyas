@@ -74,8 +74,11 @@
 	
 				</tr>
 				<%
-				} 
-				%>
+				}else{%>
+					<tr><td>No Records Found</td></tr>
+			<% 
+			}
+			%>
 			</tbody>
 		</table>
 
