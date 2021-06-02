@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.riyasahamed.dto.MovieDTO;
+import in.riyasahamed.exceptions.ServiceException;
 import in.riyasahamed.service.MovieService;
 
 /**
@@ -33,7 +34,7 @@ public class SearchMovieServlet extends HttpServlet {
 			request.setAttribute("MOVIE_LIST", movies);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("SearchMovie.jsp");
 			requestDispatcher.forward(request, response);
-		} catch (Exception e) {
+		} catch (ServiceException e) {
 			String errorMessage=e.getMessage();
 			response.sendRedirect("SearchMovie.jsp?errorMessage=" + errorMessage);
 		}

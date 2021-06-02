@@ -79,17 +79,23 @@ public class TicketService {
 		}
 	}
 	
+	/**
+	 * This Method is Used to update the status of booking after the show is finished
+	 */
 	public static void updateAllBookings() {
 		
 		try {
 				LocalDate showDate = LocalDate.now();
-				LocalTime showTime = LocalTime.now();
-				ticketDAO.updateAllBookings(showDate , showTime);
+				ticketDAO.updateAllBookings(showDate);
 		} catch (Exception e) {
 			 throw new ServiceException(e.getMessage());
 		}		
 	}
 	
+	/**
+	 * This Method is used to fetch all the show times
+	 * @return
+	 */
 	public static List<LocalTime> getShowTimes() {
 		List<LocalTime> showTimes = null;
 

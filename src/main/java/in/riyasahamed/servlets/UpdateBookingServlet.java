@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import in.riyasahamed.exceptions.ServiceException;
 import in.riyasahamed.service.TicketService;
 
 /**
@@ -22,14 +23,14 @@ public class UpdateBookingServlet extends HttpServlet {
        //Default Constructor
     }
 
-	
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
 			TicketService.updateAllBookings();
 			String infoMessage="Successfully Updated Statuses";
 			response.sendRedirect("AllBookingsServlet?infoMessage=" + infoMessage);
-		} catch (Exception e) {
+		} catch (ServiceException e) {
 			String errorMessage=e.getMessage();
 			response.sendRedirect("AllBookingDetails.jsp?errorMessage=" + errorMessage);	
 		}

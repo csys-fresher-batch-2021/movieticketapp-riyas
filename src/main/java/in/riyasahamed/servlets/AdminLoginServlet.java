@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import in.riyasahamed.exceptions.ServiceException;
 import in.riyasahamed.service.UserService;
 
 /**
@@ -43,7 +44,7 @@ public class AdminLoginServlet extends HttpServlet {
 			// Redirecting to Add Movie Page
 			response.sendRedirect("addMovie.jsp?infoMessage=" + infoMessage);
 		}
-		catch(Exception e){
+		catch(ServiceException e){
 			String errorMessage=e.getMessage();
 			// Printing Error Message
 			response.sendRedirect("AdminLogin.jsp?errorMessage=" + errorMessage);			

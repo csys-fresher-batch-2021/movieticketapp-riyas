@@ -17,6 +17,7 @@ import in.riyasahamed.dto.MovieDTO;
 import in.riyasahamed.dto.SeatDTO;
 import in.riyasahamed.dto.TicketDTO;
 import in.riyasahamed.dto.UserDTO;
+import in.riyasahamed.exceptions.ServiceException;
 import in.riyasahamed.service.PricingService;
 import in.riyasahamed.service.TicketService;
 import in.riyasahamed.service.UserService;
@@ -75,8 +76,7 @@ public class BookMovieServlet extends HttpServlet {
 			request.setAttribute("BOOKING_DETAILS", ticket);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("BookingDetails.jsp");
 			requestDispatcher.forward(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (ServiceException e) {
 			String errorMessage=e.getMessage();
 			response.sendRedirect("movieDetails.jsp?errorMessage=" + errorMessage);
 		}

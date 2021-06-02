@@ -41,7 +41,12 @@ if(role == null){
        <li class="nav-item">
         <a class="nav-link" href="SearchMovie.jsp">Search Movie</a>
       </li>
+      <% if (loggedInUsername != null && ! role.equalsIgnoreCase("ADMIN")){ %>
      
+      <li class="nav-item">
+        <a class="nav-link" href=ShowDetails.jsp>Book Movie</a>
+      </li>
+      <%} %>
     </ul>
      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <% if (loggedInUsername == null){ %>
@@ -70,10 +75,7 @@ if(role == null){
       <li class="nav-item">
         <a class="nav-link" href=UserBookingsServlet>My Bookings</a>
       </li>
-   		 <li class="nav-item">
-        <a class="nav-link" href=ShowDetails.jsp>Book Movie</a>
-      </li>
-      
+   		
         <%} %>
       
       <% if (loggedInUsername != null && role.equalsIgnoreCase("ADMIN")){ %>

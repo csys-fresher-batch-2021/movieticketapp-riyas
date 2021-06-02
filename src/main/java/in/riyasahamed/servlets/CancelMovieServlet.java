@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import in.riyasahamed.exceptions.ServiceException;
 import in.riyasahamed.service.TicketService;
 
 /**
@@ -28,7 +29,7 @@ public class CancelMovieServlet extends HttpServlet {
 			Integer bookingId=Integer.parseInt(request.getParameter("orderId"));
 			TicketService.cancelBooking(bookingId);
 			response.sendRedirect("UserBookingsServlet");
-		} catch (Exception e) {
+		} catch (ServiceException e) {
 			String errorMessage=e.getMessage();
 			response.sendRedirect("UserBookingDetails.jsp?errorMessage=" + errorMessage);			
 		}

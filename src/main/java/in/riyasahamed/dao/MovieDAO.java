@@ -46,7 +46,7 @@ public class MovieDAO {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void addMovie(Movie movie) throws DBException {
+	public void addMovie(Movie movie) {
 
 		Connection connection = null;
 
@@ -86,7 +86,7 @@ public class MovieDAO {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public List<Movie> getAllMovies() throws DBException {
+	public List<Movie> getAllMovies(){
 
 		final List<Movie> movies = new ArrayList<>();
 
@@ -146,14 +146,14 @@ public class MovieDAO {
 	}
 
 	/**
-	 * This Method will Delete the Movie in DataBase
+	 * This Method will update  the Movie  status in DataBase
 	 * 
 	 * @param name
 	 * @param actor
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void updateMovieStatus(String name, String actor) throws DBException {
+	public void updateMovieStatus( String status ,String name, String actor){
 
 		Connection connection = null;
 
@@ -164,19 +164,20 @@ public class MovieDAO {
 			connection = ConnectionUtil.getConnection();
 
 			// SQL Command
-			String sql = "update movies set status= 'INACTIVE' where movie_name = ? and actor_name= ? ";
+			String sql = "update movies set status= ? where movie_name = ? and actor_name= ? ";
 
 			// Executing the Query
 			pst = connection.prepareStatement(sql);
-
-			pst.setString(1, name);
-			pst.setString(2, actor);
+			
+			pst.setString(1, status);;
+			pst.setString(2, name);
+			pst.setString(3, actor);
 
 			pst.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DBException("Unable to Delete Movie");
+			throw new DBException("Unable to update Movie Status");
 		} finally {
 			// Closing the Connection
 			ConnectionUtil.closeConnection(pst, connection);
@@ -190,7 +191,7 @@ public class MovieDAO {
 	 * @return
 	 * @throws DBException
 	 */
-	public List<Movie> findMovieByKeyword(String keyword) throws DBException {
+	public List<Movie> findMovieByKeyword(String keyword){
 
 		final List<Movie> movies = new ArrayList<>();
 
@@ -254,12 +255,12 @@ public class MovieDAO {
 	}
 
 	/**
-	 * This Method will return the list of movie details which contains the keyword.
+	 * This Method will return the movie of Specific movie Id
 	 * 
 	 * @return
 	 * @throws DBException
 	 */
-	public Movie findMovieByMovieId(Integer id) throws DBException {
+	public Movie findMovieByMovieId(Integer id){
 
 		Movie movie = new Movie();
 
@@ -320,6 +321,9 @@ public class MovieDAO {
 		return movie;
 	}
 
+	/**
+	 * This Method Used to get the booked Tickets of the Movie
+	 */
 	public Map<Integer, Integer> getBookedTickets(LocalDate date , LocalTime time , String seatType) {
 
 		Connection connection = null;
@@ -365,5 +369,41 @@ public class MovieDAO {
 
 		return bookedTickets;
 	}
+	
+	/**
+	 * This Method Updates the Screen Status of the Movie
+	 */
+	public void updateScreenStatus( String screen ,String name, String actor){
+
+		Connection connection = null;
+
+		PreparedStatement pst = null;
+
+		try {
+			// Get the Connection
+			connection = ConnectionUtil.getConnection();
+
+			// SQL Command
+			String sql = "update movies set screen= ? where movie_name = ? and actor_name= ? ";
+
+			// Executing the Query
+			pst = connection.prepareStatement(sql);
+			
+			pst.setString(1, screen);
+			pst.setString(2, name);
+			pst.setString(3, actor);
+
+			pst.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException("Unable to update Movie Status");
+		} finally {
+			// Closing the Connection
+			ConnectionUtil.closeConnection(pst, connection);
+		}
+
+	}
+
 
 }

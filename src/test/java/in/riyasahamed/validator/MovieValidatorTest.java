@@ -11,55 +11,9 @@ import org.junit.Test;
 public class MovieValidatorTest {
 
 	/**
-	 * This test case is for valid Movie Details
-	 */
-	/*
-	 * @Test public void testValidMovieDetails() { try {
-	 * MovieService.addMovieDetails("Riyas", "riyas", (float) 8.5);
-	 * assertTrue(true); } catch (RuntimeException e) { fail(); }
-	 * 
-	 * }
-	 * 
-	 *//**
-		 * This test case is for Invalid Movie Name
-		 */
-	/*
-	 * @Test public void testwithinvalidMovieName() { try {
-	 * MovieService.addMovieDetails(null, "vijay", (float) 8.0); fail(); } catch
-	 * (RuntimeException e) { assertEquals("Invalid Movie Name", e.getMessage()); }
-	 * }
-	 * 
-	 *//**
-		 * This test case is for Invalid Actor Name
-		 */
-	/*
-	 * @Test public void testwithinvalidActorName() { try {
-	 * MovieService.addMovieDetails("Master", null, (float) 8.0); fail(); } catch
-	 * (RuntimeException e) { assertEquals("Invalid Actor Name", e.getMessage()); }
-	 * }
-	 * 
-	 *//**
-		 * This test case is for Invalid Rating
-		 */
-	/*
-	 * @Test public void testwithinvalidRating() { try {
-	 * MovieService.addMovieDetails("Master", "vijay", (float) 12); fail(); } catch
-	 * (RuntimeException e) {
-	 * assertEquals("Invalid Rating - Rating Must be 1 to 10", e.getMessage()); } }
-	 * 
-	 *//**
-		 * This test case is for Already Added Movie
-		 *//*
-			 * @Test public void testwithAlreadyAddedMovie() { try {
-			 * MovieService.addMovieDetails("Master", "vijay", (float) 8); fail(); } catch
-			 * (RuntimeException e) { assertEquals("Movie Already Added", e.getMessage()); }
-			 * }
-			 */
-	/**
-	 * This test case is for Already Added Movie
-	 * 
-	 * @throws SQLException
+	 * In this Test Case Valid Movie Details are entered
 	 * @throws ClassNotFoundException
+	 * @throws SQLException
 	 */
 	@Test
 	public void testwithValidMovieNameForCheckMovie() throws ClassNotFoundException, SQLException {
@@ -72,7 +26,7 @@ public class MovieValidatorTest {
 	}
 
 	/**
-	 * This test case is for Already Added Movie
+	 * In this Test Case Invalid Movie Details are entered
 	 * 
 	 * @throws SQLException
 	 * @throws ClassNotFoundException

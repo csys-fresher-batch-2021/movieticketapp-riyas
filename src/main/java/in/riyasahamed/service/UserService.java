@@ -7,6 +7,7 @@ import in.riyasahamed.dao.UserDAO;
 import in.riyasahamed.dto.UserDTO;
 import in.riyasahamed.exceptions.DBException;
 import in.riyasahamed.exceptions.ServiceException;
+import in.riyasahamed.exceptions.ValidationException;
 import in.riyasahamed.model.User;
 import in.riyasahamed.validator.AdminValidator;
 import in.riyasahamed.validator.LoginValidator;
@@ -30,7 +31,7 @@ public class UserService {
 			UserDAO userDAO = UserDAO.getInstance();
 			User user = UserConverter.toUser(userDTO); // Input :dto output: model
 			userDAO.addUser(user);
-		} catch (Exception e) {
+		} catch (DBException | ValidationException e) {
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage());
 		}
@@ -63,7 +64,7 @@ public class UserService {
 			UserDAO userDAO = UserDAO.getInstance();
 			user = userDAO.findByUserName(userName);
 			UserDeatailsValidator.isUserExists(user);
-		} catch (Exception e) {
+		} catch (DBException | ValidationException e) {
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage());
 		}
@@ -78,15 +79,20 @@ public class UserService {
 	public static void checkUserLogin(String userName, String password) {
 		try {
 			LoginValidator.isValidLogin(userName, password);
-		} catch (Exception e) {
+		} catch (ValidationException e) {
 			throw new ServiceException("Invalid Login Credentails");
 		}
 	}
 	
+	/**
+	 * This Method is Used to Validate the Admin Credentials
+	 * @param userName
+	 * @param password
+	 */
 	public static void checkAdminLogin(String userName, String password) {
 		try {
 			AdminValidator.validateAdmin(userName, password);
-		} catch (Exception e) {
+		} catch (ValidationException e) {
 			throw new ServiceException("Invalid Login Credentials");
 		}
 	}

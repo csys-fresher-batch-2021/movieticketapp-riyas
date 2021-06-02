@@ -12,6 +12,12 @@ public class PricingService {
 		// Default Constructor
 	}
 
+	/**
+	 * This Method is Used to Calculate Total Price for the Booking
+	 * @param seatType
+	 * @param noOfTickets
+	 * @return
+	 */
 	public static Float getPrice(String seatType, int noOfTickets) {
 
 		Float totalPrice=(float) 0;
