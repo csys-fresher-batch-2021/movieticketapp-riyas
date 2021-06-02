@@ -396,7 +396,6 @@ public class MovieDAO {
 			pst.executeUpdate();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new DBException("Unable to update Movie Status");
 		} finally {
 			// Closing the Connection
