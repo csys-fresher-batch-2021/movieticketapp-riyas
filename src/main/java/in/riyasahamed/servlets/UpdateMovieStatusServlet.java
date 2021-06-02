@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import in.riyasahamed.exceptions.ServiceException;
 import in.riyasahamed.service.MovieService;
 import in.riyasahamed.service.SeatService;
 
@@ -31,12 +32,12 @@ public class UpdateMovieStatusServlet extends HttpServlet {
 		String actor=request.getParameter("actor");	
 		String screen = request.getParameter("screen");
 		try{
-		MovieService.updateMovieStatus(movie, actor);
+		MovieService.updateMovieStatus("INACTIVE",movie, actor);
 		SeatService.updateScreenStatus("INACTIVE", screen);
 		String infoMessage="Successfully Deleted movie";
 		response.sendRedirect("ListMovies.jsp?infoMessage=" + infoMessage);
 		}
-		catch(Exception e){
+		catch(ServiceException e){
 			String errorMessage=e.getMessage();
 			response.sendRedirect("ListMovies.jsp.jsp?errorMessage=" + errorMessage);
 	}

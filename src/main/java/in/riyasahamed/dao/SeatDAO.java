@@ -23,6 +23,10 @@ public class SeatDAO {
 		return instance;
 	}
 
+	/**
+	 * This Method is used to fetch all the seat types available in the database
+	 * @return
+	 */
 	public List<Seat> getSeatTypes() {
 
 		List<Seat> seatTypes = new ArrayList<>();
@@ -57,6 +61,10 @@ public class SeatDAO {
 		return seatTypes;
 	}
 
+	/**
+	 * This Method is Used to fetch All the screens Available in the Database
+	 * @return
+	 */
 	public Map<String, String> getAllScreens() {
 
 		Map<String, String> screens = new HashMap<>();
@@ -92,6 +100,11 @@ public class SeatDAO {
 
 	}
 	
+	/**
+	 * This Method is Used to Update the Screen Status After adding the Movie
+	 * @param status
+	 * @param screen
+	 */
 	public void updateScreenStatus( String status ,String screen) {
 		Connection connection = null;
 

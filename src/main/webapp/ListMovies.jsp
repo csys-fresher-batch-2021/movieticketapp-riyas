@@ -34,7 +34,7 @@
 					
 						<%
 						if (loggedInUsername != null && role.equalsIgnoreCase("ADMIN")) {
-						%><th id="action">Remove</th>
+						%><th id="action">Action</th>
 						<%
 					}
 					%>
@@ -47,6 +47,7 @@
 				if(movies!=null){
 				int i = 0;
 				for (MovieDTO movie : movies) {
+					if (!role.equalsIgnoreCase("ADMIN")) {
 					if(movie.getStatus().equalsIgnoreCase("ACTIVE")){
 					i++;
 				%>
@@ -55,19 +56,31 @@
 					<td><%=movie.getName()%></td>
 					<td><%=movie.getActor()%></td>
 					<td><%=movie.getRating()%></td>
-					<td><%=movie.getScreen()%></td>					
+					<td><%=movie.getScreen()%></td></tr>			
 						<%
-						if (loggedInUsername != null && role.equalsIgnoreCase("ADMIN")) {
+					}} else{
+						i++;
+					%> 
+					<tr>
+					<td><%=i%></td>
+					<td><%=movie.getName()%></td>
+					<td><%=movie.getActor()%></td>
+					<td><%=movie.getRating()%></td>
+					<td><%=movie.getScreen()%></td>			
+				
+					<%
+						if (loggedInUsername != null && role.equalsIgnoreCase("ADMIN") && movie.getStatus().equalsIgnoreCase("ACTIVE")) {
 						%><td> <a
 						href="UpdateMovieStatusServlet?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>
-						&screen=<%=movie.getScreen()%>"	class=" btn btn-danger">Remove</a> </td><%
-					}
-					%> 
-
-					
-				</tr>
+						&screen=<%=movie.getScreen()%>"	class=" btn btn-danger">Remove</a> </td>
+				
+				<%} else { %>
+					<td> <a
+						href="ActivateMovie.jsp?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>
+						&screen=<%=movie.getScreen()%>"	class=" btn btn-primary">ADD</a> </td></tr>
+				
 				<%
-				} }}
+				 }}}}
 				%>
 
 			</tbody>

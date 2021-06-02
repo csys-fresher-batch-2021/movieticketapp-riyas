@@ -11,6 +11,7 @@ import in.riyasahamed.dao.MovieDAO;
 import in.riyasahamed.dto.MovieDTO;
 import in.riyasahamed.exceptions.DBException;
 import in.riyasahamed.exceptions.ServiceException;
+import in.riyasahamed.exceptions.ValidationException;
 import in.riyasahamed.model.Movie;
 import in.riyasahamed.validator.MovieValidator;
 
@@ -45,11 +46,20 @@ public class MovieService {
 	 * @param name
 	 * @param actor
 	 */
-	public static void updateMovieStatus(String name, String actor) {
+	public static void updateMovieStatus(String status ,String name, String actor) {
 		try {
 			MovieValidator.checkMovie(name, actor);
-			movieDAO.updateMovieStatus(name, actor);
-		} catch (Exception e) {
+			movieDAO.updateMovieStatus(status ,name, actor);
+		} catch (DBException | ValidationException e) {
+			throw new ServiceException(e.getMessage());
+		}
+	}
+	
+	public static void updateScreenStatus(String screen ,String name, String actor) {
+		try {
+			MovieValidator.checkMovie(name, actor);
+			movieDAO.updateScreenStatus(screen, name, actor);
+		} catch (DBException | ValidationException e) {
 			throw new ServiceException(e.getMessage());
 		}
 	}
@@ -84,7 +94,7 @@ public class MovieService {
 			movies = movieDAO.findMovieByKeyword(keyword);
 			MovieValidator.isMovieExists(movies);
 
-		} catch (DBException e) {
+		} catch (DBException | ValidationException e) {
 			throw new ServiceException(e.getMessage());
 		}
 
@@ -93,13 +103,15 @@ public class MovieService {
 
 
 	
-
+	/*
+	 * This Method is used to get the booked tickets of the movies
+	 */
 	public static Map<Integer, Integer> getBookedTickets(LocalDate showDate , LocalTime showTime , String seatType) {
 
 		Map<Integer, Integer> bookedTickets = null;
 		try {
 			bookedTickets = movieDAO.getBookedTickets(showDate, showTime , seatType);
-		} catch (Exception e) {
+		} catch (DBException e) {
 			throw new ServiceException("Unable to Get Available Tickets");
 		}
 		return bookedTickets;

@@ -72,6 +72,10 @@ public class TicketDAO {
 		}
 	}
 
+	/**
+	 * This Method is Used to fetch All booking Details Done by the User
+	 * @return
+	 */
 	public List<Ticket> getAllBookings() {
 
 		final List<Ticket> tickets = new ArrayList<>();
@@ -109,6 +113,11 @@ public class TicketDAO {
 		return tickets;
 	}
 
+	/**
+	 * This Method is Used to fetch booking details done by the Specific User
+	 * @param userId
+	 * @return
+	 */
 	public List<Ticket> getUserBookings(Integer userId) {
 
 		final List<Ticket> tickets = new ArrayList<>();
@@ -150,6 +159,10 @@ public class TicketDAO {
 		return tickets;
 	}
 
+	/**
+	 * This Method is Used to Cancel the Booking Done by the User
+	 * @param id
+	 */
 	public void cancelBooking(Integer id) {
 
 		Connection connection = null;
@@ -183,7 +196,11 @@ public class TicketDAO {
 	}
 	
 	
-	public void updateAllBookings(LocalDate showDate , LocalTime showTime ) {
+	/**
+	 * This Method is Used To update the Status og Booking after show is done
+	 * @param showDate
+	 */
+	public void updateAllBookings(LocalDate showDate) {
 
 		Connection connection = null;
 
@@ -195,18 +212,16 @@ public class TicketDAO {
 
 			// Sql command
 			
-			String sql = "update booking_details set status= 'FINISHED' where status ='BOOKED' and showdate <= ? and show_time <= ? ";
+			String sql = "update booking_details set status= 'FINISHED' where status ='BOOKED' and showdate <= ?";
 			
 			Date date = Date.valueOf(showDate);
 			
-			Time time = Time.valueOf(showTime);
 			
 
 			// Execution Step
 			pst = connection.prepareStatement(sql);
-			pst.setDate(1, date);
 			
-			pst.setTime(2, time);
+			pst.setDate(1, date);
 			
 
 			pst.executeUpdate();
@@ -223,6 +238,10 @@ public class TicketDAO {
 
 	}
 	
+	/**
+	 * This Method is Used to fetch all the Show times.
+	 * @return
+	 */
 	public List<LocalTime> getShowTimes() {
 		
 		final List<LocalTime> showTimes = new ArrayList<>();
@@ -268,7 +287,12 @@ public class TicketDAO {
 
 		
 		
-
+	/**
+	 * This Method get th input from the Database and store in the ticket object
+	 * @param result
+	 * @return
+	 * @throws SQLException
+	 */
 	private Ticket toRow(ResultSet result) throws SQLException {
 		Ticket ticket = new Ticket();
 		Movie movie = new Movie();

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.riyasahamed.dto.MovieDTO;
+import in.riyasahamed.exceptions.ServiceException;
 import in.riyasahamed.service.MovieService;
 import in.riyasahamed.service.TicketService;
 
@@ -54,8 +55,7 @@ public class MovieDetailsServlet extends HttpServlet {
 			request.setAttribute("SEAT", seatType);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("movieDetails.jsp");
 			requestDispatcher.forward(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (ServiceException e) {
 			String errorMessage = "Unable to Fetch Movie Details";
 			response.sendRedirect("ShowDetails.jsp?errorMessage=" + errorMessage);
 		}

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import in.riyasahamed.dto.UserDTO;
+import in.riyasahamed.exceptions.ServiceException;
 import in.riyasahamed.service.UserService;
 
 
@@ -40,8 +41,7 @@ public class RegisterUserServlet extends HttpServlet {
 			UserService.registerUser(user);
 			String infoMessage="Successfully Registerd User";
 			response.sendRedirect("RegisterUser.jsp?infoMessage=" + infoMessage);
-		}catch(Exception e) {
-			e.printStackTrace();
+		}catch(ServiceException e) {
 			String errorMessage=e.getMessage();
 			response.sendRedirect("RegisterUser.jsp?errorMessage=" + errorMessage);
 		}

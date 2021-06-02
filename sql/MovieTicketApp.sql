@@ -12,11 +12,15 @@ create table users(
 
 create table movies(
 	id  serial NOT NULL ,
-	movie_name character varying(40),
-    actor_name character varying(40),
-    rating real,
-    available_tickets integer,
+	movie_name character varying(40) NOT NULL,
+    actor_name character varying(40) NOT NULL,
+    rating real NOT NULL,
+    status character varying(40) NOT NULL,
     CONSTRAINT movies_pkey PRIMARY KEY (id)
+    screen character varying(40)  NOT NULL,
+    CONSTRAINT screen FOREIGN KEY (screen)
+        REFERENCES screens (name) MATCH SIMPLE
+    
 );
 
 create table seat_types(
@@ -42,6 +46,7 @@ create table booking_details(
     status character varying(100) DEFAULT 'BOOKED',
     seat_type character varying(50),
     tickets integer NOT NULL,
+    screen character varying(40) NOT NULL
     show_time time without time zone NOT NULL,
     CONSTRAINT booking_deatails_movie_id_fkey FOREIGN KEY (movie_id)
         REFERENCES movies (id),
@@ -78,6 +83,12 @@ insert into admins(user_name , password)
 values('admin','Admin@12'),
 ('admin1','Admin@1'),
 ('admin2','Admin@2');
+
+create table screens(id serial primary key,
+					  name varchar(40) not null,
+					  status varchar(40) not null default 'INACTIVE',
+					   unique(name));
+
 
 
 

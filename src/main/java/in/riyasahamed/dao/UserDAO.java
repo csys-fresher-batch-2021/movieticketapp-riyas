@@ -161,6 +161,10 @@ public class UserDAO {
 
 	}
 	
+	/**
+	 * This Method is Used to fetch all the Admin Credentials from the Database
+	 * @return
+	 */
 	public List<Admin> getAllAdminDetails() {
 		List<Admin> admins = new ArrayList<>();
 		Connection connection = null;
