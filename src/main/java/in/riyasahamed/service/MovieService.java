@@ -100,6 +100,21 @@ public class MovieService {
 
 		return MovieConvertor.toMovieDTO(movies);
 	}
+	
+	/**
+	 * This Method fetch the movie Details of Corresponding Movie ID
+	 * @param id
+	 * @return
+	 */
+	public static MovieDTO findByMovieId(Integer id) {
+		Movie movie = new Movie();
+		try {
+		 movie = movieDAO.findMovieByMovieId(id);
+	}catch(DBException e){
+		throw new ServiceException("Unable to Get Movie Details");
+	}
+		return MovieConvertor.toMovieDTO(movie);
+	}
 
 
 	

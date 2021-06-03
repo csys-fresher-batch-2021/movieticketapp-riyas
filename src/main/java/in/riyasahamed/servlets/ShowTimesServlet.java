@@ -12,11 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import in.riyasahamed.exceptions.ServiceException;
 import in.riyasahamed.service.TicketService;
-import in.riyasahamed.util.LocalTimeAdapter;
+import in.riyasahamed.util.GsonUtil;
 
 @WebServlet("/ShowTimesServlet")
 public class ShowTimesServlet extends HttpServlet {
@@ -32,8 +31,7 @@ public class ShowTimesServlet extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			List<LocalTime> showTimes = TicketService.getShowTimes();
-			Gson gson = new GsonBuilder().setPrettyPrinting()
-					.registerTypeAdapter(LocalTime.class, new LocalTimeAdapter()).create();
+			Gson gson =GsonUtil.create();
 
 			String json = gson.toJson(showTimes);
 			PrintWriter writer = response.getWriter();

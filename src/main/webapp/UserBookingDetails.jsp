@@ -65,7 +65,16 @@
 					<td><%=seat.getSeatType()%></td>
 					<td><%=ticket.getNoOfTickets()%></td>
 					<td><%=ticket.getTotalPrice()%></td>
-					<td><%=ticket.getStatus()%></td>
+					<td>
+					<% if ("BOOKED".equals(ticket.getStatus())){ %>
+					<h4><span class="badge badge-pill badge-success"><%=ticket.getStatus()%></span></h4>
+									
+					<%}else if ("CANCELLED".equals(ticket.getStatus())){ %>
+					<h5><span class="badge badge-pill badge-danger"><%=ticket.getStatus()%></span></h5>									
+					<%} else if("FINISHED".equals(ticket.getStatus())){%>
+						<h4><span class="badge badge-pill badge-success"><%=ticket.getStatus()%></span></h4>
+					</td>
+					<%} %>
 					<%if(ticket.getShowDate().isAfter(LocalDate.now()) && ticket.getStatus().equalsIgnoreCase("BOOKED")) {%>
 					<td><a
 						href="CancelMovieServlet?orderId=<%=ticket.getTicketId()%>&movieId=<%=movie.getMovieId()%>&tickets=<%=ticket.getNoOfTickets()%>&showDate=<%=ticket.getShowDate()%>"

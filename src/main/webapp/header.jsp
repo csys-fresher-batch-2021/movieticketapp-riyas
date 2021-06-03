@@ -83,7 +83,7 @@ if(role == null){
         <a class="nav-link" href="addMovie.jsp">Add Movie</a>
       </li>      
       <li class="nav-item">
-        <a class="nav-link" href=AllBookingsServlet>Booking Details</a>
+        <a class="nav-link" href=AllBookings.jsp>Booking Details</a>
       </li>
       </ul>
     <%} %>
