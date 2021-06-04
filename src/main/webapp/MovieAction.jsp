@@ -43,7 +43,7 @@
 						href="UpdateMovieStatusServlet?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>
 						&screen=<%=movie.getScreen()%>"	class=" btn btn-danger">Remove</a>
 				
-				<%} else { %>
+				<%} else if(loggedInUsername != null && role.equalsIgnoreCase("ADMIN") && movie.getStatus().equalsIgnoreCase("INACTIVE")){ %>
 					 <a
 						href="ActivateMovie.jsp?name=<%=movie.getName()%>&actor=<%=movie.getActor()%>
 						&screen=<%=movie.getScreen()%>"	class=" btn btn-primary">ADD</a>
