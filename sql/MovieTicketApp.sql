@@ -101,6 +101,12 @@ values('admin','Admin@12'),
 ('admin1','Admin@1'),
 ('admin2','Admin@2');
 
+insert into movies(movie_name,actor_name,rating,screen)
+values('Sulthan','Karthick',8.0,'Screen 3'),
+('Master','Vijay',7.9,'Screen 2'),
+('Karnan','Dhanush',8.3,'Screen 1');
+
+
 
 
 
