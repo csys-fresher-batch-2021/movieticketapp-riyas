@@ -149,6 +149,14 @@
 					<version>3.8.0.2131</version>
 				</plugin>
 				<plugin>
+					<groupId>com.heroku.sdk</groupId>
+					<artifactId>heroku-maven-plugin</artifactId>
+					<version>3.0.4</version>
+					<configuration>
+						<appName>movieapp-riyas</appName>
+					</configuration>
+				</plugin>
+				<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
