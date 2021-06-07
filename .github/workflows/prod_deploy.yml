@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - spring-migration
-  pull_request:
-    types: [opened, synchronize, reopened]
 
 jobs:
   build:
@@ -29,7 +27,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B clean package -DskipTests
+          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+        run: mvn -B deploy:war
       - name: Deploy 
         uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
