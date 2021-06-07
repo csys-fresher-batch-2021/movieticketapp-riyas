@@ -6,6 +6,7 @@ on:
       - spring-migration
   pull_request:
     types: [opened, synchronize, reopened]
+
 jobs:
   build:
     name: Build
